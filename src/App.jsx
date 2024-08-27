@@ -13,6 +13,7 @@ function App() {
       <div>
         <img src={logo2} />
         <h1>Homepage</h1>
+        <p>Test</p>
       </div>
     </>
   )
