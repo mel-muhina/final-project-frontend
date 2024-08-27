@@ -1,9 +1,13 @@
-import React from 'react'
+import { FeaturedCard } from "../../components"
 
 export default function Homepage() {
+
+
+
   return (
     <>
       <h1>Homepage</h1>
+      <FeaturedCard />
     </>
   )
 }
