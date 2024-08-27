@@ -1,15 +1,23 @@
-import { useState } from 'react'
-import logo from '../public/favicon10.png'
+import { Routes, Route } from 'react-router-dom'
+import Nav from './layouts/Nav'
+import { Homepage, UserLogin, UserSignup } from './pages'
 import './App.css'
 
 function App() {
 
   return (
     <>
-      <div>
-        <img src={logo} />
-        <h1>Homepage</h1>
-      </div>
+    <Routes>
+      <Route path="" element={<Nav />} >
+           <Route index element={<Homepage />} /> 
+        <Route path="/user">
+           <Route index element={<h1>User Profile Page</h1>} /> 
+           <Route path="signup" element={<h1>User Sign Up</h1>} /> 
+           <Route path="login" element={<h1>User Login</h1>} /> 
+        </Route>
+      </Route>
+    </Routes>
+     
     </>
   )
 }
