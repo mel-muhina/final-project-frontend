@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import './GalleryCard.css'
+import { Link } from "react-router-dom";
 
 export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
@@ -8,10 +10,13 @@ export default function GalleryCard() {
 
     useEffect(() => {
        generateId();
-       populateLocations();
-       console.log("LocationsArr", locationsArr)
-       console.log("ImgArr", locationsImgArr)
+    //    console.log("LocationsArr", locationsArr)
+    //    console.log("ImgArr", locationsImgArr)
     }, [])   
+
+    useEffect(() => {
+        populateLocations();
+     }, [locationsArr])  
 
     const tempApi = {
         "place_name": "Windsor Great Park", 
@@ -98,13 +103,17 @@ export default function GalleryCard() {
 
 
   return (
-    <>
-        <h2>Gallery</h2>
-        {locationsImgArr.map(img => (
-            <img src={img.img_url} />
-        ))
-            
-        }
+    <>  
+        <div className="Whole-Gallery-Container">
+            <h2>Gallery</h2>
+            <div className="gallery-container">
+                
+                {locationsImgArr.map(img => (
+                       <img src={img.img_url} className="gallery-img"/>
+                ))
+                }
+            </div>
+        </div>
     </>
   )
 }

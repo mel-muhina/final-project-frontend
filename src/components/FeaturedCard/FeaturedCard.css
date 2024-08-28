@@ -1,6 +1,6 @@
 .FeaturedCard-Container {
     display: flex;
-    width: 50%;
+    width: 100vh;
     background-color: #233927;
     border-radius: 31.4px;
     padding: 2%;
