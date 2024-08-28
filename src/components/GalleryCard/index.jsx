@@ -69,17 +69,6 @@ export default function GalleryCard() {
         const data = tempApi
         const imgData = tempImgApi
 
-        // console.log("ImgData", imgData)
-        // const formatLocations = locationsArr.map(id => id.toString());
-        // console.log("Format Locations", formatLocations)
-    //     console.log("Line 70", locationsArr)
-    //    const filterData = imgData.filter(img => 
-    //     {
-    //     console.log("Img side loop", img)
-    //     return locationsArr.includes(img.id)
-    //     }
-    // );
-
     const filteredData = locationsArr.map(id => 
         imgData.find(img => img.id === id)   
 
@@ -88,14 +77,6 @@ export default function GalleryCard() {
     console.log(filteredData)
 
        setLocationsImgArr(filteredData)
-
-    //    const filterData2 = imgData.map(img => formatLocations.includes(img.id))
-    // const filterData = imgData.map(id => locationsArr
-    // )
-
-    //    setLocationsImgArr(prevArr => [...prevArr, randomIdGen])
-
-    //    console.log("filter data", filterData)
 
     }
 
