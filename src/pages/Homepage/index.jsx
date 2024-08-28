@@ -1,4 +1,4 @@
-import { FeaturedCard } from "../../components"
+import { FeaturedCard, GalleryCard } from "../../components"
 
 export default function Homepage() {
 
@@ -8,6 +8,7 @@ export default function Homepage() {
     <>
       <h1>Homepage</h1>
       <FeaturedCard />
+      <GalleryCard />
     </>
   )
 }
