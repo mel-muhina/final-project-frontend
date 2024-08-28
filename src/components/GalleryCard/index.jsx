@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import './GalleryCard.css'
+import { Link } from "react-router-dom";
 
 export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
@@ -8,10 +10,13 @@ export default function GalleryCard() {
 
     useEffect(() => {
        generateId();
-       populateLocations();
-       console.log("LocationsArr", locationsArr)
-       console.log("ImgArr", locationsImgArr)
+    //    console.log("LocationsArr", locationsArr)
+    //    console.log("ImgArr", locationsImgArr)
     }, [])   
+
+    useEffect(() => {
+        populateLocations();
+     }, [locationsArr])  
 
     const tempApi = {
         "place_name": "Windsor Great Park", 
@@ -64,17 +69,6 @@ export default function GalleryCard() {
         const data = tempApi
         const imgData = tempImgApi
 
-        // console.log("ImgData", imgData)
-        // const formatLocations = locationsArr.map(id => id.toString());
-        // console.log("Format Locations", formatLocations)
-    //     console.log("Line 70", locationsArr)
-    //    const filterData = imgData.filter(img => 
-    //     {
-    //     console.log("Img side loop", img)
-    //     return locationsArr.includes(img.id)
-    //     }
-    // );
-
     const filteredData = locationsArr.map(id => 
         imgData.find(img => img.id === id)   
 
@@ -84,27 +78,23 @@ export default function GalleryCard() {
 
        setLocationsImgArr(filteredData)
 
-    //    const filterData2 = imgData.map(img => formatLocations.includes(img.id))
-    // const filterData = imgData.map(id => locationsArr
-    // )
-
-    //    setLocationsImgArr(prevArr => [...prevArr, randomIdGen])
-
-    //    console.log("filter data", filterData)
-
     }
 
     
 
 
   return (
-    <>
-        <h2>Gallery</h2>
-        {locationsImgArr.map(img => (
-            <img src={img.img_url} />
-        ))
-            
-        }
+    <>  
+        <div className="Whole-Gallery-Container">
+            <h2>Gallery</h2>
+            <div className="gallery-container">
+                
+                {locationsImgArr.map(img => (
+                       <img src={img.img_url} className="gallery-img"/>
+                ))
+                }
+            </div>
+        </div>
     </>
   )
 }

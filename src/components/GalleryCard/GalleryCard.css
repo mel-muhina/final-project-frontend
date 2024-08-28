@@ -1,0 +1,42 @@
+.Whole-Gallery-Container > h2 {
+    text-align: left;
+    padding: 5% 5% 0% 5%; 
+    
+}
+
+.Whole-Gallery-Container {
+    width: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.gallery-container {
+    background-color: #233927;
+    border-radius: 31.4px;
+    padding: 1%;
+    box-shadow: 2px 2px 5px black;
+    
+}
+
+.gallery-container > img {
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; */
+    height: 26vh;
+    width: 26vh;
+    border-radius: 15%;
+    padding: 2vh;
+    /* padding: 1%; */
+}
+/* 
+.inner-gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.gallery-img{
+    width: 21%;
+    border-radius: 15%;
+    padding: 2vh;
+} */
