@@ -25,7 +25,7 @@ export default function FeaturedCard() {
             "place_name": "Windsor Great Park", 
             "description": "A vast historic parkland near Windsor Castle, covering over 4,800 acres with a mix of gardens, woodlands, and open spaces. It features landmarks like the Long Walk and Savill Garden, and is known for its scenic trails and resident deer herds.",
             "tag": ["nature", "Quiet", "Scenic"],
-            "location_type": "park",
+            "location_type": "trail",
             "place_id": "1",
             "latitiude": "123",
             "longtitude": "123",
