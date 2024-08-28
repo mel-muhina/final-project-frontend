@@ -11,10 +11,14 @@ export default function UserLogin() {
     //   handleSubmit()
     // }, [])
 
+    const handleUsernameChange = (e) => setUsername(e.target.value);
+    const handlePasswordChange = (e) => setPassword(e.target.value);
+
     const handleSubmit = (e) => {
       e.preventDefault();
       console.log(username)
     };
+
 
   return (
     <>
@@ -22,10 +26,10 @@ export default function UserLogin() {
             <h1>Login</h1>
             <form onSubmit = {handleSubmit}>
               <label htmlFor='username'> Username</label>
-              <input value={username} onChange={(e) => setUsername(e.target.value)} type='text' id='Username' name='Username'/>
+              <input value={username} onChange={handleUsernameChange} type='text' id='Username' name='Username'/>
 
               <label htmlFor='password'> Password</label>
-              <input value={password} onChange={(e) => setPassword(e.target.value)} type='text' placeholder='password' id='password' name='password'/>
+              <input value={password} onChange={handlePasswordChange} type='text' placeholder='password' id='password' name='password'/>
 
               <button type='submit'>Login</button>
             </form>
