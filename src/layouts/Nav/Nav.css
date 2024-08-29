@@ -8,6 +8,7 @@
     height: 100%;
     background: linear-gradient(to bottom, #233927, rgba(0, 128, 0, 0));
     border-top-right-radius: 30px;
+    /* margin-left: -15px; */
 }
 
 .nav-container > ul > li a > img {
@@ -16,6 +17,8 @@
 
 .nav-container > ul{
     list-style: none;
+    padding-left: 1rem;
+    margin: 0;
 }
 
 .nav-container > ul > li{
@@ -26,6 +29,43 @@
     padding-top: 2%;
 }
 
+.menu-icon {
+    margin-top: 1%;
+    padding-right:2%;
+    position: fixed;
+    top: 1;
+    left: 0;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+
+}
+
+.hamburger-icon, .close-icon {
+    font-size: 1.5rem;
+    color: #fff;
+    padding-left: 1rem;
+}
+
+
+@media (max-width: 1484px) {
+    .nav-container {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        padding-left: 1rem;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+}
 /* Both */
 
 .active {
