@@ -1,4 +1,5 @@
-import { FeaturedCard, GalleryCard } from "../../components"
+import { FeaturedCard, GalleryCard, TagCard } from "../../components"
+import './Homepage.css'
 
 export default function Homepage() {
 
@@ -6,9 +7,14 @@ export default function Homepage() {
 
   return (
     <>
-      <h1>Homepage</h1>
-      <FeaturedCard />
-      <GalleryCard />
+      <div className="homepage-container">
+          <FeaturedCard />
+          <GalleryCard />
+          <div className="homepage-tags-container">
+             <TagCard />
+          </div>
+      </div>
+  
     </>
   )
 }

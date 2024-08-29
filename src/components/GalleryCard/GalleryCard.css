@@ -18,25 +18,10 @@
     
 }
 
-.gallery-container > img {
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: row; */
+
+.gallery-container a > img {
     height: 26vh;
     width: 26vh;
     border-radius: 15%;
     padding: 2vh;
-    /* padding: 1%; */
 }
-/* 
-.inner-gallery-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
-
-.gallery-img{
-    width: 21%;
-    border-radius: 15%;
-    padding: 2vh;
-} */

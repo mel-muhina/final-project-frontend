@@ -90,7 +90,7 @@ export default function GalleryCard() {
             <div className="gallery-container">
                 
                 {locationsImgArr.map(img => (
-                       <img src={img.img_url} className="gallery-img"/>
+                       <Link to=""><img src={img.img_url} className="gallery-img"/></Link>
                 ))
                 }
             </div>
