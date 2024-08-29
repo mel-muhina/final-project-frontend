@@ -53,7 +53,7 @@ export default function GalleryCard() {
     async function generateId() {
         const newIds = []
         let i = 1;
-        while (i < 7) {
+        while (i < 4) {
             const randomIdGen = Math.floor(Math.random() * 5) +1;
             // setLocationsArr(prevArr => [...prevArr, randomIdGen])
             newIds.push(randomIdGen)

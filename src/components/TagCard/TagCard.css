@@ -1,5 +1,6 @@
 .tags-container {
-    background-color: #233927;
+    width: 50vh;
+    background-color: rgba(35, 57, 39,0.8);;
     border-radius: 31.4px;
     padding: 1%;
     box-shadow: 2px 2px 5px black;
