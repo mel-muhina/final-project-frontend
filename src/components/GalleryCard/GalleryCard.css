@@ -20,8 +20,8 @@
 
 
 .gallery-container a > img {
-    height: 20vh;
-    width: 20vh;
+    height: 22vh;
+    width: 22vh;
     border-radius: 15%;
     padding: 2vh;
 }
