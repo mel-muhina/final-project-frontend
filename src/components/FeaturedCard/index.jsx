@@ -12,14 +12,25 @@ export default function FeaturedCard() {
     const { FeaturedCardIcon, setFeaturedCardIcon } = useFeaturedCardIcon();
 
     useEffect(() => {
-        getLocationData();
-        // console.log("FeaturedCard UseEffect", randomId)
-        // console.log("Location data", locationData)
-    }, [])    
+        getRandomId();
+    }, [])
+
+    useEffect(() => {
+
+        if (randomId !== undefined) {
+            getLocationData();
+        }
+    }, [randomId])    
+
+
+    async function getRandomId() {
+        const randomIdGen = Math.floor(Math.random() * 20) +1;
+        setRandomId(randomIdGen) 
+    }
 
     async function getLocationData() {
-        const randomIdGen = Math.floor(Math.random() * 1000) +1;
-        setRandomId(randomIdGen) 
+        // const randomIdGen = Math.floor(Math.random() * 20) +1;
+        // setRandomId(randomIdGen) 
 
         const tempApi = {
             "place_name": "Windsor Great Park", 
@@ -34,11 +45,16 @@ export default function FeaturedCard() {
         }
 
         const api = `http://54.89.47.53:3000/locations/data/${randomId}`
-        // const response = await fetch(api);
-        // const data = await response.json();
-        const data = tempApi
+        const response = await fetch(api);
+        const data = await response.json();
+        // const data = tempApi
         // console.log("FeaturedCard Data Check", data.tag[0])
-        setLocationData(data)
+        if (data) {
+            setLocationData(data)
+        } else {
+            setLocationData(tempApi)
+        }
+        
 
     }
 
@@ -47,12 +63,13 @@ export default function FeaturedCard() {
     <>
         <div className="FeaturedCard-Container">
             <div className="FeaturedCard-innerContainer">
-                <img src={locationIcon}/><h2>Windsor Great Park</h2>
-                <p>A vast historic parkland near Windsor Castle, covering over 4,800 acres with a mix of gardens, woodlands, and open spaces. It features landmarks like the Long Walk and Savill Garden, and is known for its scenic trails and resident deer herds.</p>
-                <Link to={`/user/login`}><button>Visit Here</button></Link>
+                <img src={locationIcon}/><h2>{locationData?.name || "Loading Location..."}</h2>
+                <p>{locationData?.description || "Please wait while we fetch the description."}</p>
+                <Link to={`/user/login`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
             <div>
                 <FeaturedIcon tag={locationData?.location_type}/>
+                {/* <FeaturedIcon tag={nature} */}
             </div>
         </div>
       
