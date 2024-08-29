@@ -1,0 +1,29 @@
+.nav-container {
+    padding-top: 5%;
+    position: fixed;
+    top: 5;
+    left: 0;
+    height: 100%;
+    
+}
+
+.nav-container > ul > li a > img {
+    width: 4vh;
+    
+}
+
+.nav-container > ul{
+    list-style: none;
+}
+
+.nav-container > ul > li{
+    padding: 15%;
+}
+
+.nav-main-content-outlet {
+    padding-top: 5%;
+}
+
+.active {
+
+}

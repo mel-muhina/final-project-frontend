@@ -63,11 +63,11 @@ export default function FeaturedCard() {
     <>
         <div className="FeaturedCard-Container">
             <div className="FeaturedCard-innerContainer">
-                <img src={locationIcon}/><h2>{locationData?.name || "Loading Location..."}</h2>
+                <img src={locationIcon} className="FeaturedCard-location-icon"/><h2>{locationData?.name || "Loading Location..."}</h2>
                 <p>{locationData?.description || "Please wait while we fetch the description."}</p>
                 <Link to={`/user/login`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
-            <div>
+            <div className="FeaturedCard-Icon-Container">
                 <FeaturedIcon tag={locationData?.location_type}/>
                 {/* <FeaturedIcon tag={nature} */}
             </div>
