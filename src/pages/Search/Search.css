@@ -1,5 +1,5 @@
 .googlemap-searchbar {
-    
+    color: black;
     box-sizing: border-box;
     border: 1px solid transparent;
     width: 300px;
@@ -59,7 +59,7 @@
 }
 
 .Hiking {
-    background-color: #450ec7;
+    background-color: #0ec799;
 }
 
 .Camping {
