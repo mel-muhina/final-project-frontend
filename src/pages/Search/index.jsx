@@ -1,11 +1,13 @@
-import React from 'react'
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import './Search.css'
 
 export default function Search() {
     const [ tags, setTags ] = useState([]);
+    const [ selectedLocation, setSelectedLocation ] = useState(null);
+    const [ searchResults, setSearchResults] = useState([]);
+
     const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
@@ -58,7 +60,19 @@ export default function Search() {
     
         }
 
+        const handleSearch = useCallback(async (query) => {
+          const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${apiKey}`);
+          const data = await response.json();
+          setSearchResults(data.results);
+        }, [])
 
+        const handleLocationClick = (location) => {
+          setSelectedLocation({
+            lat: location.geometry.location.lat,
+            lng: location.geometry.location.lng
+          })
+        }
+        
     const changeLocation = (lat, lng) => {
         setCenter({ lat, lng });
       };
@@ -296,6 +310,7 @@ export default function Search() {
             lng: location.lng(),
           });
           setPlaces(places);
+          setSearchResults(places);
         }
       };
 
@@ -307,40 +322,57 @@ export default function Search() {
                 <button onClick={() => changeLocation(34.0522, -118.2437)}>Los Angeles</button>
                 <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
             </div> */}
-        <div className="googlemap">
-            <LoadScript googleMapsApiKey={apiKey}
-              libraries={['places']}
-              >
-                
-                <div className="searchbar-background">
-                        <StandaloneSearchBox
-                        onLoad={ref => (searchBoxRef.current = ref)}
-                        onPlacesChanged={onPlacesChanged}
-                        >
-                        <input
-                            type="text"
-                            placeholder="Search places..."
-                            className="googlemap-searchbar"
-                        />
-                        </StandaloneSearchBox>
-                        <div className="search-tags-container">
-                            {tags.map(tag => 
-                            <li className={tag.tag}> {tag.tag}</li>
-                            )}
-                        </div>
+   <div className="map-container">
+
+           
+                <div className="sidebar-results">
+                  <h2>Search Results</h2>
+
+                  <ul>
+                    {searchResults.map(result => (
+                      <li key={result.place_id} onClick={() => handleLocationClick(result)}>
+                        {result.name}
+                      </li>
+                    ))} 
+                  </ul>
+                  
                 </div>
+                <div className="googlemap">
+                  <LoadScript googleMapsApiKey={apiKey}
+                    libraries={['places']}
+                    >
+                      
+                      <div className="searchbar-background">
+                              <StandaloneSearchBox
+                              onLoad={ref => (searchBoxRef.current = ref)}
+                              onPlacesChanged={onPlacesChanged}
+                              >
+                              <input
+                                  type="text"
+                                  placeholder="Search places..."
+                                  className="googlemap-searchbar"
+                              />
+                              </StandaloneSearchBox>
 
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={13}
-                    options={{ styles: mapStyle }}
-                    
-                >
-                    <Marker position={center} />
-                </GoogleMap>
+                              <div className="search-tags-container">
+                                  {tags.map(tag => 
+                                  <li className={tag.tag}> {tag.tag}</li>
+                                  )}
+                              </div>
+                      </div>
 
-            </LoadScript>
+                      <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={center}
+                          zoom={13}
+                          options={{ styles: mapStyle }}
+                          
+                      >
+                          <Marker position={center} />
+                      </GoogleMap>
+
+                  </LoadScript>
+              </div>
         </div>
     </>
   )
