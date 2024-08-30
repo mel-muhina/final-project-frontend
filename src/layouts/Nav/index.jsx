@@ -17,6 +17,10 @@ export default function Nav() {
       setIsOpen(!isOpen);
   };
 
+  const toggleTopMenu = () => {
+    setTopIsOpen(!isOpen);
+};
+
   useEffect(() => {
     
   },[toggleMenu] )
@@ -28,7 +32,7 @@ export default function Nav() {
         
               <div className="menu-icon" onClick={toggleMenu}>
                   {isOpen ? (
-                      <span className="close-icon">X</span> // Close icon
+                      <span className="close-icon">x</span> // Close icon
                   ) : (
                       <span className="hamburger-icon">&#9776;</span> // Hamburger icon
                   )}
@@ -44,17 +48,21 @@ export default function Nav() {
                 )}
         </nav>
 
-        <nav className="top-nav-container">
+        <nav className="top-nav-container" >
             <div className="top-nav-logoName">
                 <img src={logo} className="top-nav-container-logo" />
                 <h2>NatureConnect</h2>
             </div>
-            <ul>
-                <li><NavLink to="/user/login">Login</NavLink></li>
-                <li><NavLink to="/user/signup">Sign Up</NavLink></li>
-                <li><NavLink to="/user/signup"><img src={notification}></img></NavLink></li>
-                <li><NavLink to="/user/:id"><img src={profile}></img></NavLink></li>
-            </ul>
+
+                    <ul className="top">
+                        <li><NavLink to="/user/login">Login</NavLink></li>
+                        <li><NavLink to="/user/signup">Sign Up</NavLink></li>
+                        <li><NavLink to="/user/signup"><img src={notification}></img></NavLink></li>
+                        <li></li>
+                        <li><NavLink to="/user/:id"><img src={profile}></img></NavLink></li>
+                    </ul>
+            {/* </div> */}
+       
         </nav>
        
         <div className="nav-main-content-outlet">
