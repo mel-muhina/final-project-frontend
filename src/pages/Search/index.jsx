@@ -6,6 +6,7 @@ import './Search.css'
 
 export default function Search() {
     const [ tags, setTags ] = useState([]);
+    const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
         populateTags();
@@ -307,7 +308,7 @@ export default function Search() {
                 <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
             </div> */}
         <div className="googlemap">
-            <LoadScript googleMapsApiKey="AIzaSyAIwxQcZAVlbMkN6FZdw3hpNrFn8CKhU6c"
+            <LoadScript googleMapsApiKey={apiKey}
               libraries={['places']}
               >
                 
