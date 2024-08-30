@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Nav from './layouts/Nav'
-import { Homepage, UserLogin, UserSignup } from './pages'
+import { Homepage, UserLogin, UserSignup, Search } from './pages'
 import { FeaturedCardIconProvider } from './contexts'
 import './App.css'
 
@@ -17,6 +17,7 @@ function App() {
                 <Route path="signup" element={<h1>User Sign Up</h1>} /> 
                 <Route path="login" element={<UserLogin/>} /> 
               </Route>
+              <Route path="/search" element={<Search />} />
             </Route>
           </Routes>
       </FeaturedCardIconProvider>
