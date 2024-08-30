@@ -24,4 +24,5 @@
     width: 22vh;
     border-radius: 15%;
     padding: 2vh;
+    object-fit: cover;
 }

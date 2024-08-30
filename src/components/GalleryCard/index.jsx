@@ -10,13 +10,17 @@ export default function GalleryCard() {
 
     useEffect(() => {
        generateId();
-    //    console.log("LocationsArr", locationsArr)
+      //  console.log("LocationsArr", locationsArr)
+      //  console.log("random id ", randomId)
     //    console.log("ImgArr", locationsImgArr)
     }, [])   
 
     useEffect(() => {
+      console.log("locations", locationsImgArr)
+      if (randomId) {
         populateLocations();
-     }, [locationsArr])  
+      }
+     }, [randomId])  
 
     const tempApi = {
         "place_name": "Windsor Great Park", 
@@ -51,32 +55,41 @@ export default function GalleryCard() {
     ]
 
     async function generateId() {
-        const newIds = []
-        let i = 1;
-        while (i < 4) {
-            const randomIdGen = Math.floor(Math.random() * 5) +1;
-            // setLocationsArr(prevArr => [...prevArr, randomIdGen])
-            newIds.push(randomIdGen)
-            i++
-        }
-        setLocationsArr(newIds)
+        // const newIds = []
+        // let i = 1;
+        // while (i < 4) {
+        //     const randomIdGen = Math.floor(Math.random() * 5) +1;
+        //     // setLocationsArr(prevArr => [...prevArr, randomIdGen])
+        //     newIds.push(randomIdGen)
+        //     i++
+        // }
+        const randomIdGen = Math.floor(Math.random() * 5) +1;
+        setRandomId(randomIdGen)
+        // setLocationsArr(newIds)
     }
 
     async function populateLocations() {
         const api = `http://54.89.47.53:3000/locations/images/${randomId}`
-        // const response = await fetch(api);
-        // const data = await response.json();
-        const data = tempApi
-        const imgData = tempImgApi
+        const response = await fetch(api);
+        const data = await response.json();
+        // const data = tempApi
+        // const imgData = tempImgApi
+        const imgData = data
+        console.log("data", data)
 
-    const filteredData = locationsArr.map(id => 
-        imgData.find(img => img.id === id)   
+    // const filteredData = imgData.map(id => 
+    //     imgData.find(img => img.id === id)   
 
-    )
+    // 
+    
+  //   const filteredData = imgData.filter(img => 
+  //     randomId.include(img.id)   
 
-    console.log(filteredData)
+  // )
 
-       setLocationsImgArr(filteredData)
+    // console.log(filteredData)
+
+       setLocationsImgArr(imgData)
 
     }
 
@@ -89,8 +102,8 @@ export default function GalleryCard() {
             <h2>Gallery</h2>
             <div className="gallery-container">
                 
-                {locationsImgArr.map(img => (
-                       <Link to=""><img src={img.img_url} className="gallery-img"/></Link>
+                {locationsImgArr.slice(0, 3).map(img => (
+                       <Link to=""><img src={img} className="gallery-img"/></Link>
                 ))
                 }
             </div>
