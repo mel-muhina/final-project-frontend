@@ -1,5 +1,7 @@
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
+import {APIProvider, Map, Pin, AdvancedMarker} from '@vis.gl/react-google-maps';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { MapCard, SearchBar } from '../../components'
 
 import './Search.css'
 
@@ -7,82 +9,127 @@ export default function Search() {
     const [ tags, setTags ] = useState([]);
     const [ selectedLocation, setSelectedLocation ] = useState(null);
     const [ searchResults, setSearchResults] = useState([]);
+    const [ markers, setMarkers] = useState([]);
 
     const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
-        populateTags();
-    }, [])
+        // populateTags();
+        getSearchToMarkers();
+    }, [searchResults])
+
+    const libraries = ['places']
 
 
-    const dummyTags = [
-        {
-            id: 1,
-            tag: "Woodlands",
-        }, {
-            id: 2,
-            tag: "Hiking",
-        }, {
-            id: 3, 
-            tag: "Beach"
-        }, {
-            id: 4, 
-            tag: "Camping"
-        }, {
-            id: 5, 
-            tag: "Park"
-        },  {
-            id: 6, 
-            tag: "Garden"
-        }, {
-            id: 7, 
-            tag: "Wildlife"
-        },  {
-            id: 8, 
-            tag: "Farm"
-        },  {
-            id: 9, 
-            tag: "Historic"
-        },  {
-            id: 10, 
-            tag: "Rivers"
-        }
+    const getSearchToMarkers = () => {
+      // setMarkers(searchResults.map(result => ({
+      //   id: result.place_id,
+      //   position: {
+      //     lat: result.geometry.location.lat,
+      //     lng: result.geometry.location.lng,
+      //   },
+      //   name: result.name,
+      //   })));
+
+        const formattedMarkers = searchResults.map(result => {
+          const lat = result.geometry.location.lat(); // Call the function to get the value
+          const lng = result.geometry.location.lng(); // Call the function to get the value
+
+          return {
+              id: result.place_id,
+              position: { lat, lng },
+              name: result.name,
+          };
+      });
+      setMarkers(formattedMarkers)
+    }
+
+    // const dummyTags = [
+    //     {
+    //         id: 1,
+    //         tag: "Woodlands",
+    //     }, {
+    //         id: 2,
+    //         tag: "Hiking",
+    //     }, {
+    //         id: 3, 
+    //         tag: "Beach"
+    //     }, {
+    //         id: 4, 
+    //         tag: "Camping"
+    //     }, {
+    //         id: 5, 
+    //         tag: "Park"
+    //     },  {
+    //         id: 6, 
+    //         tag: "Garden"
+    //     }, {
+    //         id: 7, 
+    //         tag: "Wildlife"
+    //     },  {
+    //         id: 8, 
+    //         tag: "Farm"
+    //     },  {
+    //         id: 9, 
+    //         tag: "Historic"
+    //     },  {
+    //         id: 10, 
+    //         tag: "Rivers"
+    //     }
                    
-        ]
+    //     ]
 
-        async function populateTags() {
-            // const api = `http://54.89.47.53:3000/locations/images/${randomId}`
-            // const response = await fetch(api);
-            // const data = await response.json();
-            const data = dummyTags
-            // console.log("data", data)
-            setTags(data)
+    //     async function populateTags() {
+    //         // const api = `http://54.89.47.53:3000/locations/images/${randomId}`
+    //         // const response = await fetch(api);
+    //         // const data = await response.json();
+    //         const data = dummyTags
+    //         // console.log("data", data)
+    //         setTags(data)
     
-        }
+    //     }
 
-        const handleSearch = useCallback(async (query) => {
-          const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${apiKey}`);
-          const data = await response.json();
-          setSearchResults(data.results);
-        }, [])
+        // const handleSearch = useCallback(async (e) => {
+        //   const query = e.target.value;
+        //   if (query) {
+        //     console.log("Query")
+        //     const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${apiKey}`);
+        //     const data = await response.json();
+        //     console.log("Data from api", data)
+        //     setSearchResults(data.results);
+        //     setMarkers(data.results.map(result => ({
+        //       id: result.place_id,
+        //       position: {
+        //         lat: result.geometry.location.lat,
+        //         lng: result.geometry.location.lng,
 
-        const handleLocationClick = (location) => {
-          setSelectedLocation({
-            lat: location.geometry.location.lat,
-            lng: location.geometry.location.lng
-          })
-        }
+        //       },
+        //       name: result.name,
+        //       })));
+        //     } else {
+        //       setSearchResults([]);
+        //       setMarkers([]);
+        //     }
         
-    const changeLocation = (lat, lng) => {
-        setCenter({ lat, lng });
-      };
+        // }, [])
 
-    const containerStyle = {
-        width: '73rem',
-        height: '34rem',
-        borderRadius: '22px',
-        overflow: 'hidden', 
-      };
+        // const handleLocationClick = (location) => {
+        //   setSelectedLocation({
+        //     lat: location.geometry.location.lat,
+        //     lng: location.geometry.location.lng
+        //   })
+        // }
+        
+    // const changeLocation = (lat, lng) => {
+    //     setCenter({ lat, lng });
+    //   };
+
+    // const containerStyle = {
+    //     width: '73rem',
+    //     height: '34rem',
+    //     borderRadius: '22px',
+    //     overflow: 'hidden', 
+    //   };
 
     const defaultCenter = {
         lat: 51.5079,
@@ -300,19 +347,20 @@ export default function Search() {
       const [places, setPlaces] = useState([])
       const searchBoxRef = useRef(null);
 
-      const onPlacesChanged = () => {
-        const places = searchBoxRef.current.getPlaces();
-        if (places && places.length > 0) {
-          const place = places[0];
-          const location = place.geometry.location;
-          setCenter({
-            lat: location.lat(),
-            lng: location.lng(),
-          });
-          setPlaces(places);
-          setSearchResults(places);
-        }
-      };
+      // const onPlacesChanged = () => {
+      //   const places = searchBoxRef.current.getPlaces();
+      //   if (places && places.length > 0) {
+      //     const place = places[0];
+      //     const location = place.geometry.location;
+      //     setCenter({
+      //       lat: location.lat(),
+      //       lng: location.lng(),
+      //     });
+      //     setPlaces(places);
+      //     setSearchResults(places);
+  
+      //   }
+      // };
 
   return (
     <>
@@ -322,7 +370,7 @@ export default function Search() {
                 <button onClick={() => changeLocation(34.0522, -118.2437)}>Los Angeles</button>
                 <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
             </div> */}
-   <div className="map-container">
+   {/* <div className="map-container">
 
            
                 <div className="sidebar-results">
@@ -338,9 +386,7 @@ export default function Search() {
                   
                 </div>
                 <div className="googlemap">
-                  <LoadScript googleMapsApiKey={apiKey}
-                    libraries={['places']}
-                    >
+              
                       
                       <div className="searchbar-background">
                               <StandaloneSearchBox
@@ -350,6 +396,7 @@ export default function Search() {
                               <input
                                   type="text"
                                   placeholder="Search places..."
+                                  onChange={handleSearch}
                                   className="googlemap-searchbar"
                               />
                               </StandaloneSearchBox>
@@ -359,7 +406,11 @@ export default function Search() {
                                   <li className={tag.tag}> {tag.tag}</li>
                                   )}
                               </div>
-                      </div>
+                      </div> */}
+
+                      {/* <LoadScript googleMapsApiKey={apiKey}
+                    libraries={['places']}
+                    >
 
                       <GoogleMap
                           mapContainerStyle={containerStyle}
@@ -368,12 +419,23 @@ export default function Search() {
                           options={{ styles: mapStyle }}
                           
                       >
-                          <Marker position={center} />
+                            <Marker position={center} />
                       </GoogleMap>
 
-                  </LoadScript>
-              </div>
-        </div>
+                  </LoadScript> */}
+              {/* </div>
+        </div> */}
+        <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
+          <SearchBar 
+             setSearchResults={setSearchResults} 
+             setCenter={setCenter}
+             setMarkers={setMarkers}
+          />
+          <MapCard 
+             searchResults={searchResults} 
+             markers={markers}
+          />
+        </LoadScript>
     </>
   )
 }
