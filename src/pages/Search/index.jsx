@@ -457,8 +457,9 @@
 // }
 
 
-import { GoogleMap, LoadScript, Marker, StandaloneSearchBox, useGoogleMap } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox, useGoogleMap, InfoWindow } from '@react-google-maps/api';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from "react-router-dom";
 
 import './Search.css'
 
@@ -472,6 +473,7 @@ export default function Search() {
     const inputRef = useRef(null);
     const [userInput, setUserInput] = useState('')
     const [visibleMarkers, setVisibleMarkers] = useState([])
+    const [selectedMarker, setSelectedMarker] = useState(null);
 
     const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -525,11 +527,26 @@ export default function Search() {
     
         }
 
-        const handleSearch = useCallback(async (query) => {
-          const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${apiKey}`);
-          const data = await response.json();
-          setSearchResults(data.results);
-        }, [])
+        const handleSearch = async (query) => {
+          console.log("Query is", query)
+          try {
+            const encodedQuery = encodeURIComponent(query);
+            const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${apiKey}`
+            // const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${apiKey}`);
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            
+            console.log("response is",response)
+            const data = await response.json();
+            setSearchResults(data.results);
+          } catch (err) {
+            console.log("Error fetching", err)
+          }
+        }
 
         const handleLocationClick = (location) => {
           setSelectedLocation({
@@ -537,6 +554,12 @@ export default function Search() {
             lng: location.geometry.location.lng
           })
         }
+
+        const handleTagClick = (tag) => {
+          setUserInput(tag); 
+          console.log("Tag click", tag)
+          
+        };
         
     const changeLocation = (lat, lng) => {
         setCenter({ lat, lng });
@@ -811,14 +834,13 @@ export default function Search() {
       const location = place.geometry.location;
     
      
-      console.log("matching marker find,", matchingMarker)
       if (matchingMarker) {
-        console.log("MEow")
+
         setCenter({
           lat: matchingMarker.position.lat,
           lng: matchingMarker.position.lng,
         })
-        console.log("what is visible markers", visibleMarkers)
+
         setVisibleMarkers([matchingMarker]);
       } else {
         setCenter({
@@ -826,7 +848,7 @@ export default function Search() {
           lng: location.lng(),
         });
         setVisibleMarkers([marker]);
-        console.log("Visible Markers in else statement", visibleMarkers)
+
       }
 
  
@@ -851,6 +873,12 @@ export default function Search() {
     }
     
   }
+
+  useEffect(() => {
+    if (userInput) {
+      handleSearch(userInput)
+    }
+  }, [userInput])
 
   useEffect(() => {
     getMarkersNow();
@@ -901,13 +929,14 @@ export default function Search() {
                                   placeholder="Search places..."
                                   className="googlemap-searchbar"
                                   ref={inputRef}
+                                  value={userInput}
                                   onChange={handleInputChange}
                               />
                               </StandaloneSearchBox>
 
                               <div className="search-tags-container">
                                   {tags.map(tag => 
-                                  <li className={tag.tag}> {tag.tag}</li>
+                                  <li key={tag.id} onClick={() => handleTagClick(tag.tag)} className={tag.tag}> {tag.tag}</li>
                                   )}
                               </div>
                       </div>
@@ -934,11 +963,19 @@ export default function Search() {
                               key={mark.id}
                               position={mark.position}
                               title={mark.title}
+                              onClick={() => setSelectedMarker(mark)}
                             />
-                          ))
-                        )
-                        }
-                      
+                          )))}
+                          {selectedMarker && (
+                            <InfoWindow
+                              position={selectedMarker.position}
+                              onCloseClick={() => setSelectedMarker(null)}
+                            >
+                              <div className="infobox">
+                                <h2>{selectedMarker.title || "Location Info"}</h2>
+                              </div>
+                            </InfoWindow>
+                       )}
                       </GoogleMap>
 
                   </LoadScript>
