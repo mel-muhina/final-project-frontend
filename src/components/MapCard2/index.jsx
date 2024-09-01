@@ -1,4 +1,5 @@
-import {APIProvider, Map, useMap, Pin, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
+import {APIProvider, Map, Pin, AdvancedMarker } from '@vis.gl/react-google-maps';
 import ReactDOM from 'react-dom/client';
 import { Loader } from '@googlemaps/js-api-loader';
 import { useEffect, useRef, useState } from 'react';
@@ -6,13 +7,12 @@ import MarkerContent from '../MarkerContent';
 import PoiMarkers from '../PoiMarkers'
 
 
-export default function MapCard({ }) {
-    const map = useMap();
+export default function MapCard2({ searchResults, markers, center }) {
     const mapRef = useRef('');
-    const [newMap, setNewMap] = useState(null);
+    const [map, setMap] = useState(null);
     const [mapCentre, setMapCentre] = useState({ lat: 51.5079, lng: -0.1283 })
     const [userLocation, setUserLocation] = useState(null);
-    const [markers, setMarkers] = useState([]);
+    // const [markers, setMarkers] = useState([]);
     const mapId = '8bcae17a3db289c3'
     const apiKey = import.meta.env.VITE_API_KEY;
     
@@ -22,10 +22,39 @@ export default function MapCard({ }) {
     }, [])
 
     useEffect(() => {
-        getGooleMaps();
+        setMapCentre(userLocation || { lat: 51.5079, lng: -0.1283 })
+        
+    }, [userLocation]);
 
+    useEffect(() => {
+        if (userLocation) {
+            initalizeMap();
+
+        }
+        // getLocations();
+    
     }, [userLocation])
     
+
+    useEffect(() => {
+            if (map & markers.length > 0) {
+                const firstMarker = markers[0];
+                const { lat, lng } = firstMarker.position;
+    
+                map.setCenter({ lat, lng });
+                map.setZoom(14); // Optionally, set zoom level to your desired level
+    
+                // Optional: Adjust bounds if you want to ensure all markers are visible
+                const bounds = new window.google.maps.LatLngBounds();
+                markers.forEach(marker => {
+                    const { lat, lng } = marker.position;
+                    bounds.extend(new window.google.maps.LatLng(lat, lng));
+                });
+                map.fitBounds(bounds);
+        }
+
+       
+    }, [map, markers])
 
     
 
@@ -38,24 +67,24 @@ export default function MapCard({ }) {
         })}
     }
 
-//     const initalizeMap = async () => {
-//         const loader = new Loader({
-//             apiKey: apiKey,
-//             version: 'weekly',
-//             libraries: ['places'],
-//     })
+    const initalizeMap = async () => {
+        const loader = new Loader({
+            apiKey: apiKey,
+            version: 'weekly',
+            libraries: ['places'],
+    })
 
-//     await loader.load();
+    await loader.load();
 
-//     if (mapRef.current) {
-//       const newMap = new window.google.maps.Map(mapRef.current, {
-//         center: userLocation || { lat: 51.5079, lng: -0.1283 },
-//         zoom: 14,
-//         mapId: mapId,
-//       });
+    if (mapRef.current) {
+      const newMap = new window.google.maps.Map(mapRef.current, {
+        center: userLocation || { lat: 51.5079, lng: -0.1283 },
+        zoom: 14,
+        mapId: mapId,
+      });
 
-//       setMap(newMap);
-// }};
+      setMap(newMap);
+}};
 
     const containerStyle = {
         width: '73rem',
@@ -83,25 +112,23 @@ export default function MapCard({ }) {
 
 
     const getGooleMaps = async () => {
-        console.log("a")
         const loader = new Loader({
             apiKey: apiKey,
             version: "weekly",
             "libraries": ["marker"],
         })
-    console.log("b")
-        await loader.load();
+    
+        // await loader.load();
 
-        console.log(map)
-        if (map) {
-            console.log(c)
+        
+        if (mapRef.current) {
             const newMap = new window.google.maps.Map(mapRef.current, {
                 center: userLocation  || { lat: 51.5079, lng: -0.1283 },
                 zoom: 14,
                 mapId: mapId,
             });    
 
-            setNewMap(newMap)
+            setMap(newMap)
         
             const { AdvancedMarkerElement } = await window.google.maps.importLibrary('marker');
 
@@ -119,7 +146,7 @@ export default function MapCard({ }) {
                     content: container,
                   });
                 });
-            
+            }
         } 
         
         else {
@@ -129,24 +156,24 @@ export default function MapCard({ }) {
 
     }
 
-    
-
    
 
   return (
     <>
-  
+        {/* <APIProvider apiKey={apiKey}> */}
             <Map
-                defaultZoom={13}
-                defaultCenter={mapCentre || { lat: 51.5079, lng: -0.1283 }}
+                defaultZoom={14}
+                defaultCenter={center || { lat: 51.5079, lng: -0.1283 }}
                 mapId={mapId}
                 style={containerStyle}
-              
+                onMapLoad={mapInstance => {
+                    console.log("Map loaded:", mapInstance);
+                    setMap(mapInstance);
+                }}
             >
-               <PoiMarkers pois={locations}/>
+                <PoiMarkers pois={markers} />
             </Map>
-    
+        {/* </APIProvider> */}
     </>
   )
-}
 }

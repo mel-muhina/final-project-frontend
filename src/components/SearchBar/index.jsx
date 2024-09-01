@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { LoadScript, StandaloneSearchBox } from '@react-google-maps/api';
 
-export default function SearchBar({setSearchResults, setCenter, setMarkers}) {
+export default function SearchBar({setSearchResults, setCenter, setMarkers, libraries}) {
     const [ tags, setTags ] = useState([]);
     const [query, setQuery] = useState("");
     // const [ searchResults, setSearchResults] = useState([]);
@@ -107,6 +107,11 @@ export default function SearchBar({setSearchResults, setCenter, setMarkers}) {
             lng: location.geometry.location.lng
           })
         }
+
+        const changeLocation = (lat, lng) => {
+        setCenter({ lat, lng });
+      };
+
         
         const [places, setPlaces] = useState([])
         const searchBoxRef = useRef(null);
@@ -130,6 +135,7 @@ export default function SearchBar({setSearchResults, setCenter, setMarkers}) {
    <>
     <div className="googlemap">               
       <div className="searchbar-background">
+     
         <StandaloneSearchBox
             onLoad={ref => (searchBoxRef.current = ref)}
             onPlacesChanged={onPlacesChanged}
@@ -141,6 +147,7 @@ export default function SearchBar({setSearchResults, setCenter, setMarkers}) {
             className="googlemap-searchbar"
             />
         </StandaloneSearchBox>
+    
 
         <div className="search-tags-container">
             {tags.map(tag => 
