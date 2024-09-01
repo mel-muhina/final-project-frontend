@@ -526,7 +526,7 @@ export default function Search() {
             setTags(data)
     
         }
-
+// This is broken but idk why
         const handleSearch = async (query) => {
           console.log("Query is", query)
           try {
@@ -878,16 +878,22 @@ export default function Search() {
     if (userInput) {
       handleSearch(userInput)
     }
+    
   }, [userInput])
 
   useEffect(() => {
     getMarkersNow();
+    setSelectedMarker(NewMarker[0]); // Automatically select the first marker by default
+     
+
   }, [searchResults])
 
   useEffect(() => {
     if (visibleMarkers.length > 0) {
       setNewMarker(visibleMarkers)
     }
+    setSelectedMarker(visibleMarkers[0]);
+    
   }, [matchingMarker])
 
 
@@ -954,6 +960,7 @@ export default function Search() {
                               key={mark.id}
                               position={mark.position}
                               title={mark.title}
+                              onClick={() => setSelectedMarker(mark)}
                             />
                           ))
                           
