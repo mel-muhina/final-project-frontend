@@ -819,8 +819,7 @@ export default function Search() {
           lng: matchingMarker.position.lng,
         })
         console.log("what is visible markers", visibleMarkers)
-        setVisibleMarkers([
-          ...marker, matchingMarker]);
+        setVisibleMarkers([matchingMarker]);
       } else {
         setCenter({
           lat: location.lat(),
