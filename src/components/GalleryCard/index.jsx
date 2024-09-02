@@ -7,16 +7,13 @@ export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
     const [ locationsImgArr, setLocationsImgArr ] = useState([]);
     const [ randomId, setRandomId ] = useState();
+    const [ backupImg, setBackupImg ] = useState([])
 
     useEffect(() => {
        generateId();
-      //  console.log("LocationsArr", locationsArr)
-      //  console.log("random id ", randomId)
-    //    console.log("ImgArr", locationsImgArr)
     }, [])   
 
     useEffect(() => {
-      console.log("locations", locationsImgArr)
       if (randomId) {
         populateLocations();
       }
@@ -63,19 +60,26 @@ export default function GalleryCard() {
         //     newIds.push(randomIdGen)
         //     i++
         // }
-        const randomIdGen = Math.floor(Math.random() * 5) +1;
+        const randomIdGen = Math.floor(Math.random() * 100) +1;
         setRandomId(randomIdGen)
+        setBackupImg(tempImgApi)
         // setLocationsArr(newIds)
     }
 
     async function populateLocations() {
-        const api = `http://54.89.47.53:3000/locations/images/${randomId}`
+        const api = `http://54.89.47.53:3000/locations/image/${randomId}`
         const response = await fetch(api);
         const data = await response.json();
         // const data = tempApi
         // const imgData = tempImgApi
         const imgData = data
-        console.log("data", data)
+  
+
+        if (imgData.length < 3) {
+          setLocationsImgArr(tempImgApi)
+        } else {
+          setLocationsImgArr(imgData)
+        }
 
     // const filteredData = imgData.map(id => 
     //     imgData.find(img => img.id === id)   
@@ -89,7 +93,7 @@ export default function GalleryCard() {
 
     // console.log(filteredData)
 
-       setLocationsImgArr(imgData)
+       
 
     }
 

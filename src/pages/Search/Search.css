@@ -33,6 +33,12 @@
     margin-bottom: 0.3%;
 }
 
+/* Infobox */
+
+.infobox {
+    color:black;
+}
+
 
 /* Tags */
 
@@ -59,7 +65,7 @@
 }
 
 .Hiking {
-    background-color: #0ec799;
+    background-color: #551CCD;
 }
 
 .Camping {
@@ -88,7 +94,7 @@
 }
 
 .Historic {
-    background-color: #8400ff;
+    background-color: #009b5f;
 }
         
 .Rivers{
