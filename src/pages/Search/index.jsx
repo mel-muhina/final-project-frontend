@@ -322,6 +322,7 @@ export default function Search() {
             marksToSet.push({
               position: { lat: mark.position.lat, lng: mark.position.lng },
               title: mark.title,
+              description: mark.description
           });
         })
 
@@ -348,8 +349,6 @@ export default function Search() {
           lat: location.lat(),
           lng: location.lng(),
         });
-
-        console.log("newMarkers", newMarkers)
         setVisibleMarkers(newMarkers);
         setSelectedMarker(newMarkers[0]); 
       }
