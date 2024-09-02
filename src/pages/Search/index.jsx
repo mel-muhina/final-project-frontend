@@ -532,13 +532,8 @@ export default function Search() {
           try {
             const encodedQuery = encodeURIComponent(query);
             const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${apiKey}`
-            // const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${apiKey}`);
-            const response = await fetch(url, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            })
+            const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedQuery}&key=${apiKey}`);
+
             
             console.log("response is",response)
             const data = await response.json();
@@ -794,9 +789,10 @@ export default function Search() {
           const markers = [
             { id: 1, position: { lat: 51.5074, lng: -0.1278 }, title: 'Central London' },
             { id: 2, position: { lat: 51.515, lng: -0.09 }, title: 'Charring Cross' },
-            { id: 3, position: { lat: 51.503, lng: -0.119 }, title: 'whatsthis' },
-            { id: 4, position: { lat: 51.516, lng: -0.175 }, title: 'dragon' },
-            { id: 5, position: { lat: 51.535, lng: -0.104 }, title: 'cupcake' }
+            { id: 3, position: { lat: 51.503, lng: -0.119 }, title: 'Pumpkin' },
+            { id: 4, position: { lat: 51.516, lng: -0.175 }, title: 'Dragon' },
+            { id: 5, position: { lat: 51.535, lng: -0.104 }, title: 'Cupcake', description: 'This is a cool cupcake.' },
+            { id: 6, position: { lat: 51.535, lng: -0.124 }, title: 'Cupcake' }
           ];
       
           setMarker(markers)
@@ -822,9 +818,9 @@ export default function Search() {
     const matchingMarker = marker.find(mark => mark.title.toLowerCase().trim().includes(userInput))
 
    
-   useEffect(() => {
-      getMarkers();
-   }, [searchResults])
+  //  useEffect(() => {
+  //     getMarkers();
+  //  }, [searchResults])
 
   const onPlacesChanged = () => {
     const places = searchBoxRef.current.getPlaces();    
@@ -861,7 +857,7 @@ export default function Search() {
 
     if (!matchingMarker) {
       const newMarkers = searchResults.map((result, index) => ({
-        id: index + 1, // Generate a unique id or use place_id
+        id: index + 1, 
         position: {
             lat: result.geometry.location.lat(),
             lng: result.geometry.location.lng()
@@ -874,17 +870,17 @@ export default function Search() {
     
   }
 
-  useEffect(() => {
-    if (userInput) {
-      handleSearch(userInput)
-    }
+  // useEffect(() => {
+  //   if (userInput) {
+  //     handleSearch(userInput)
+  //   }
     
-  }, [userInput])
+  // }, [userInput])
 
   useEffect(() => {
+    getMarkers();
     getMarkersNow();
-    setSelectedMarker(NewMarker[0]); // Automatically select the first marker by default
-     
+    setSelectedMarker(NewMarker[0]); 
 
   }, [searchResults])
 
@@ -980,6 +976,8 @@ export default function Search() {
                             >
                               <div className="infobox">
                                 <h2>{selectedMarker.title || "Location Info"}</h2>
+                                <p>This is some cool information.</p>
+                                <p>{selectedMarker.description}</p>
                               </div>
                             </InfoWindow>
                        )}
