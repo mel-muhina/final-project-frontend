@@ -255,6 +255,8 @@ const mapStyle = [
   }
 ]
 
+const libaries = ['places']
+
 export default function Search() {
     const [ tags, setTags ] = useState([]);
     const [ marker, setMarker ] = useState([])
@@ -266,7 +268,7 @@ export default function Search() {
     const [places, setPlaces] = useState([])
     const searchBoxRef = useRef(null);
 
-    const libaries = ['places']
+
 
     const apiKey = import.meta.env.VITE_API_KEY;
 

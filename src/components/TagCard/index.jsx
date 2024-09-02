@@ -54,7 +54,7 @@ export default function TagCard() {
                     </div>
                 <ul> 
                         {tags.map(tag => 
-                          <li className={tag.tag}> <Link to="">{tag.tag}</Link></li>
+                          <li className={tag.tag} key={tag.tag}> <Link to="">{tag.tag}</Link></li>
                         )}
                      
                 </ul>
