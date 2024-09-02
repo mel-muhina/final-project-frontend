@@ -1,13 +1,19 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
+import { useUserAccount } from '../../contexts/userAccount';
+import { LoginContext } from '../../App';
 
 
-export default function UserLogin() { 
+export default function UserLogin({}) { 
 
+ 
     // [JavaScript logic code goes here]
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
+    const { setUserAccountData } = useUserAccount()
+    const [loggedIn, setLoggedIn] = useContext(LoginContext )
+
 
 
     const handleEmailChange = (e) => setEmail(e.target.value);
@@ -30,10 +36,16 @@ export default function UserLogin() {
           body:JSON.stringify({ email, password }),
         });
         const data = await response.json();
+        console.log('Response:', response); // Log the full response object
 
         if (response.ok) {
           const { token } = data
+          const username = "Dummy User";
+          setUserAccountData({ username, email });
+          setLoggedIn(true)
+          console.log(loggedIn)
           localStorage.setItem('authToken', token)
+
           console.log('Login Successful: ', data);
         } 
         else {
@@ -41,15 +53,16 @@ export default function UserLogin() {
           alert('Login failed unable to authenticate user');
         }
         setSavedData({email, password})
-        setEmail("")
-        setPassword("")
+
       } 
       catch(err) {
         console.error('Failed to login');
+        console.log(err)
         alert('An error occured, please try again');
       }
       
-
+      setEmail("")
+      setPassword("")
  
     }
 
