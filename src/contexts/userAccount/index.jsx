@@ -3,10 +3,14 @@ import { useContext, createContext, useState } from "react";
 const UserAccountContext = createContext();
 
 export const UserAccountProvider = ({ children }) => {
-    const [userAccountData, setuserAccountData] = useState([])
+    const [userAccountData, setUserAccountData] = useState({
+
+        username: "",
+        email: ""
+    })
 
     return (
-        <UserAccountContext.Provider value={{ userAccountData, setuserAccountData }}>
+        <UserAccountContext.Provider value={{ userAccountData, setUserAccountData }}>
             {children}
         </UserAccountContext.Provider>
     )
