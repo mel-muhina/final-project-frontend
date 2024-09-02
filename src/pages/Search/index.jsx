@@ -474,6 +474,9 @@ export default function Search() {
     const [userInput, setUserInput] = useState('')
     const [visibleMarkers, setVisibleMarkers] = useState([])
     const [selectedMarker, setSelectedMarker] = useState(null);
+    const [MatchingMarker, setMatchingMarker] = useState([])
+
+     const libaries = ['places']
 
     const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -816,6 +819,7 @@ export default function Search() {
     };
 
     const matchingMarker = marker.find(mark => mark.title.toLowerCase().trim().includes(userInput))
+ 
 
    
   //  useEffect(() => {
@@ -823,6 +827,10 @@ export default function Search() {
   //  }, [searchResults])
 
   const onPlacesChanged = () => {
+    const matchingMarker2 = marker.filter(mark => mark.title.toLowerCase().trim().includes(userInput))
+    setMatchingMarker(matchingMarker2)
+
+
     const places = searchBoxRef.current.getPlaces();    
     
     if (places && places.length > 0) {
@@ -831,19 +839,26 @@ export default function Search() {
     
      
       if (matchingMarker) {
+        const marksToSet = []
 
+        MatchingMarker.forEach((mark) => {
+          marksToSet.push({
+            position: { lat: mark.position.lat, lng: mark.position.lng },
+            title: mark.title,
+        });
+        })
         setCenter({
           lat: matchingMarker.position.lat,
           lng: matchingMarker.position.lng,
         })
-
-        setVisibleMarkers([matchingMarker]);
+          setVisibleMarkers(marksToSet);
+        
       } else {
         setCenter({
           lat: location.lat(),
           lng: location.lng(),
         });
-        setVisibleMarkers([marker]);
+        setVisibleMarkers([]);
 
       }
 
@@ -877,6 +892,11 @@ export default function Search() {
     
   // }, [userInput])
 
+  // useEffect(() => {
+  //   getMarkers();
+
+  // }, [inputRef])
+
   useEffect(() => {
     getMarkers();
     getMarkersNow();
@@ -890,7 +910,7 @@ export default function Search() {
     }
     setSelectedMarker(visibleMarkers[0]);
     
-  }, [matchingMarker])
+  }, [matchingMarker, visibleMarkers, searchResults])
 
 
   return (
@@ -918,7 +938,9 @@ export default function Search() {
                 </div> */}
                 <div className="googlemap">
                   <LoadScript googleMapsApiKey={apiKey}
-                    libraries={['places']}
+                    libraries={libaries}
+                    loadingElement={<div>Loading...</div>} // Optional: Add a loading element
+                    
                     >
                       
                       <div className="searchbar-background">
