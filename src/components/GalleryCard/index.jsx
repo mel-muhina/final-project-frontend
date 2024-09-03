@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import './GalleryCard.css'
 import { Link } from "react-router-dom";
+import windsor1 from '../../assets/images/windsor1.jpg'
+import windsor2 from '../../assets/images/windsor2.webp'
+import windsor3 from '../../assets/images/windsor3.jfif'
 
 export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
@@ -11,6 +14,8 @@ export default function GalleryCard() {
 
     useEffect(() => {
        generateId();
+      //  setLocationsImgArr(tempImgApi)
+      
     }, [])   
 
     useEffect(() => {
@@ -51,6 +56,19 @@ export default function GalleryCard() {
        
     ]
 
+    const tempImgs = [
+      {  id: 1,
+        img_url: {windsor1}
+      }, 
+      {  id: 2,
+        img_url: {windsor2}
+      }, 
+      {  id: 3,
+        img_url: {windsor3}
+      }, 
+       
+    ]
+
     async function generateId() {
         // const newIds = []
         // let i = 1;
@@ -72,14 +90,26 @@ export default function GalleryCard() {
         const data = await response.json();
         // const data = tempApi
         // const imgData = tempImgApi
-        const imgData = data
-  
+   
 
-        if (imgData.length < 3) {
-          setLocationsImgArr(tempImgApi)
-        } else {
+        if (response.ok) {
+          const imgData = data
           setLocationsImgArr(imgData)
+
+          if (imgData.length < 3) {
+            setLocationsImgArr(tempImgApi)
+          } else {
+            setLocationsImgArr(imgData)
+          }
+  
+        } else {
+          setLocationsImgArr(tempImgApi)
+
         }
+  
+        
+       
+
 
     // const filteredData = imgData.map(id => 
     //     imgData.find(img => img.id === id)   
@@ -107,7 +137,7 @@ export default function GalleryCard() {
             <div className="gallery-container">
                 
                 {locationsImgArr.slice(0, 3).map(img => (
-                       <Link to=""><img src={img} className="gallery-img"/></Link>
+                       <Link to="" key={img} ><img src={img} className="gallery-img"/></Link>
                 ))
                 }
             </div>
