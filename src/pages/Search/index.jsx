@@ -38,7 +38,7 @@ const dummyTags = [
 
 const containerStyle = {
   width: '73rem',
-  height: '40rem',
+  height: '35rem',
   borderRadius: '22px',
   overflow: 'hidden', 
 };
