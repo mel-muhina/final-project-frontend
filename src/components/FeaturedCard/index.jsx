@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Children } from 'react'
 import locationIcon from '../../assets/images/locationicon.png'
 import { useFeaturedCardIcon } from '../../contexts'
 import './FeaturedCard.css'
@@ -15,6 +15,7 @@ export default function FeaturedCard() {
     const { FeaturedCardIcon, setFeaturedCardIcon } = useFeaturedCardIcon();
     const { LocationId, setLocationId } = useLocationId();
 
+    
     useEffect(() => {
         getLocationData();
 
@@ -43,13 +44,32 @@ export default function FeaturedCard() {
         const randomIdGen = Math.floor(Math.random() * 100) +1;
         const api = `http://54.89.47.53:3000/locations/data/${randomIdGen}`
         const descriptionApi = `http://54.89.47.53:3000/locations/description/${randomIdGen}`
-
         const response = await fetch(api);
         const descriptionResponse = await fetch(descriptionApi)
         const data = await response.json();
         const descriptionData = await descriptionResponse.json();
+        if (response.ok) {
+            setLocationData(data)
+            setSavedDescriptionData(descriptionData)
+            if (data && descriptionData) {
+                setLocationData(data)
+                setSavedDescriptionData(descriptionData)
+            } else {
+                setLocationData(tempApi)
+                setSavedDescriptionData(tempApi.description)
+            }
+    
+      
+        } else {
+            setBackUpData(tempApi)
+            setLocationData(tempApi)
+            setSavedDescriptionData(tempApi.description)
+        }
+        // const descriptionResponse = await fetch(descriptionApi)
+        // const data = await response.json();
+        // const descriptionData = await descriptionResponse.json();
 
-        setBackUpData(tempApi)
+       
         // const data = tempApi
         // console.log("FeaturedCard Data Check", data.tag[0])
         if (data && descriptionData) {

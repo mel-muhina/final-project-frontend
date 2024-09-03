@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 import Nav from './layouts/Nav'
-import { Homepage, UserLogin, UserSignup, Search } from './pages'
+import { Homepage, UserLogin, UserSignup, Search, JourneyPlanner, UserProfile } from './pages'
 import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
 import { createContext, useState } from 'react'
 import { UserAccountProvider } from './contexts/userAccount'
-import UserProfile from './pages/UserProfile'
+// import UserProfile from './pages/UserProfile'
+// import JourneyPlanner from './pages/JourneyPlanner'
 
 
 export const LoginContext = createContext();
@@ -30,6 +31,7 @@ function App() {
                         <Route path=":id" element={<UserProfile/>} />
                       </Route>
                       <Route path="/search" element={<Search />} />
+                      <Route path="/journey" element={<JourneyPlanner />} />
                     </Route>
                   </Routes>
                 </FeaturedCardIconProvider>
