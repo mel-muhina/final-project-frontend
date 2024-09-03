@@ -266,6 +266,7 @@ export default function Search() {
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [center, setCenter] = useState(defaultCenter)
     const [places, setPlaces] = useState([])
+    const [apiMarkers, setApiMarkers] = useState([])
     const searchBoxRef = useRef(null);
     const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -277,8 +278,9 @@ export default function Search() {
     })
 
     useEffect(() => {
-        getMarkers();
+        // getMarkers();
         populateTags();
+        getRealMarkers();
     }, [])
 
 
@@ -325,10 +327,69 @@ export default function Search() {
       setMarker(markers)
       setVisibleMarkers(markers)
     }
+   
+
+    async function getRealMarkers() {
+      try {
+        const response = await fetch(`http://54.89.47.53:3000/locations/filter`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_location: {
+                  "latitude": 51.5079,
+                  "longitude": -0.1283,
+                },
+                tags: {
+                  "Hiking": false,
+                  "Woodlands": false,
+                  "Beach": false,
+                  "park": false,
+                  "Historic": false,
+                  "Playground": false,
+                  "River": false,
+                  "Wildlife": false,
+                  "River": false,
+                  "Wildlife": false,
+                  "large": false,
+                  "boating": false
+                },
+                filter_distance: 100
+                
+            })
+            
+        });
+        const data = await response.json();
+        setApiMarkers(data)
+        setMarker(data)
+        setVisibleMarkers(data)
+
+        const dataArr = []
+
+        const newMarkers = data.map((result, index) => ({
+          id: index + 1, 
+          position: {
+              lat: result.latitude,
+              lng: result.longitude
+          },
+          title: result.name 
+        }));
+  
+        setMarker(newMarkers)
+        setVisibleMarkers(newMarkers)
+
+      }   catch (err) {
+        console.log(err.message);
+      
+    }
+ 
+    
+    }
 
   
   const onPlacesChanged = (data) => {
-    const matches = marker.filter(mark => mark.title.toLowerCase().trim().includes(userInput));
+    const matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
     let places = searchBoxRef.current.getPlaces();  
 
     if (data) {
@@ -366,8 +427,8 @@ export default function Search() {
   
             matches.forEach((mark) => {
               marksToSet.push({
-                position: { lat: mark.position.lat, lng: mark.position.lng },
-                title: mark.title,
+                position: { lat: mark.latitude, lng: mark.longitude },
+                title: mark.name,
                 description: mark.description
             });
           })
@@ -461,7 +522,7 @@ export default function Search() {
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={center}
-                            zoom={14}
+                            zoom={12}
                             options={{ styles: mapStyle }}
                         >
                           {visibleMarkers.map(mark => (
