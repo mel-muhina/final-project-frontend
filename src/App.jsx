@@ -5,6 +5,7 @@ import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
 import { createContext, useState } from 'react'
 import { UserAccountProvider } from './contexts/userAccount'
+import { Notification } from './components'
 // import UserProfile from './pages/UserProfile'
 // import JourneyPlanner from './pages/JourneyPlanner'
 
@@ -29,6 +30,7 @@ function App() {
                         <Route path="signup" element={<UserSignup/>} /> 
                         <Route path="login" element={<UserLogin/>} /> 
                         <Route path=":id" element={<UserProfile/>} />
+                        <Route path="testPage" element={<Notification/>} />
                       </Route>
                       <Route path="/search" element={<Search />} />
                       <Route path="/journey" element={<JourneyPlanner />} />
