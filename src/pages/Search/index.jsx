@@ -1,5 +1,5 @@
-import { GoogleMap, LoadScript, Marker, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
-import { useState, useEffect, useRef } from 'react';
+import { GoogleMap, useJsApiLoader, Marker, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import './Search.css'
 
 const dummyTags = [
@@ -38,7 +38,7 @@ const dummyTags = [
 
 const containerStyle = {
   width: '73rem',
-  height: '34rem',
+  height: '40rem',
   borderRadius: '22px',
   overflow: 'hidden', 
 };
@@ -267,23 +267,41 @@ export default function Search() {
     const [center, setCenter] = useState(defaultCenter)
     const [places, setPlaces] = useState([])
     const searchBoxRef = useRef(null);
-
-
-
     const apiKey = import.meta.env.VITE_API_KEY;
+
+    const { isLoaded } = useJsApiLoader({
+      id: 'google-map-script',
+      googleMapsApiKey: apiKey,
+      libraries: libaries,
+      region: 'GB'
+    })
 
     useEffect(() => {
         getMarkers();
         populateTags();
     }, [])
 
+
     async function populateTags() {
       const data = dummyTags
       setTags(data)
     }
 
-    const handleTagClick = (tag) => {
-      setUserInput(tag);          
+    const handleTagClick = async (tag) => {
+      setUserInput(tag);
+      const options = {
+        "method": "POST",
+        "body": JSON.stringify({"textQuery": tag}),
+        "headers": {
+          "Content-Type": 'application/json',
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask": "*"
+        },
+      }
+
+      const response = await fetch(`https://places.googleapis.com/v1/places:searchText`, options)
+      const data = await response.json()
+      onPlacesChanged(data.places)
     };
 
     const handleInputChange = () => {
@@ -309,56 +327,85 @@ export default function Search() {
     }
 
   
-  const onPlacesChanged = () => {
+  const onPlacesChanged = (data) => {
     const matches = marker.filter(mark => mark.title.toLowerCase().trim().includes(userInput));
-    const places = searchBoxRef.current.getPlaces();    
-    
-    if (places && places.length > 0) {
+    let places = searchBoxRef.current.getPlaces();  
+
+    if (data) {
+      places = data;
+
       const place = places[0];
-      const location = place.geometry.location;
-    
-      if (matches.length > 0) {
-        const marksToSet = []
+      const location = place.location;
 
-          matches.forEach((mark) => {
-            marksToSet.push({
-              position: { lat: mark.position.lat, lng: mark.position.lng },
-              title: mark.title,
-              description: mark.description
+      setPlaces(places);
+
+      const newMarkers = places.map((result, index) => ({
+        id: index + 1, 
+        position: {
+            lat: result.location.latitude,
+            lng: result.location.longitude
+        },
+        title: result.displayName.text  
+      }));
+
+      setCenter({
+        lat: location.latitude,
+        lng: location.longitude,
+      });
+      
+      setVisibleMarkers(newMarkers);
+      setSelectedMarker(newMarkers[0]); 
+      
+    } else {
+      if (places && places.length > 0) {
+        const place = places[0];
+        const location = place.geometry.location;
+      
+        if (matches.length > 0) {
+          const marksToSet = []
+  
+            matches.forEach((mark) => {
+              marksToSet.push({
+                position: { lat: mark.position.lat, lng: mark.position.lng },
+                title: mark.title,
+                description: mark.description
+            });
+          })
+  
+          setCenter({
+            lat: marksToSet[0].position.lat,
+            lng: marksToSet[0].position.lng,
+          })
+  
+          setVisibleMarkers(marksToSet);
+          setSelectedMarker(marksToSet[0]); 
+        } else {
+  
+          setPlaces(places);
+  
+          const newMarkers = places.map((result, index) => ({
+            id: index + 1, 
+            position: {
+                lat: result.geometry.location.lat(),
+                lng: result.geometry.location.lng()
+            },
+            title: result.name  
+          }));
+  
+          setCenter({
+            lat: location.lat(),
+            lng: location.lng(),
           });
-        })
-
-        setCenter({
-          lat: marksToSet[0].position.lat,
-          lng: marksToSet[0].position.lng,
-        })
-
-        setVisibleMarkers(marksToSet);
-        setSelectedMarker(marksToSet[0]); 
-      } else {
-        setPlaces(places);
-
-        const newMarkers = places.map((result, index) => ({
-          id: index + 1, 
-          position: {
-              lat: result.geometry.location.lat(),
-              lng: result.geometry.location.lng()
-          },
-          title: result.name  
-        }));
-
-        setCenter({
-          lat: location.lat(),
-          lng: location.lng(),
-        });
-        setVisibleMarkers(newMarkers);
-        setSelectedMarker(newMarkers[0]); 
+          
+          setVisibleMarkers(newMarkers);
+          setSelectedMarker(newMarkers[0]); 
+        }
       }
-      setUserInput("")
     }
+    setUserInput("")
   };
 
-  return (
+  return isLoaded ? (
     <>
     
              {/* <div style={{ marginTop: '20px' }}>
@@ -366,82 +413,82 @@ export default function Search() {
                 <button onClick={() => changeLocation(34.0522, -118.2437)}>Los Angeles</button>
                 <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
             </div> */}
-    <div className="map-container">
+      <div className="map-container">
 
-           
-                {/* <div className="sidebar-results">
-                  <h2>Search Results</h2>
+            
+                  {/* <div className="sidebar-results">
+                    <h2>Search Results</h2>
 
-                  <ul>
-                    {searchResults.map(result => (
-                      <li key={result.place_id} onClick={() => handleLocationClick(result)}>
-                        {result.name}
-                      </li>
-                    ))} 
-                  </ul>
-                  
-                </div> */}
-                <div className="googlemap">
-                  <LoadScript googleMapsApiKey={apiKey}
-                    libraries={libaries}
-                    loadingElement={<div>Loading...</div>} // Optional: Add a loading element
+                    <ul>
+                      {searchResults.map(result => (
+                        <li key={result.place_id} onClick={() => handleLocationClick(result)}>
+                          {result.name}
+                        </li>
+                      ))} 
+                    </ul>
                     
-                    >
+                  </div> */}
+                  <div className="googlemap">
+                    {/* <LoadScript googleMapsApiKey={apiKey}
+                      libraries={libaries}
+                      version="weekly"
+                      loadingElement={<div>Loading...</div>} // Optional: Add a loading element
                       
-                      <div className="searchbar-background">
-                              <StandaloneSearchBox
-                              onLoad={ref => (searchBoxRef.current = ref)}
-                              onPlacesChanged={onPlacesChanged}
-                              >
-                              <input
-                                  type="text"
-                                  placeholder="Search places..."
-                                  className="googlemap-searchbar"
-                                  ref={inputRef}
-                                  value={userInput}
-                                  onChange={handleInputChange}
+                      > */}
+                        
+                        <div className="searchbar-background">
+                                <StandaloneSearchBox
+                                onLoad={ref => searchBoxRef.current = ref}
+                                onPlacesChanged={onPlacesChanged}
+                                >
+                                <input
+                                    type="text"
+                                    placeholder="Search places..."
+                                    className="googlemap-searchbar"
+                                    ref={inputRef}
+                                    value={userInput}
+                                    onChange={handleInputChange}
+                                />
+                                </StandaloneSearchBox>
+
+                                <div className="search-tags-container">
+                                    {tags.map(tag => 
+                                      <li key={tag.id} onClick={() => handleTagClick(tag.tag)} className={tag.tag}> {tag.tag}</li>
+                                    )}
+                                </div>
+                        </div>
+
+                        <GoogleMap
+                            mapContainerStyle={containerStyle}
+                            center={center}
+                            zoom={14}
+                            options={{ styles: mapStyle }}
+                        >
+                          {visibleMarkers.map(mark => (
+                              <Marker
+                                key={mark.id}
+                                position={mark.position}
+                                title={mark.title}
+                                onClick={() => setSelectedMarker(mark)}
                               />
-                              </StandaloneSearchBox>
+                            ))}
+                            {selectedMarker && (
+                              <InfoWindow
+                                position={selectedMarker.position}
+                                onCloseClick={() => setSelectedMarker(null)}
+                              >
+                                <div className="infobox">
+                                  <h2>{selectedMarker.title || "Location Info"}</h2>
+                                  <p>This is some cool information.</p>
+                                  <p>{selectedMarker.description}</p>
+                                </div>
+                              </InfoWindow>
+                        )}
+                        </GoogleMap>
 
-                              <div className="search-tags-container">
-                                  {tags.map(tag => 
-                                  <li key={tag.id} onClick={() => handleTagClick(tag.tag)} className={tag.tag}> {tag.tag}</li>
-                                  )}
-                              </div>
-                      </div>
-
-                      <GoogleMap
-                          mapContainerStyle={containerStyle}
-                          center={center}
-                          zoom={13}
-                          options={{ styles: mapStyle }}
-                          
-                      >
-                         {visibleMarkers.map(mark => (
-                            <Marker
-                              key={mark.id}
-                              position={mark.position}
-                              title={mark.title}
-                              onClick={() => setSelectedMarker(mark)}
-                            />
-                          ))}
-                          {selectedMarker && (
-                            <InfoWindow
-                              position={selectedMarker.position}
-                              onCloseClick={() => setSelectedMarker(null)}
-                            >
-                              <div className="infobox">
-                                <h2>{selectedMarker.title || "Location Info"}</h2>
-                                <p>This is some cool information.</p>
-                                <p>{selectedMarker.description}</p>
-                              </div>
-                            </InfoWindow>
-                       )}
-                      </GoogleMap>
-
-                  </LoadScript>
-              </div>
-        </div>
+                    {/* </LoadScript> */}
+                </div>
+          </div> 
     </>
-  )
+  ) : <></>
 }
