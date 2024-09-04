@@ -77,7 +77,7 @@ export default function DummyPage({}) {
 
     const getFact = async() => {
         try {
-            const token = localStorage.getItem('authToken')
+            //const token = localStorage.getItem('authToken')
             const response = await fetch('http://54.89.47.53:3000/name/getFacts/:id', {
               method: 'GET',
               headers: {
@@ -104,7 +104,7 @@ export default function DummyPage({}) {
 
     const getReminder = async() => {
     try {
-        const token = localStorage.getItem('authToken')
+        //const token = localStorage.getItem('authToken')
         const response = await fetch('http://54.89.47.53:3000/name/getInfoById/1', {
           method: 'GET',
           headers: {

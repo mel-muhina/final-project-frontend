@@ -3,6 +3,7 @@ import Nav from './layouts/Nav'
 import { Homepage, UserLogin, UserSignup, Search, JourneyPlanner, UserProfile } from './pages'
 import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
+import { useState, createContext } from 'react'
 import { UserAccountProvider } from './contexts/userAccount'
 import DummyPage from './pages/DummyPage'
 import SavedListPage from './pages/SavedList'
@@ -11,16 +12,17 @@ import { Notification } from './components'
 // import JourneyPlanner from './pages/JourneyPlanner'
 
 
-
+export const  LoginContext = createContext()
 
 function App() {
 
- 
+  const [loggedIn, setLoggedIn] = useState()
 
+ 
   return (
     <>
       <LocationProvider>
-          
+        <LoginContext.Provider value={[loggedIn, setLoggedIn]}> 
             <UserAccountProvider>
               <FeaturedCardIconProvider>
                   <Routes>
@@ -44,7 +46,7 @@ function App() {
                   </Routes>
                 </FeaturedCardIconProvider>
             </UserAccountProvider>
-          
+          </LoginContext.Provider> 
       </LocationProvider>
     </>
   )

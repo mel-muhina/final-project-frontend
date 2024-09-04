@@ -3,7 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import UserInfo from '../../components/UserInfo';
 import UserMetrics from '../../components/UserMetrics';
 import SavedList from '../../components/SavedList';
-
 import { useUserAccount } from '../../contexts/userAccount';
 import profilePic from '../../assets/logo.png';
 
@@ -65,14 +64,17 @@ export default function UserProfile({ }) {
             //const token = localStorage.getItem('authToken')
             const response = await fetch('http://54.89.47.53:3000/users/stats', {
               method: 'GET',
-              headers: {
-                
-                'Authorization': token}
+              headers: {    
+                'Authorization': `Bearer ${token}`}
               })
               const data = await response.json();
+              console.log("1")
+              console.log(token)
+              console.log(data)
               
               if (response.ok) {
-                setUsername(data)
+                console.log("2")
+                setUsername(data.username)
                 console.log(savedUsername)
                 console.log('Item retrieved successfully!');
                 // Optionally, handle UI updates or further actions
@@ -92,7 +94,7 @@ export default function UserProfile({ }) {
 
         <div className='profile-containers'>
             <div className='profile-container'>
-                <UserInfo profilePic = {profilePic} username={savedUsername.username} email={userAccountData.email}/>
+                <UserInfo profilePic = {profilePic} username={savedUsername} email={userAccountData.email}/>
             </div>
             <div className='metrics'>
                 <UserMetrics metrics = {dummyMetrics}/>
