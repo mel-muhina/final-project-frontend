@@ -4,7 +4,6 @@ import { Homepage, UserLogin, UserSignup, Search, JourneyPlanner, UserProfile } 
 import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
 import { UserAccountProvider } from './contexts/userAccount'
-import UserProfile from './pages/UserProfile'
 import DummyPage from './pages/DummyPage'
 import SavedListPage from './pages/SavedList'
 import { Notification } from './components'

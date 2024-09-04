@@ -7,25 +7,27 @@ export default function GetNotifications() {
     const [placeName, setPlaceName] = useState('')
     const [message, setMessage] = useState('')
     const authToken = import.meta.env.VITE_AUTHORIZATION;
+    const token = localStorage.getItem('authToken');
 
     useEffect(() => {
-        getRecommended();
-    }, [])
+        if (token) {
+            getRecommended(token);
+        }
+    }, [token])
 
-     async function getRecommended(e) {
+     async function getRecommended(token) {
         // e.preventDefault();
         try {
             const response = await fetch(`http://54.89.47.53:3000/users/recommendations`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': authToken
+                    'Authorization': `Bearer ${token}`
                 },
              
             });
     
             const data = await response.json();
-            console.log("data", data)
             setSaveRecommend(data.recommendations)
             
 
@@ -35,9 +37,10 @@ export default function GetNotifications() {
 }
   return (
    <>
-   {/* <button onClick={getRecommended}>Meow</button> */}
+
    <div className="notification-outer-container">
-      {saveRecommend.map(recommended => 
+    {token ? ( 
+      saveRecommend.map(recommended => (
         <div className="notification-container" key={recommended.recommendation_id}>
             <ul>
                 <li>
@@ -48,17 +51,12 @@ export default function GetNotifications() {
             </ul>
           
         </div>
+      ))
+    ) : (
+        <p>Please login</p>
     )}
-        {/* <div className="notification-container" key={saveRecommend.recommendation_id}>
-            <ul>
-                <li>
-                    <p>Message: {saveRecommend?.message}</p>
-                    <p>Recommended Location: {saveRecommend?.place_name}</p>
-                    <p>Recommended By: {saveRecommend?.recommender_username}</p>
-                </li>
-            </ul>
-          
-        </div> */}
+
+    
     </div> 
    </>
   )

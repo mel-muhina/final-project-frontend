@@ -40,6 +40,13 @@ export default function Nav() {
   const [topIsOpen, setTopIsOpen] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false)
   const [profileModal, setProfileModal] = useState(false)
+  const token = localStorage.getItem('authToken');
+
+  useEffect(() => {
+      if (token) {
+          // getRecommended(token);
+      }
+  }, [token])
 
     const toggleMenu = () => {
       setIsOpen(!isOpen);
@@ -109,9 +116,16 @@ const toggleNotifications = () => {
                         {/* <h4>Notifications</h4> */}
                         {/* Your login form goes here */}
                         <ul>
-                            <li><NavLink to="/user/:id">Profile</NavLink></li>
+                        {token ? (
+                          <div>
+                            <li><NavLink to="/user/:id">Profile</NavLink></li>  
+                          </div> 
+                          ): (
+                          <div>
                             <li><NavLink to="/user/login">Login</NavLink></li>
                             <li><NavLink to="/user/signup">Sign Up</NavLink></li>
+                           </div>
+                          )}
                         </ul>
                         
                         {/* <button onClick={toggleTopMenu} className='notifications-close'>Close</button> */}
