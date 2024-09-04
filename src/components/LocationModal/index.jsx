@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useLocationId } from '../../contexts';
 
 
 function Modal({ onClose, children }) {
@@ -14,7 +15,7 @@ function Modal({ onClose, children }) {
 }
 
 
-export default function LocationModal({ place_id }) {
+export default function LocationModal() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -22,12 +23,13 @@ export default function LocationModal({ place_id }) {
     const token = localStorage.getItem('authToken')
     const [savedReminder, setReminder] = useState();
     const [savedFact, setFact] = useState();
+    const { LocationId, setLocationId } = useLocationId();
 
     useEffect(() => {
         getFact();
         getReminder();
-  
-    }, [])
+  console.log("beep",LocationId)
+    }, [LocationId])
 
 
     const handleSave = async () => {
