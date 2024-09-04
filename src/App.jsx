@@ -3,23 +3,25 @@ import Nav from './layouts/Nav'
 import { Homepage, UserLogin, UserSignup, Search, JourneyPlanner, UserProfile } from './pages'
 import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
-import { createContext, useState } from 'react'
 import { UserAccountProvider } from './contexts/userAccount'
+import UserProfile from './pages/UserProfile'
+import DummyPage from './pages/DummyPage'
+import SavedListPage from './pages/SavedList'
 import { Notification } from './components'
 // import UserProfile from './pages/UserProfile'
 // import JourneyPlanner from './pages/JourneyPlanner'
 
 
-export const LoginContext = createContext();
+
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(true)
+ 
 
   return (
     <>
       <LocationProvider>
-          {/* <LoginContextProvider> */}
+          
             <UserAccountProvider>
               <FeaturedCardIconProvider>
                   <Routes>
@@ -30,6 +32,8 @@ function App() {
                         <Route path="signup" element={<UserSignup/>} /> 
                         <Route path="login" element={<UserLogin/>} /> 
                         <Route path=":id" element={<UserProfile/>} />
+                        <Route path="test" element={<DummyPage/>} />
+                        <Route path=":id/saved" element={<SavedListPage/>} />
                         <Route path="testPage" element={<Notification/>} />
                       </Route>
                       <Route path="/search" element={<Search />} />
@@ -38,7 +42,7 @@ function App() {
                   </Routes>
                 </FeaturedCardIconProvider>
             </UserAccountProvider>
-          {/* </LoginContextProvider> */}
+          
       </LocationProvider>
     </>
   )
