@@ -30,7 +30,7 @@ export default function UserSignUp() {
             'content-type': 'application/json'
           },
           body:JSON.stringify({ email, username, password }),
-        });
+        })
         const data = await response.json();
 
         if (response.ok) {

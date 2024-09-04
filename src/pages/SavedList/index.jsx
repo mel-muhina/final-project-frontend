@@ -1,44 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+
 import SavedList from '../../components/SavedList';
 
 
-const savedItems = [{ 
-
-    place_id: 1,
-    name: 'Hyde Park',
-    location_type: 'park',
-    description: 'A major park in central London.',
-    position: {lat: 51.507268, long: -0.165730},
-    address: 'London W2 2UH, UK',
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Hyde_Park_from_air.jpg/640px-Hyde_Park_from_air.jpg',
-    tag_id: 1},
-
-    { 
-    place_id: 2,
-    name: 'finsbury Park',
-    location_type: 'park',
-    description: 'A major park in north London.',
-    position: {lat: 51.5646, long: -0.1047},
-    address: 'London N4 1EE',
-    image_url: 'https://en.wikipedia.org/wiki/Finsbury_Park#/media/File:Finsbury_Park_-_geograph.org.uk_-_681145.jpg',
-    tag_id: 1},
-
-]
-
 
 export default function SavedListPage({}) {
-
+    
     const [savedItems, setSavedItems] = useState([]);
 
     useEffect(() => {
-        setSavedItems(savedData)
-    })
 
+        getSaved();
+    }, [])
+    
+    const getSaved = async () => {
+    
+        try {
+            const token = localStorage.getItem('authToken')
+            const response = await fetch('http://54.89.47.53:3000/users/retrieve', {
+              method: 'GET',
+              headers: {
+                
+                'Authorization': `Bearer ${token}`}
+              })
+              const data = await response.json();
+              
+              if (response.ok) {
+                const savedLocations = data.savedLocations || [];
+                setSavedItems(savedLocations)
+                console.log(savedLocations)
+                console.log('Items retrieved successfully!');
+                // Optionally, handle UI updates or further actions
+            } else {
+                console.error(`Failed to retrieve items: ${data.error}`);
+                
+            }
+            } catch (err) {
+            console.error('Error retrieving items:');
+            console.log(err)
+            }
+        }
+    
     return(
-        
-        <div className='saved-list-container'>
-            <SavedList items = {savedItems} />
-        </div>
 
+        <div className='save-page'>
+            <div className='saved-list-container'>
+                <SavedList items = {savedItems} />
+            </div>
+        </div>
     )
+
 }
