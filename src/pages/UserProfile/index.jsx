@@ -3,33 +3,11 @@ import { useState, useContext, useEffect } from 'react';
 import UserInfo from '../../components/UserInfo';
 import UserMetrics from '../../components/UserMetrics';
 import SavedList from '../../components/SavedList';
-import { LoginContext } from '../../App';
+
 import { useUserAccount } from '../../contexts/userAccount';
 import profilePic from '../../assets/logo.png';
 
 
-const dummyItems = [{ 
-
-    place_id: 1,
-    name: 'Hyde Park',
-    location_type: 'park',
-    description: 'A major park in central London.',
-    position: {lat: 51.507268, long: -0.165730},
-    address: 'London W2 2UH, UK',
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Hyde_Park_from_air.jpg/640px-Hyde_Park_from_air.jpg',
-    tag_id: 1},
-
-    { 
-    place_id: 2,
-    name: 'finsbury Park',
-    location_type: 'park',
-    description: 'A major park in north London.',
-    position: {lat: 51.5646, long: -0.1047},
-    address: 'London N4 1EE',
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Finsbury_Park_-_geograph.org.uk_-_681145.jpg',
-    tag_id: 1},
-
-]
 
 const dummyMetrics = {
     posts: 120,
@@ -39,22 +17,82 @@ const dummyMetrics = {
 };
 
 export default function UserProfile({ }) {
-    const loggedIn = useContext(LoginContext)
+    
     const { userAccountData } = useUserAccount();
     const [savedItems, setSavedItems] = useState([]);
+    const [savedUsername, setUsername] = useState();
+    const token = localStorage.getItem('authToken')
 
     useEffect(() => {
-        console.log("Logged In: ", loggedIn)
-        console.log(userAccountData.username)
+      
         console.log(userAccountData.email)
-        setSavedItems(dummyItems)
-    })
+
+        getSaved();
+        getUsername();
+    }, [])
+    
+    const getSaved = async () => {
+    
+        try {
+            // const token = localStorage.getItem('authToken')
+            const response = await fetch('http://54.89.47.53:3000/users/retrieve', {
+              method: 'GET',
+              headers: {
+                
+                'Authorization': `Bearer ${token}`}
+              })
+              const data = await response.json();
+              
+              if (response.ok) {
+                const savedLocations = data.savedLocations || [];
+                setSavedItems(savedLocations)
+                console.log(savedLocations)
+                console.log('Items retrieved successfully!');
+                // Optionally, handle UI updates or further actions
+            } else {
+                console.error(`Failed to retrieve items: ${data.error}`);
+                
+            }
+            } catch (err) {
+            console.error('Error retrieving items:');
+            console.log(err)
+            }
+        }
+
+    const getUsername = async () => {
+    
+        try {
+            //const token = localStorage.getItem('authToken')
+            const response = await fetch('http://54.89.47.53:3000/users/stats', {
+              method: 'GET',
+              headers: {
+                
+                'Authorization': token}
+              })
+              const data = await response.json();
+              
+              if (response.ok) {
+                setUsername(data)
+                console.log(savedUsername)
+                console.log('Item retrieved successfully!');
+                // Optionally, handle UI updates or further actions
+            } else {
+                console.error(`Failed to retrieve item: ${data.error}`);
+                
+            }
+            } catch (err) {
+            console.error('Error retrieving item:');
+            console.log(err)
+            }
+        }
+
+    
     
     return(
 
         <div className='profile-containers'>
             <div className='profile-container'>
-                <UserInfo profilePic = {profilePic} username={userAccountData.username} email={userAccountData.email}/>
+                <UserInfo profilePic = {profilePic} username={savedUsername.username} email={userAccountData.email}/>
             </div>
             <div className='metrics'>
                 <UserMetrics metrics = {dummyMetrics}/>

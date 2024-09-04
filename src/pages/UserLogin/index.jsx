@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { useUserAccount } from '../../contexts/userAccount';
-import { LoginContext } from '../../App';
+
 
 
 export default function UserLogin({}) { 
@@ -12,7 +12,7 @@ export default function UserLogin({}) {
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
     const { setUserAccountData } = useUserAccount()
-    const [loggedIn, setLoggedIn] = useContext(LoginContext )
+
 
 
 
@@ -42,8 +42,8 @@ export default function UserLogin({}) {
           const { token } = data
           const username = "Dummy User";
           setUserAccountData({ username, email });
-          setLoggedIn(true)
-          console.log(loggedIn)
+         
+          
           localStorage.setItem('authToken', token)
 
           console.log('Login Successful: ', data);
