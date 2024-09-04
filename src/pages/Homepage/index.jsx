@@ -17,7 +17,10 @@ useEffect(() => {
     <>
       <div className="homepage-container">
           <FeaturedCard />
-          <GalleryCard randomId={LocationId}/>
+          <div className="homepage-gallery-container">
+
+            <GalleryCard randomId={LocationId}/>
+          </div>
           <div className="homepage-tags-container">
              <TagCard />
           </div>

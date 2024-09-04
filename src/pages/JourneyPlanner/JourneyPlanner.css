@@ -1,0 +1,21 @@
+.journey-planner-h1 {
+    font-size: 2rem;
+}
+
+.JourneyPlanner-Page-Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px; /* Add some space between the two components */
+    
+}
+
+.journeyplanner-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.journeyplanner-directions-map {
+    overflow: hidden;
+}
