@@ -1,6 +1,7 @@
 import { GoogleMap, useJsApiLoader, Marker, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Search.css'
+import { LocationModal } from '../../components';
 
 const dummyTags = [
   {
@@ -539,6 +540,7 @@ export default function Search() {
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
                                   <p>This is some cool information.</p>
                                   <p>{selectedMarker.description}</p>
+                                  <LocationModal />
                                 </div>
                               </InfoWindow>
                         )}
