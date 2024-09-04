@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { useUserAccount } from '../../contexts/userAccount';
+import { LoginContext } from '../../App';
+
 
 
 
@@ -12,12 +14,29 @@ export default function UserLogin({}) {
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
     const { setUserAccountData } = useUserAccount()
+    const token = localStorage.getItem('authToken')
+    const [loggedIn, setLoggedIn] = useContext(LoginContext)
 
 
 
 
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
+
+    useEffect(() => {
+      console.log("222")
+      if(!token) {
+          setLoggedIn(false)
+          console.log("not loggedin")
+      }
+      else{
+          setLoggedIn(true)
+          console.log("you are logged in")
+      }
+      if (savedData) {
+        console.log("User data saved:", savedData)}
+      
+  }, [token, loggedIn, savedData])
 
     const handleSubmit = async (e) => {
       e.preventDefault();

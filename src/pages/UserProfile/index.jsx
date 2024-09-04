@@ -3,7 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import UserInfo from '../../components/UserInfo';
 import UserMetrics from '../../components/UserMetrics';
 import SavedList from '../../components/SavedList';
-
 import { useUserAccount } from '../../contexts/userAccount';
 import profilePic from '../../assets/logo.png';
 
