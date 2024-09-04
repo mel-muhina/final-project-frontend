@@ -4,3 +4,7 @@ export { default as GalleryCard } from './GalleryCard';
 export { default as TagCard } from './TagCard';
 export { default as MapCard } from './MapCard';
 export { default as SearchBar } from './SearchBar';
+export { default as JourneyPlanCard } from './JourneyPlanCard';
+export { default as DirectionsMap } from './DirectionsMap';
+export { default as Notification } from './Notification';
+export { default as GetNotifications } from './GetNotifications';

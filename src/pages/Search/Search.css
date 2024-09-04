@@ -51,11 +51,16 @@
 }
 
  
-  .search-tags-container li{
+.search-tags-container li{
     padding: 5px 10px;
     list-style: none;
     border-radius: 10.48px;
 }
+
+.search-tags-container li:hover{
+   cursor: pointer;
+}
+
 
 
 

@@ -1,7 +1,9 @@
 .homepage-container {
+    width: 90%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    margin: 0 auto;
     
 }
 
@@ -10,4 +12,8 @@
     bottom: 0;
     right: 0;
     padding: 2%;
+}
+
+.gallery-Gallery {
+    padding-left: 5%;
 }
