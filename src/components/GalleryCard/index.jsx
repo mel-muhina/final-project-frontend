@@ -6,7 +6,7 @@ import windsor1 from '../../assets/images/windsor1.jpg'
 import windsor2 from '../../assets/images/windsor2.webp'
 import windsor3 from '../../assets/images/windsor3.jfif'
 import WeatherComponent from '../WeatherComponent';
-import { useLocationId } from '../../contexts';
+import { useLocationId, useLocationName } from '../../contexts';
 
 export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
@@ -14,6 +14,7 @@ export default function GalleryCard() {
     const [ randomId, setRandomId ] = useState();
     const [ backupImg, setBackupImg ] = useState([])
     const { LocationId } = useLocationId();
+    const { LocationName, setLocationName } = useLocationName();
 
     useEffect(() => {
        generateId();
@@ -91,6 +92,7 @@ export default function GalleryCard() {
         const api = `http://54.89.47.53:3000/locations/image/${LocationId}`
         const response = await fetch(api);
         const data = await response.json();
+        console.log("data",data)
         // const data = tempApi
         // const imgData = tempImgApi
    

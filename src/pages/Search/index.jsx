@@ -2,7 +2,7 @@ import { GoogleMap, useJsApiLoader, Marker, StandaloneSearchBox, InfoWindow } fr
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Search.css'
 import { LocationModal } from '../../components';
-import { useLocationId } from '../../contexts';
+import { useLocationId, useLocationName } from '../../contexts';
 
 const dummyTags = [
   {
@@ -271,6 +271,7 @@ export default function Search() {
     const [apiMarkers, setApiMarkers] = useState([])
     const searchBoxRef = useRef(null);
     const { LocationId, setLocationId } = useLocationId();
+    const { LocationName, setLocationName } = useLocationName();
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const { isLoaded } = useJsApiLoader({
@@ -281,10 +282,16 @@ export default function Search() {
     })
 
     useEffect(() => {
-        // getMarkers();
         populateTags();
         getRealMarkers();
+
     }, [])
+
+    useEffect(() => {
+      if (LocationName) {
+        handleTagClick(LocationName)
+      }
+  }, [LocationName])
 
 
     async function populateTags() {
@@ -306,6 +313,7 @@ export default function Search() {
 
       const response = await fetch(`https://places.googleapis.com/v1/places:searchText`, options)
       const data = await response.json()
+      console.log("data", data.places)
       onPlacesChanged(data.places)
     };
 
@@ -415,8 +423,8 @@ export default function Search() {
       });
       
       setVisibleMarkers(newMarkers);
-      setSelectedMarker(newMarkers[0].id); 
-      // setLocationId(newMarkers[0])
+      setSelectedMarker(newMarkers[0]); 
+      setLocationId(newMarkers[0].id)
       
     } else {
       if (places && places.length > 0) {
@@ -538,16 +546,16 @@ export default function Search() {
                                 onClick={() => setSelectedMarker(mark)}
                               />
                             ))}
-                            {selectedMarker && (
+                            {selectedMarker && selectedMarker.position && (
                               <InfoWindow
-                                position={selectedMarker.position}
+                                position={selectedMarker.position || selectedMarker.Location}
                                 onCloseClick={() => setSelectedMarker(null)}
                               >
                                 <div className="infobox">
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
                                   <p>This is some cool information.</p>
                                   <p>{selectedMarker.description}</p>
-                                  <LocationModal />
+                                  {/* <LocationModal /> */}
                                 </div>
                               </InfoWindow>
                         )}
