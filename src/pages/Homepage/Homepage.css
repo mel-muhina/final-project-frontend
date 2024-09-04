@@ -5,15 +5,28 @@
     flex-direction: row;
     margin: 0 auto;
     
+    
 }
 
 .homepage-tags-container {
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 2%;
+    padding: 1%;
 }
 
-.gallery-Gallery {
-    padding-left: 5%;
+.featured-card {
+    position: absolute; /* Fixes the position within the parent */
+    top: 10%; /* Adjust based on your layout needs */
+    left: 7%; /* Adjust based on your layout needs */
+    width: 30%; /* Set a fixed width */
+    height: 20%; /* Set a fixed height */
+}
+
+.homepage-gallery-container {
+    position: absolute; /* Fixes the position within the parent */
+    bottom: 25%; /* Adjust based on your layout needs */
+    left: 7%; /* Adjust based on your layout needs */
+    width: 60%; 
+    height: 20%;
 }

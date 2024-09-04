@@ -3,7 +3,7 @@
     width: 90vh;
     background-color: rgba(35, 57, 39,0.8);;
     border-radius: 31.4px;
-    padding: 2%;
+    padding: 1% 1% 2% 1%;
     box-shadow: 2px 2px 5px black;
 }
 
@@ -11,7 +11,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* padding: 5%; */
     padding-left: 5%;
 }
 

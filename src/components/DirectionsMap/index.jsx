@@ -50,7 +50,26 @@ export default function DirectionsMap({currentStepIndex}) {
             start_location: { lat: 51.508, lng: -0.0355 },
             end_location: { lat: 51.578, lng: -0.0375 },
             instructions: "Turn left onto Street B and continue for 300 meters."
-          },
+          }, {
+            "start_location": { "lat": 51.5018, "lng": -0.5402 },
+            "end_location": { "lat": 51.5125, "lng": -0.5925 },
+            "instructions": "Walk to Slough Railway Station (approximately 1.2 km)."
+        },
+        {
+            "start_location": { "lat": 51.5125, "lng": -0.5925 },
+            "end_location": { "lat": 51.5185, "lng": -0.0814 },
+            "instructions": "Take the Great Western Railway train from Slough to London Paddington (about 30 minutes)."
+        },
+        {
+            "start_location": { "lat": 51.5185, "lng": -0.0814 },
+            "end_location": { "lat": 51.5154, "lng": -0.1481 },
+            "instructions": "Change at Paddington and take the Circle or District Line to St. James's Park (about 10 minutes)."
+        },
+        {
+            "start_location": { "lat": 51.4994, "lng": -0.1324 },
+            "end_location": { "lat": 51.4988, "lng": -0.1357 },
+            "instructions": "Walk from St. James's Park Station to 1st Floor, 11-19 Artillery Row (approximately 350 meters)."
+        }
         // Add more steps as needed
       ];
 

@@ -349,9 +349,6 @@ export default function Search() {
                   "Historic": false,
                   "Playground": false,
                   "River": false,
-                  "Wildlife": false,
-                  "River": false,
-                  "Wildlife": false,
                   "large": false,
                   "boating": false
                 },

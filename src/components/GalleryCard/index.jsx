@@ -134,11 +134,11 @@ export default function GalleryCard() {
     <>  
         <div className="Whole-Gallery-Container">
             <div className='gallery-Gallery'>
-              <h2>Gallery</h2>
+              {/* <h2>Gallery</h2> */}
             </div>
             <div className="gallery-container">
-                
-                {locationsImgArr.slice(0, 4).map(img => (
+                <h2>Gallery</h2>
+                {locationsImgArr.slice(0, 3).map(img => (
                        <Link to="" key={img} ><img src={img} className="gallery-img"/></Link>
                 ))
                 }

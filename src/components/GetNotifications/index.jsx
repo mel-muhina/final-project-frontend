@@ -6,6 +6,11 @@ export default function GetNotifications() {
     const [recommendingUser, setRecommendingUser] = useState('')
     const [placeName, setPlaceName] = useState('')
     const [message, setMessage] = useState('')
+    const authToken = import.meta.env.VITE_AUTHORIZATION;
+
+    useEffect(() => {
+        getRecommended();
+    }, [])
 
      async function getRecommended(e) {
         // e.preventDefault();
@@ -14,12 +19,13 @@ export default function GetNotifications() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaWF0IjoxNzI1Mzk5Mjc3LCJleHAiOjE3MjU0MDI4Nzd9.3mSTGmJT7AZRlO_wiN5vLDuuoyPdZYU7_KzSt3UcCJM'
+                    'Authorization': authToken
                 },
              
             });
     
             const data = await response.json();
+            console.log("data", data)
             setSaveRecommend(data.recommendations)
             
 
@@ -29,14 +35,31 @@ export default function GetNotifications() {
 }
   return (
    <>
-   <button onClick={getRecommended}>Meow</button>
+   {/* <button onClick={getRecommended}>Meow</button> */}
+   <div className="notification-outer-container">
       {saveRecommend.map(recommended => 
         <div className="notification-container" key={recommended.recommendation_id}>
-            <p>Message: {recommended?.message}</p>
-            <p>Recommended Location: {recommended?.place_name}</p>
-            <p>Recommended By: {recommended?.recommender_username}</p>
+            <ul>
+                <li>
+                    <p>Message: {recommended?.message}</p>
+                    <p>Recommended Location: {recommended?.place_name}</p>
+                    <p>Recommended By: {recommended?.recommender_username}</p>
+                </li>
+            </ul>
+          
         </div>
-      )}
+    )}
+        {/* <div className="notification-container" key={saveRecommend.recommendation_id}>
+            <ul>
+                <li>
+                    <p>Message: {saveRecommend?.message}</p>
+                    <p>Recommended Location: {saveRecommend?.place_name}</p>
+                    <p>Recommended By: {saveRecommend?.recommender_username}</p>
+                </li>
+            </ul>
+          
+        </div> */}
+    </div> 
    </>
   )
 }
