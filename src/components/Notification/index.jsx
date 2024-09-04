@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import GetNotifications from '../GetNotifications'
 
+
 export default function Notification() {
     const [saveRecommend, setSaveRecommend] = useState('')
     const [recommendedUser, setRecommendedUser] = useState('')
     const [recommendedLocation, setRecommendedLocation] = useState('')
     const [chosenMessage, setChosenMessage] = useState('')
+    const authToken = import.meta.env.VITE_AUTHORIZATION;
 
     function handleInput(e) {
         setRecommendedUser(e.target.value)
@@ -19,10 +21,6 @@ export default function Notification() {
         setChosenMessage(e.target.value)
     }
 
-    async function getRecommended() {
-
-    }
-
     async function recommend(e) {
         e.preventDefault();
         try {
@@ -30,7 +28,7 @@ export default function Notification() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaWF0IjoxNzI1Mzk5Mjc3LCJleHAiOjE3MjU0MDI4Nzd9.3mSTGmJT7AZRlO_wiN5vLDuuoyPdZYU7_KzSt3UcCJM'
+                    'Authorization': authToken
                 },
                 body: JSON.stringify({
                     recommended_user_id: recommendedUser,

@@ -16,10 +16,11 @@ useEffect(() => {
   return (
     <>
       <div className="homepage-container">
+        <div className="featured-card">
           <FeaturedCard />
+          </div>
           <div className="homepage-gallery-container">
-
-            <GalleryCard randomId={LocationId}/>
+            <GalleryCard />
           </div>
           <div className="homepage-tags-container">
              <TagCard />

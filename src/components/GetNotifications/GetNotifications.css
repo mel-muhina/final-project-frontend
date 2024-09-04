@@ -1,6 +1,28 @@
 .notification-container {
-    background-color: rgb(0, 58, 45);
-    padding: 1%;
+    background-color: rgba(35,57,39,0.8);
+    padding: 4%;
     margin-bottom: 1%; 
     border-radius: 30px;
+}
+
+.notification-outer-container {
+    /* height: 10rem; */
+}
+
+  .notification-container > ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+
+
+.notification-container > ul > li {
+    padding: 0;
+    margin: 0;
+}
+
+.notification-container > ul > li > p {
+    padding: 0;
+    margin: 0;
+    line-height: 1.5; /* Adjust this if you need more or less space between lines */
 }

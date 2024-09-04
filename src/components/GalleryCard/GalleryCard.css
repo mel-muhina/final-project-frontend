@@ -1,11 +1,11 @@
-.Whole-Gallery-Container > h2 {
+.gallery-container > h2 {
     text-align: left;
     padding: 0% 5% 0% 5%; 
     
 }
 
 .Whole-Gallery-Container {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -20,9 +20,9 @@
 
 
 .gallery-container a > img {
-    height: 22vh;
-    width: 22vh;
+    height: 25vh;
+    width: 25vh;
     border-radius: 15%;
-    padding: 2vh;
+    padding: 1vh 2vh;
     object-fit: cover;
 }

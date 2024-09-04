@@ -5,7 +5,6 @@ import { FeaturedCardIconProvider, LocationProvider } from './contexts'
 import './App.css'
 import { useState, createContext } from 'react'
 import { UserAccountProvider } from './contexts/userAccount'
-import UserProfile from './pages/UserProfile'
 import DummyPage from './pages/DummyPage'
 import SavedListPage from './pages/SavedList'
 import { Notification } from './components'
@@ -38,7 +37,10 @@ function App() {
                         <Route path=":id/saved" element={<SavedListPage/>} />
                         <Route path="testPage" element={<Notification/>} />
                       </Route>
-                      <Route path="/search" element={<Search />} />
+                      <Route path="/search">
+                      <Route index element={<Search />} />
+                      <Route path="*" element={<Search />} />
+                      </Route>
                       <Route path="/journey" element={<JourneyPlanner />} />
                     </Route>
                   </Routes>

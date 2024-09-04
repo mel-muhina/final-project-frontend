@@ -6,15 +6,23 @@ export default function GetNotifications() {
     const [recommendingUser, setRecommendingUser] = useState('')
     const [placeName, setPlaceName] = useState('')
     const [message, setMessage] = useState('')
+    const authToken = import.meta.env.VITE_AUTHORIZATION;
+    const token = localStorage.getItem('authToken');
 
-     async function getRecommended(e) {
+    useEffect(() => {
+        if (token) {
+            getRecommended(token);
+        }
+    }, [token])
+
+     async function getRecommended(token) {
         // e.preventDefault();
         try {
             const response = await fetch(`http://54.89.47.53:3000/users/recommendations`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaWF0IjoxNzI1Mzk5Mjc3LCJleHAiOjE3MjU0MDI4Nzd9.3mSTGmJT7AZRlO_wiN5vLDuuoyPdZYU7_KzSt3UcCJM'
+                    'Authorization': `Bearer ${token}`
                 },
              
             });
@@ -29,14 +37,27 @@ export default function GetNotifications() {
 }
   return (
    <>
-   <button onClick={getRecommended}>Meow</button>
-      {saveRecommend.map(recommended => 
+
+   <div className="notification-outer-container">
+    {token ? ( 
+      saveRecommend.map(recommended => (
         <div className="notification-container" key={recommended.recommendation_id}>
-            <p>Message: {recommended?.message}</p>
-            <p>Recommended Location: {recommended?.place_name}</p>
-            <p>Recommended By: {recommended?.recommender_username}</p>
+            <ul>
+                <li>
+                    <p>Message: {recommended?.message}</p>
+                    <p>Recommended Location: {recommended?.place_name}</p>
+                    <p>Recommended By: {recommended?.recommender_username}</p>
+                </li>
+            </ul>
+          
         </div>
-      )}
+      ))
+    ) : (
+        <p>Please login</p>
+    )}
+
+    
+    </div> 
    </>
   )
 }

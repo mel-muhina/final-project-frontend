@@ -8,22 +8,59 @@ import logo from '../../assets/logo.png'
 import profile from '../../assets/images/userprofile.png'
 import notification from '../../assets/images/notification.png'
 import './Nav.css'
+import { GetNotifications } from '../../components'
+
+
+
+function Modal({ onClose, children }) {
+    return (
+      <div className="modal-backdrop">
+        <div className="modal-content">
+          {children}
+        </div>
+        {/* <button onClick={onClose}>Close</button> */}
+      </div>
+    );
+  }
+
+  
+function ProfileModal({ onClose, children }) {
+    return (
+      <div className="modal-backdrop">
+        <div className="modal-content">
+          {children}
+          {/* <button onClick={onClose}>Close</button> */}
+        </div>
+      </div>
+    );
+  }
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(true);
   const [topIsOpen, setTopIsOpen] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(false)
+  const [profileModal, setProfileModal] = useState(false)
+  const token = localStorage.getItem('authToken');
+
+  useEffect(() => {
+      if (token) {
+          // getRecommended(token);
+      }
+  }, [token])
 
     const toggleMenu = () => {
       setIsOpen(!isOpen);
   };
 
   const toggleTopMenu = () => {
-    setTopIsOpen(!isOpen);
+    setProfileModal(!profileModal);
 };
 
-  useEffect(() => {
-    
-  },[toggleMenu] )
+const toggleNotifications = () => {
+    setNotificationModal(!notificationModal);
+};
+
+
 
   return (
     <>
@@ -51,18 +88,52 @@ export default function Nav() {
         <nav className="top-nav-container" >
             <div className="top-nav-logoName">
                 <img src={logo} className="top-nav-container-logo" />
-                <h2>NatureConnect</h2>
+                <NavLink to="#"><h2>NatureConnect</h2></NavLink>
             </div>
 
                     <ul className="top">
-                        <li><NavLink to="/user/login">Login</NavLink></li>
-                        <li><NavLink to="/user/signup">Sign Up</NavLink></li>
-                        <li><NavLink to="/user/signup"><img src={notification}></img></NavLink></li>
+
+                        <li><NavLink to="#" onClick={toggleNotifications}><img src={notification}></img></NavLink></li>
                         <li></li>
-                        <li><NavLink to="/user/:id"><img src={profile}></img></NavLink></li>
-                    </ul>
+                        <li><NavLink to="#" onClick={toggleTopMenu}><img src={profile}></img></NavLink></li>
+                  
             {/* </div> */}
+
+                    {notificationModal && (
+                    <Modal onClose={toggleNotifications}>
+                    <div className='notification-dropdown'>
+                        {/* Your login form goes here */}
+                        <GetNotifications />
+                        <button onClick={toggleNotifications} className='notifications-close'>Close</button>
+                    </div>
+                    </Modal>
+                )}
+
+                {profileModal && (
+                    <ProfileModal onClose={toggleTopMenu}>
+                    <div className='profile-dropdown'>
+                        {/* <h4>Notifications</h4> */}
+                        {/* Your login form goes here */}
+                        <ul>
+                        {token ? (
+                          <div>
+                            <li><NavLink to="/user/:id">Profile</NavLink></li>  
+                          </div> 
+                          ): (
+                          <div>
+                            <li><NavLink to="/user/login">Login</NavLink></li>
+                            <li><NavLink to="/user/signup">Sign Up</NavLink></li>
+                           </div>
+                          )}
+                        </ul>
+                        
+                        {/* <button onClick={toggleTopMenu} className='notifications-close'>Close</button> */}
+                    </div>
+                    </ProfileModal>
+                 )}
        
+       
+           </ul>
         </nav>
        
         <div className="nav-main-content-outlet">
