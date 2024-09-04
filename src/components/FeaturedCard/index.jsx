@@ -13,19 +13,20 @@ export default function FeaturedCard() {
     const [ backUpData, setBackUpData ] = useState([]);
     const [ savedDescriptionData, setSavedDescriptionData ] = useState([]);
     const { FeaturedCardIcon, setFeaturedCardIcon } = useFeaturedCardIcon();
-    const { LocationId, setLocationId } = useLocationId();
-
+    // const { LocationId, setLocationId } = useLocationId();
+    const { LocationId } = useLocationId();
     
     useEffect(() => {
-        getLocationData();
+        if (LocationId) {
+            getLocationData();
+        }
+    }, [LocationId])
 
-    }, [])
 
-
-    async function getRandomId() {
-        const randomIdGen = Math.floor(Math.random() * 20) +1;
-        setRandomId(randomIdGen) 
-    }
+    // async function getRandomId() {
+    //     const randomIdGen = Math.floor(Math.random() * 20) +1;
+    //     setRandomId(randomIdGen) 
+    // }
 
     async function getLocationData() {
 
@@ -42,8 +43,8 @@ export default function FeaturedCard() {
         }
 
         const randomIdGen = Math.floor(Math.random() * 100) +1;
-        const api = `http://54.89.47.53:3000/locations/data/${randomIdGen}`
-        const descriptionApi = `http://54.89.47.53:3000/locations/description/${randomIdGen}`
+        const api = `http://54.89.47.53:3000/locations/data/${LocationId}`
+        const descriptionApi = `http://54.89.47.53:3000/locations/description/${LocationId}`
         const response = await fetch(api);
         const descriptionResponse = await fetch(descriptionApi)
         const data = await response.json();

@@ -81,7 +81,7 @@ const toggleNotifications = () => {
         <nav className="top-nav-container" >
             <div className="top-nav-logoName">
                 <img src={logo} className="top-nav-container-logo" />
-                <h2>NatureConnect</h2>
+                <NavLink to="#"><h2>NatureConnect</h2></NavLink>
             </div>
 
                     <ul className="top">

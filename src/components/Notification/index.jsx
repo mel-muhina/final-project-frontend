@@ -21,10 +21,6 @@ export default function Notification() {
         setChosenMessage(e.target.value)
     }
 
-    async function getRecommended() {
-
-    }
-
     async function recommend(e) {
         e.preventDefault();
         try {

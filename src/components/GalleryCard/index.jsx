@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 import windsor1 from '../../assets/images/windsor1.jpg'
 import windsor2 from '../../assets/images/windsor2.webp'
 import windsor3 from '../../assets/images/windsor3.jfif'
+import WeatherComponent from '../WeatherComponent';
+import { useLocationId } from '../../contexts';
 
 export default function GalleryCard() {
     const [ locationsArr, setLocationsArr ] = useState([]);
     const [ locationsImgArr, setLocationsImgArr ] = useState([]);
     const [ randomId, setRandomId ] = useState();
     const [ backupImg, setBackupImg ] = useState([])
+    const { LocationId } = useLocationId();
 
     useEffect(() => {
        generateId();
@@ -19,10 +22,10 @@ export default function GalleryCard() {
     }, [])   
 
     useEffect(() => {
-      if (randomId) {
+      if (LocationId) {
         populateLocations();
       }
-     }, [randomId])  
+     }, [LocationId])  
 
     const tempApi = {
         "place_name": "Windsor Great Park", 
@@ -85,7 +88,7 @@ export default function GalleryCard() {
     }
 
     async function populateLocations() {
-        const api = `http://54.89.47.53:3000/locations/image/${randomId}`
+        const api = `http://54.89.47.53:3000/locations/image/${LocationId}`
         const response = await fetch(api);
         const data = await response.json();
         // const data = tempApi
@@ -137,7 +140,7 @@ export default function GalleryCard() {
               {/* <h2>Gallery</h2> */}
             </div>
             <div className="gallery-container">
-                <h2>Gallery</h2>
+                <h2>Gallery</h2> 
                 {locationsImgArr.slice(0, 3).map(img => (
                        <Link to="" key={img} ><img src={img} className="gallery-img"/></Link>
                 ))

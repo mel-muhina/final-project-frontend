@@ -148,9 +148,9 @@
     width: 300px; 
     z-index: 1;
     border-radius: 5px;
-    max-height: calc(2 * 122px + 20px);
+    max-height: 188px;
     overflow-y: auto; 
-    transform: translateX(50px);
+    transform: translateX(60px);
   }
 
   .notification-dropdown::-webkit-scrollbar {
