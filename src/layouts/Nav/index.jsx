@@ -102,7 +102,6 @@ const toggleNotifications = () => {
                     {notificationModal && (
                     <Modal onClose={toggleNotifications}>
                     <div className='notification-dropdown'>
-                        <h4>Notifications</h4>
                         {/* Your login form goes here */}
                         <GetNotifications />
                         <button onClick={toggleNotifications} className='notifications-close'>Close</button>

@@ -35,7 +35,10 @@ function App() {
                         <Route path=":id/saved" element={<SavedListPage/>} />
                         <Route path="testPage" element={<Notification/>} />
                       </Route>
-                      <Route path="/search" element={<Search />} />
+                      <Route path="/search">
+                      <Route index element={<Search />} />
+                      <Route path="*" element={<Search />} />
+                      </Route>
                       <Route path="/journey" element={<JourneyPlanner />} />
                     </Route>
                   </Routes>

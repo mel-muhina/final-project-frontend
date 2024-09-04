@@ -92,7 +92,7 @@ export default function FeaturedCard() {
             <div className="FeaturedCard-innerContainer">
                 <img src={locationIcon} key={locationData?.place_id}className="FeaturedCard-location-icon"/><h2>{locationData?.name || backUpData?.place_name}</h2>
                 <p>{savedDescriptionData}</p>
-                <Link to={`/search`}><button className="FeaturedCard-btn">Visit Here</button></Link>
+                <Link to={`/search/${LocationId}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
             <div className="FeaturedCard-Icon-Container">
                 <FeaturedIcon tag={locationData?.location_type}/>
