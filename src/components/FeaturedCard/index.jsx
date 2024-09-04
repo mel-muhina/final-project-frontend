@@ -4,7 +4,7 @@ import { useFeaturedCardIcon } from '../../contexts'
 import './FeaturedCard.css'
 import { Link, useParams } from "react-router-dom";
 import FeaturedIcon from '../FeaturedIcon'
-import { useLocationId } from '../../contexts';
+import { useLocationId, useLocationName } from '../../contexts';
 
 export default function FeaturedCard() {
     const {id} = useParams();
@@ -14,6 +14,7 @@ export default function FeaturedCard() {
     const [ savedDescriptionData, setSavedDescriptionData ] = useState([]);
     const { FeaturedCardIcon, setFeaturedCardIcon } = useFeaturedCardIcon();
     // const { LocationId, setLocationId } = useLocationId();
+    const { LocationName, setLocationName } = useLocationName();
     const { LocationId } = useLocationId();
     
     useEffect(() => {
@@ -55,6 +56,7 @@ export default function FeaturedCard() {
             if (data && descriptionData) {
                 setLocationData(data)
                 setSavedDescriptionData(descriptionData)
+                setLocationName(data.name)
             } else {
                 setLocationData(tempApi)
                 setSavedDescriptionData(tempApi.description)
@@ -75,6 +77,7 @@ export default function FeaturedCard() {
         // console.log("FeaturedCard Data Check", data.tag[0])
         if (data && descriptionData) {
             setLocationData(data)
+            setLocationName(data.name)
             setSavedDescriptionData(descriptionData)
         } else {
             setLocationData(tempApi)

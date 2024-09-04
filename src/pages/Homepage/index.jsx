@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react"
 import { FeaturedCard, GalleryCard, TagCard } from "../../components"
 import './Homepage.css'
-import { useLocationId } from '../../contexts';
+import { useLocationId, useLocationName } from '../../contexts';
 
 export default function Homepage() {
 const [randomId, setRandomId] = useState();
 const { LocationId, setLocationId } = useLocationId();
+const { LocationName, setLocationName } = useLocationName();
 
 useEffect(() => {
   const randomIdGen = Math.floor(Math.random() * 100) +1;
   setLocationId(randomIdGen)
+  console.log(LocationName)
  }, [])  
 
 
