@@ -4,8 +4,7 @@ import './Homepage.css'
 import { useLocationId } from '../../contexts';
 
 export default function Homepage() {
-const [randomId, setRandomId] = useState();
-const { LocationId, setLocationId } = useLocationId();
+const { setLocationId } = useLocationId();
 
 useEffect(() => {
   const randomIdGen = Math.floor(Math.random() * 100) +1;
@@ -17,7 +16,7 @@ useEffect(() => {
     <>
       <div className="homepage-container">
           <FeaturedCard />
-          <GalleryCard randomId={LocationId}/>
+          <GalleryCard />
           <div className="homepage-tags-container">
              <TagCard />
           </div>

@@ -13,13 +13,13 @@ export default function FeaturedCard() {
     const [ backUpData, setBackUpData ] = useState([]);
     const [ savedDescriptionData, setSavedDescriptionData ] = useState([]);
     const { FeaturedCardIcon, setFeaturedCardIcon } = useFeaturedCardIcon();
-    const { LocationId, setLocationId } = useLocationId();
-
+    const { LocationId } = useLocationId();
     
     useEffect(() => {
-        getLocationData();
-
-    }, [])
+        if (LocationId) {
+            getLocationData();
+        }
+    }, [LocationId])
 
 
     async function getRandomId() {
@@ -28,7 +28,6 @@ export default function FeaturedCard() {
     }
 
     async function getLocationData() {
-
         const tempApi = {
             "place_name": "Windsor Great Park", 
             "description": "A vast historic parkland near Windsor Castle, covering over 4,800 acres with a mix of gardens, woodlands, and open spaces. It features landmarks like the Long Walk and Savill Garden, and is known for its scenic trails and resident deer herds.",
@@ -42,8 +41,9 @@ export default function FeaturedCard() {
         }
 
         const randomIdGen = Math.floor(Math.random() * 100) +1;
-        const api = `http://54.89.47.53:3000/locations/data/${randomIdGen}`
-        const descriptionApi = `http://54.89.47.53:3000/locations/description/${randomIdGen}`
+        const api = `http://54.89.47.53:3000/locations/data/${LocationId}`
+
+        const descriptionApi = `http://54.89.47.53:3000/locations/description/${LocationId}`
         const response = await fetch(api);
         const descriptionResponse = await fetch(descriptionApi)
         const data = await response.json();
