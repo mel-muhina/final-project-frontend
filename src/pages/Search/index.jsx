@@ -2,6 +2,7 @@ import { GoogleMap, useJsApiLoader, Marker, StandaloneSearchBox, InfoWindow } fr
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Search.css'
 import { LocationModal } from '../../components';
+import { useLocationId } from '../../contexts';
 
 const dummyTags = [
   {
@@ -269,6 +270,7 @@ export default function Search() {
     const [places, setPlaces] = useState([])
     const [apiMarkers, setApiMarkers] = useState([])
     const searchBoxRef = useRef(null);
+    const { LocationId, setLocationId } = useLocationId();
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const { isLoaded } = useJsApiLoader({
@@ -390,7 +392,7 @@ export default function Search() {
     const matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
     let places = searchBoxRef.current.getPlaces();  
 
-    if (data) {
+     if (data) {
       places = data;
 
       const place = places[0];
@@ -413,7 +415,8 @@ export default function Search() {
       });
       
       setVisibleMarkers(newMarkers);
-      setSelectedMarker(newMarkers[0]); 
+      setSelectedMarker(newMarkers[0].id); 
+      // setLocationId(newMarkers[0])
       
     } else {
       if (places && places.length > 0) {
@@ -427,7 +430,9 @@ export default function Search() {
               marksToSet.push({
                 position: { lat: mark.latitude, lng: mark.longitude },
                 title: mark.name,
-                description: mark.description
+                description: mark.description,
+                id: mark.place_id,
+                tag: mark.tag_id
             });
           })
   
@@ -438,6 +443,7 @@ export default function Search() {
   
           setVisibleMarkers(marksToSet);
           setSelectedMarker(marksToSet[0]); 
+          setLocationId(marksToSet[0].id)
         } else {
   
           setPlaces(places);
@@ -458,6 +464,7 @@ export default function Search() {
           
           setVisibleMarkers(newMarkers);
           setSelectedMarker(newMarkers[0]); 
+          setLocationId(newMarkers[0].id)
         }
       }
     }
