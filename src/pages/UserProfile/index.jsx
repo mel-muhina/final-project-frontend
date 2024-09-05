@@ -155,7 +155,7 @@ export default function UserProfile({ }) {
                 <UserInfo profilePic = {profilePic} username={savedUsername} email={userAccountData.email}/>
             </div>
             <div className='metrics'>
-                <UserMetrics  visits = {visitCount} RecomendationCount = {RecomendationCount}/>
+                {/* <UserMetrics  visits = {visitCount} RecomendationCount = {RecomendationCount}/> */}
             </div>
             <div className='saved-list-container'>
                 <SavedList items = {savedItems} />

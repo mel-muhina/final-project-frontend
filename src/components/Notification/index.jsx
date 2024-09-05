@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import GetNotifications from '../GetNotifications'
+import './Notification.css'
 
 
 export default function Notification() {
@@ -7,6 +8,9 @@ export default function Notification() {
     const [recommendedUser, setRecommendedUser] = useState('')
     const [recommendedLocation, setRecommendedLocation] = useState('')
     const [chosenMessage, setChosenMessage] = useState('')
+    const [responseMessage, setResponseMessage] = useState('')
+    const token = localStorage.getItem('authToken');
+    const tokenExpiry = localStorage.getItem('tokenExpiry');
     const authToken = import.meta.env.VITE_AUTHORIZATION;
 
     function handleInput(e) {
@@ -31,7 +35,7 @@ export default function Notification() {
                     'Authorization': authToken
                 },
                 body: JSON.stringify({
-                    recommended_user_id: recommendedUser,
+                    username: recommendedUser,
                     place_id: recommendedLocation,
                     message: chosenMessage
                 })
@@ -43,6 +47,8 @@ export default function Notification() {
             setRecommendedUser('')
             setRecommendedLocation('')
             setChosenMessage('')
+            console.log("response", data.message)
+            setResponseMessage(data.message)
 
     } catch (err) {
         console.log("Error", err)
@@ -50,11 +56,13 @@ export default function Notification() {
 }
 
   return (
-    <>
-        <h1>Test</h1>
+    <>       
+        <div className='notification-p'>
+          <p>{responseMessage }</p>
+        </div>
         <form onSubmit={recommend} className="notification-form-container">
                 <div className="notification-form-innerform">
-                    <input placeholder="Recommend User ID" name="recommendedUser" value={recommendedUser} type="text" className="text" onChange={handleInput} required />
+                    <input placeholder="Recommend Username" name="recommendedUser" value={recommendedUser} type="text" className="text" onChange={handleInput} required />
                     <input placeholder="Location Recommended" name="recommendedLocation" value={recommendedLocation} type="text" className="text" onChange={handleLocation} required />
                     <select id="message" name="message" value={chosenMessage} onChange={handleMessage} required>
                     <option value="" disabled>Select Message</option>
@@ -69,9 +77,8 @@ export default function Notification() {
                 <div>
                     <button type="submit" className="notification-recommend-button">Send Recommendation</button>
                 </div>
-            </form>
-
-            <GetNotifications />
+         </form>
+ 
     </>
   )
 }

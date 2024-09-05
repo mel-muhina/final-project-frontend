@@ -4,7 +4,7 @@ import { useLocationId } from '../../contexts';
 import RecommendButton from "../RecommendButton";
 import LikeButton from "../LikeButton";
 import SaveButton from '../SaveButton';
-
+import './LocationModal.css'
 
 // function Modal({ onClose, children }) {
 //   return (
@@ -35,7 +35,7 @@ export default function LocationModal() {
         // getFact();
         // getReminder();
         // getLikes();
-    console.log("beep",LocationId)
+    // console.log("beep",LocationId)
     }, [LocationId])
 
 
@@ -132,16 +132,16 @@ export default function LocationModal() {
   return (
     <>
         <div className="location-modal-container">
-
+{/* 
               <div className='Fact-container'>
                   <p>{savedFact}</p>
               </div>
               <div className='Reminder-container'>
                   <p>{savedReminder}</p>
-              </div>
+              </div> */}
 
-            <SaveButton/>
-            {/* <RecommendButton/> */}
+            {/* <SaveButton/> */}
+            <RecommendButton/>
             {/* <p>Likes: {LikeAmount}</p> */}
             {/* <LikeButton/> */}
 
