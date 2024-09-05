@@ -8,8 +8,8 @@ import { LocationModal } from '../../components';
 
 
 
-export default function DummyPage({}) {
-
+export default function DummyPage() {
+    const id = 1;
     // const [isModalOpen, setIsModalOpen] = useState(false);
     // const openModal = () => setIsModalOpen(true);
     // const closeModal = () => setIsModalOpen(false);
@@ -155,7 +155,7 @@ export default function DummyPage({}) {
         // </Modal>
         // </div>
         <>
-            <LocationModal />
+            <LocationModal LocationId={id}/>
         </>
     );
 }

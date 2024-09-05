@@ -1,0 +1,23 @@
+.notification-form-innerform input{
+    color:black;
+    background-color: rgb(255, 255, 255);
+    padding: 2%;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+.notification-form-innerform select{
+    margin-top: 1%;
+    color:black;
+    background-color: rgb(255, 255, 255);
+    padding: 2%;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+.notification-p{
+    color: black;
+}
+/* .notification-button > button {
+    background-color: aqua;
+} */

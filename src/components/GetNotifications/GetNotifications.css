@@ -26,3 +26,9 @@
     margin: 0;
     line-height: 1.5; /* Adjust this if you need more or less space between lines */
 }
+
+.notification-container-login {
+  /* background-color: rgba(35,57,39,0.8); */
+  margin-bottom: 0px; 
+  border-radius: 30px;
+}
