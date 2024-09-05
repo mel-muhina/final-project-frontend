@@ -45,7 +45,7 @@ export default function GetNotifications() {
             <ul>
                 <li>
                     <p>Message: {recommended?.message}</p>
-                    <p>Recommended Location: {recommended?.place_name}</p>
+                    <p>Recommended Location: {recommended?.name}</p>
                     <p>Recommended By: {recommended?.recommender_username}</p>
                 </li>
             </ul>

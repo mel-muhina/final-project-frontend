@@ -16,17 +16,42 @@ const mapContainerStyle = {
   
   const libaries = ['places']
 
-export default function DirectionsMap({currentStepIndex}) {
+export default function DirectionsMap({currentStepIndex, journeyDirections}) {
 //   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [directions, setDirections] = useState([])
+  const [mapCenter, setMapCenter] = useState(center)
+  const [Current, setCurrent] = useState([])
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
-        setDirections(customDirections)
-        console.log(directions)
+      console.log("jdirections 1", journeyDirections)
+      if (journeyDirections && journeyDirections.length > 0) {
+        setDirections(journeyDirections)
+        console.log("jdirections 22", journeyDirections)
         console.log("current step", currentStepIndex)
-    }, [currentStepIndex])
+        console.log("directions mel", directions[currentStepIndex])
+      
+        const currentStep = journeyDirections[currentStepIndex];
+        if (currentStep) {
+          setCurrent(currentStep)
+          console.log("currentstep", currentStep)
+          // console.log("current step", currentStep.start_location)
+            // Dynamically update the center based on the current step
+            // setMapCenter(currentStep.start_location);
+  
+            if (currentStep?.location) {
+              console.log("meow")
+              console.log("another meow", currentStep.location.start)
+              console.log("another meow for end", currentStep.location.end)
+              setMapCenter(currentStep.location.start);
+            }
+          
+        }
+        }
+        
+
+    }, [currentStepIndex, journeyDirections])
   
 
     const { isLoaded } = useJsApiLoader({
@@ -86,24 +111,24 @@ export default function DirectionsMap({currentStepIndex}) {
 
 
 
-return isLoaded ? (
+return isLoaded && currentStep ? (
     <>
        <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={14}
-        center={center}
+        center={mapCenter}
       >
 
-{currentStep.start_location && currentStep.end_location && (
+      {currentStep?.location?.start && currentStep?.location?.end && (
          <div>
          {/* Start and End markers */}
-         <Marker position={currentStep.start_location} />
-         <Marker position={currentStep.end_location} />
+         <Marker position={currentStep?.location.start} />
+         <Marker position={currentStep?.location.end} />
 
         
           {/* Line showing the path */}
           <Polyline 
-          path={[currentStep?.start_location, currentStep?.end_location]} 
+          path={[currentStep?.location.start, currentStep?.location.end]} 
           options={{ strokeColor: "#FF0000", strokeWeight: 2 }}
         />
 
