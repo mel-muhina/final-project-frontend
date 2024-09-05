@@ -290,8 +290,9 @@ export default function Search() {
     useEffect(() => {
       if (LocationName) {
         handleTagClick(LocationName)
+        setLocationName('')
       }
-  }, [LocationName])
+  }, [])
 
 
     async function populateTags() {
@@ -397,7 +398,7 @@ export default function Search() {
 
   
   const onPlacesChanged = (data) => {
-    const matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
+    const matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
     let places = searchBoxRef.current.getPlaces();  
 
      if (data) {
