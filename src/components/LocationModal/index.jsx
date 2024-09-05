@@ -25,40 +25,34 @@ export default function LocationModal() {
     const closeModal = () => setIsModalOpen(false);
     const token = localStorage.getItem('authToken')
     const [savedReminder, setReminder] = useState();
-    const [savedFact, setFact] = useState();
+    const [savedFact, setFact] = useState({});
     const [LikeAmount, setLikeAmount] = useState();
     const { LocationId, setLocationId } = useLocationId();
     
   
 
     useEffect(() => {
-        // getFact();
-        // getReminder();
+        getFact();
+        getReminder();
         // getLikes();
-    // console.log("beep",LocationId)
-    }, [LocationId])
+    }, [])
 
-
+    //  const LocationId = 1
   
 
 
     const getFact = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/name/getFacts/2', {
+            const response = await fetch(`http://54.89.47.53:3000/name/getFacts/${LocationId}`, {
               method: 'GET',
               headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${token}`},
-                body:JSON.stringify({"place_id":LocationId}),
+                'content-type': 'application/json'}
               })
               const data = await response.json();
               
               if (response.ok) {
-                setFact(data.facts);
-                
-                console.log(savedFact)
-                console.log('Fact retrieved successfully!');
+                setFact(data);
                 // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve fact: ${data.error}`);
@@ -86,8 +80,6 @@ export default function LocationModal() {
             
             if (response.ok) {
               setLikeAmount(data.like_count);
-              console.log(LikeAmount)
-              console.log('Reminder retrieved successfully!');
               // Optionally, handle UI updates or further actions
           } else {
               console.error(`Failed to retrieve reminder: ${data.error}`);
@@ -103,19 +95,18 @@ export default function LocationModal() {
       const getReminder = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/name/getInfoById/2', {
+            const response = await fetch(`http://54.89.47.53:3000/name/getInfoById/${LocationId}`, {
               method: 'GET',
               headers: {
                 'content-type': 'application/json',
-                'Authorization': `Bearer ${token}`},
-                body:JSON.stringify({"place_id":LocationId}),
+                // 'Authorization': `Bearer ${token}`} 
+              }
+          
               })
               const data = await response.json();
               
               if (response.ok) {
                 setReminder(data.reminder_text);
-                console.log(savedReminder)
-                console.log('Reminder retrieved successfully!');
                 // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve reminder: ${data.error}`);
@@ -127,21 +118,20 @@ export default function LocationModal() {
             }
         }  
 
-  
-
   return (
     <>
         <div className="location-modal-container">
-{/* 
+
               <div className='Fact-container'>
-                  <p>{savedFact}</p>
+                  {/* <p>{savedFact}</p> */}
+                  {/* {savedFact?.facts} */}
               </div>
               <div className='Reminder-container'>
-                  <p>{savedReminder}</p>
-              </div> */}
+                  <p>Reminder: {savedReminder}</p>
+              </div>
 
-            {/* <SaveButton/> */}
-            <RecommendButton/>
+            <SaveButton/>
+            <RecommendButton LocationId={LocationId}/>
             {/* <p>Likes: {LikeAmount}</p> */}
             {/* <LikeButton/> */}
 

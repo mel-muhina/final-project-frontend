@@ -4,6 +4,8 @@ import './Search.css'
 import { LocationModal } from '../../components';
 import { useLocationId, useLocationName } from '../../contexts';
 import RecommendButton from '../../components/RecommendButton';
+// import SaveButton from '../../components/SaveButton';
+// import LocationModal from '../../components';
 
 const dummyTags = [
   {
@@ -564,8 +566,8 @@ export default function Search() {
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
                                   <p>This is a great place to check out!</p>
                                   <p>{selectedMarker.description}</p>
-                                  {/* <LocationModal /> */}
-                                  <RecommendButton LocationId={LocationId} />
+                                  <LocationModal LocationId={LocationId}/>
+                                  {/* <RecommendButton LocationId={LocationId} /> */}
                                 </div>
                               </InfoWindow>
                         )}

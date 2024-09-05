@@ -38,7 +38,7 @@
 .infobox {
     color:black;
     /* height: 20vh; */
-    padding: 5%;
+    padding: 2%;
 }
 
 
@@ -117,7 +117,7 @@
 }
 
 .infobox button {
-    background-color: rgb(0, 119, 18);;
+    background-color: rgb(0, 119, 18);
 }
 
 .infobox button:hover {
