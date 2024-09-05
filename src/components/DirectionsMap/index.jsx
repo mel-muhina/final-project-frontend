@@ -25,25 +25,14 @@ export default function DirectionsMap({currentStepIndex, journeyDirections}) {
   const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
-      console.log("jdirections 1", journeyDirections)
       if (journeyDirections && journeyDirections.length > 0) {
         setDirections(journeyDirections)
-        console.log("jdirections 22", journeyDirections)
-        console.log("current step", currentStepIndex)
-        console.log("directions mel", directions[currentStepIndex])
       
         const currentStep = journeyDirections[currentStepIndex];
         if (currentStep) {
           setCurrent(currentStep)
-          console.log("currentstep", currentStep)
-          // console.log("current step", currentStep.start_location)
-            // Dynamically update the center based on the current step
-            // setMapCenter(currentStep.start_location);
   
             if (currentStep?.location) {
-              console.log("meow")
-              console.log("another meow", currentStep.location.start)
-              console.log("another meow for end", currentStep.location.end)
               setMapCenter(currentStep.location.start);
             }
           
@@ -103,7 +92,6 @@ export default function DirectionsMap({currentStepIndex, journeyDirections}) {
       const handleNextStep = () => {
         if (currentStepIndex < directions.length - 1) {
         //   setCurrentStepIndex(currentStepIndex + 1);
-        console.log("meow")
         }
       };
     
