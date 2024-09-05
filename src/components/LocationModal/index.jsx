@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useLocationId } from '../../contexts';
+import Notification from './Notification';
 
 
 function Modal({ onClose, children }) {
@@ -23,15 +24,23 @@ export default function LocationModal() {
     const token = localStorage.getItem('authToken')
     const [savedReminder, setReminder] = useState();
     const [savedFact, setFact] = useState();
+    const [LikeAmount, setLikeAmount] = useState();
     const { LocationId, setLocationId } = useLocationId();
+    
+    const [showNotification, setShowNotification] = useState(false);
 
     useEffect(() => {
         getFact();
         getReminder();
-  console.log("beep",LocationId)
+        getLikes();
+    console.log("beep",LocationId)
     }, [LocationId])
 
-
+    const handleRecommend = () => {
+      setShowNotification(true);
+      //Notification()  //
+    };
+  
     const handleSave = async () => {
         
         try {
@@ -41,7 +50,7 @@ export default function LocationModal() {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${token}`},
-            body:JSON.stringify({"place_id":1}),
+            body:JSON.stringify({"place_id":LocationId}),
             })
             const data = await response.json();
             
@@ -63,12 +72,12 @@ export default function LocationModal() {
 
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/api/places/:place_id/like', {
+            const response = await fetch('http://54.89.47.53:3000/api/places/1/like', {
               method: 'POST',
               headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${token}`},
-              body:JSON.stringify({"user_id":1}),
+              body:JSON.stringify({"place_id":LocationId}),
               })
               const data = await response.json();
               
@@ -86,19 +95,47 @@ export default function LocationModal() {
             }
     }
 
+    const handleDislike = async() => {
+
+      try {
+          //const token = localStorage.getItem('authToken')
+          const response = await fetch('http://54.89.47.53:3000/api/places/1/dislike', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'Authorization': `Bearer ${token}`},
+            body:JSON.stringify({"place_id":LocationId}),
+            })
+            const data = await response.json();
+            
+            if (response.ok) {
+              
+              console.log('Disliked!', data);
+              // Optionally, handle UI updates or further actions
+          } else {
+              console.error(`Failed to Dislike location: ${data.error}`);
+              
+          }
+          } catch (err) {
+          console.error('Error disliking item:');
+          console.log(err)
+          }
+  }
+
     const getFact = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/name/getFacts/:id', {
+            const response = await fetch('http://54.89.47.53:3000/name/getFacts/2', {
               method: 'GET',
               headers: {
-                
-                'Authorization': `Bearer ${token}`}
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${token}`},
+                body:JSON.stringify({"place_id":LocationId}),
               })
               const data = await response.json();
               
               if (response.ok) {
-                setFact(data);
+                setFact(data.facts);
                 
                 console.log(savedFact)
                 console.log('Fact retrieved successfully!');
@@ -116,16 +153,17 @@ export default function LocationModal() {
     const getReminder = async() => {
     try {
         //const token = localStorage.getItem('authToken')
-        const response = await fetch('http://54.89.47.53:3000/name/getInfoById/1', {
+        const response = await fetch('http://54.89.47.53:3000/name/getInfoById/2', {
           method: 'GET',
           headers: {
-            
-            'Authorization': `Bearer ${token}`}
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${token}`},
+            body:JSON.stringify({"place_id":LocationId}),
           })
           const data = await response.json();
           
           if (response.ok) {
-            setReminder(data);
+            setReminder(data.reminder_text);
             console.log(savedReminder)
             console.log('Reminder retrieved successfully!');
             // Optionally, handle UI updates or further actions
@@ -138,6 +176,33 @@ export default function LocationModal() {
         console.log(err)
         }
     }  
+
+    const getLikes = async() => {
+      try {
+          //const token = localStorage.getItem('authToken')
+          const response = await fetch('http://54.89.47.53:3000/api/places/1/likes', {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+              'Authorization': `Bearer ${token}`},
+              body:JSON.stringify({"place_id":LocationId}),
+            })
+            const data = await response.json();
+            
+            if (response.ok) {
+              setLikeAmount(data.like_count);
+              console.log(LikeAmount)
+              console.log('Reminder retrieved successfully!');
+              // Optionally, handle UI updates or further actions
+          } else {
+              console.error(`Failed to retrieve reminder: ${data.error}`);
+              
+          }
+          } catch (err) {
+          console.error('Error retrieving items:');
+          console.log(err)
+          }
+      }  
     
 
     
@@ -168,8 +233,11 @@ export default function LocationModal() {
               </div>
 
               <button className='save-button' onClick={handleSave}>Save</button>
-              <button className='recommend-button'>Recommend</button>
-              <button className='like-button' onClick={handleLike}>Recommend</button>
+              <button className='recommend-button'onClick={handleRecommend}>Recommend</button>
+              <p>Likes: {LikeAmount}</p>
+              <button className='like-button' onClick={handleLike}>Like</button>
+
+              {showNotification && <Notification />}
           </Modal>
         </div>
     </>
