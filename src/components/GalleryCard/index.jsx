@@ -99,7 +99,7 @@ export default function GalleryCard() {
 
         if (response.ok) {
           const imgData = data
-          setLocationsImgArr(imgData)
+   
 
           if (imgData.length < 3) {
             setLocationsImgArr(tempImgApi)
@@ -111,6 +111,8 @@ export default function GalleryCard() {
           setLocationsImgArr(tempImgApi)
 
         }
+
+        setLocationsImgArr(imgData)
   
         
        

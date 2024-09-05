@@ -18,7 +18,7 @@ const [userLocation, setUserLocation] = useState("")
 useEffect(() => {
   getUserLocation();
   console.log("Are you set", userLocation)
-  console.log("directions", directions)
+  console.log("directions in the main page", directions)
 }, [])
 
 
@@ -59,6 +59,7 @@ const getUserLocation = () => {
         });
 
         const data = await response.json();
+        console.log("data in jounryeplanner", data)
         setStartLocation(data.startLocation)
         setEndLocation(data.endLocation)
 
@@ -107,7 +108,7 @@ const handleNext = () => {
               <JourneyPlanCard handleSubmit={handleSubmit} startLocation={startLocation} endLocation={endLocation} directions={directions} mode={mode} chosenMode={chosenMode} setChosenMode={setChosenMode} setDestination={setDestination} destination={destination} setOrigin={setOrigin} currentIndex={currentIndex} handleNext={handleNext}/>
             </div>
             <div className="journeyplanner-directions-map">
-              <DirectionsMap currentStepIndex={currentIndex}/>
+              <DirectionsMap currentStepIndex={currentIndex} journeyDirections={directions}/>
             </div>
         </div>
     </>
