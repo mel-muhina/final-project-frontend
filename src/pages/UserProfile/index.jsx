@@ -4,7 +4,8 @@ import UserInfo from '../../components/UserInfo';
 import UserMetrics from '../../components/UserMetrics';
 import SavedList from '../../components/SavedList';
 import { useUserAccount } from '../../contexts/userAccount';
-import profilePic from '../../assets/logo.png';
+import profilePic from '../../assets/images/userprofile.jpg';
+import './UserProfile.css'
 
 
 

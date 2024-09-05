@@ -14,29 +14,53 @@ export default function UserLogin({}) {
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
     const { setUserAccountData } = useUserAccount()
-    const token = localStorage.getItem('authToken')
     const [loggedIn, setLoggedIn] = useContext(LoginContext)
 
+    const token = localStorage.getItem('authToken')
+    const tokenExpiry = localStorage.getItem('tokenExpiry');
+    const tokenCreationTime = localStorage.getItem('tokenCreationTime');
 
-
+    const TOKEN_EXPIRATION_PERIOD = 60 * 60 * 1000;
 
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
 
+
+    const isTokenExpired = () => {
+      if (!tokenCreationTime) return true;
+      const now = new Date().getTime();
+      return now - parseInt(tokenCreationTime, 10) > TOKEN_EXPIRATION_PERIOD;
+    };
+
     useEffect(() => {
-      console.log("222")
-      if(!token) {
-          setLoggedIn(false)
-          console.log("not loggedin")
+      if (token && !isTokenExpired()) {
+        setLoggedIn(true);
+        console.log("You are logged in");
+      } else {
+        setLoggedIn(false);
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('tokenCreationTime');
+        console.log("Token expired or not logged in");
       }
-      else{
-          setLoggedIn(true)
-          console.log("you are logged in")
-      }
-      if (savedData) {
-        console.log("User data saved:", savedData)}
       
-  }, [token, loggedIn, savedData])
+      if (savedData) {
+        console.log("User data saved:", savedData);
+      }
+    }, [token, loggedIn, savedData])
+
+  //   useEffect(() => {
+  //     if(!token) {
+  //         setLoggedIn(false)
+  //         console.log("not loggedin")
+  //     }
+  //     else{
+  //         setLoggedIn(true)
+  //         console.log("you are logged in")
+  //     }
+  //     if (savedData) {
+  //       console.log("User data saved:", savedData)}
+      
+  // }, [token, loggedIn, savedData])
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -59,11 +83,13 @@ export default function UserLogin({}) {
 
         if (response.ok) {
           const { token } = data
+          console.log("what is data", data)
           const username = "Dummy User";
           setUserAccountData({ username, email });
          
-          
+          const creationTime = new Date().getTime();
           localStorage.setItem('authToken', token)
+          localStorage.setItem('tokenCreationTime', creationTime);
 
           console.log('Login Successful: ', data);
         } 

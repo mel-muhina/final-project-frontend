@@ -154,7 +154,7 @@
     width: 300px; 
     z-index: 1;
     border-radius: 5px;
-    max-height: 188px;
+    max-height: 147px;
     overflow-y: auto; 
     transform: translateX(60px);
   }

@@ -6,7 +6,7 @@ export default  function UserMetrics({metrics}) {
 
     return(
         <div className='metric- container'>
-            <h1>User Data</h1>
+            <h2>User Data</h2>
             <ul>
                 <li><strong>Amount of places visited:</strong> {VisitCount}</li>
                 <li><strong>Amount of Recommended Locations:</strong> {RecoemmendedPosts}</li>
