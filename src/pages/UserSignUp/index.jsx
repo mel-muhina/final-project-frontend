@@ -9,7 +9,9 @@ export default function UserSignUp() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
+    const tokenCreationTime = localStorage.getItem('tokenCreationTime');
 
+    const TOKEN_EXPIRATION_PERIOD = 60 * 60 * 1000;
 
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handleUsernameChange = (e) => setUsername(e.target.value)
@@ -35,7 +37,9 @@ export default function UserSignUp() {
 
         if (response.ok) {
           const { token } = data
+          const creationTime = new Date().getTime();
           localStorage.setItem('authToken', token)
+          localStorage.setItem('tokenCreationTime', creationTime);
           console.log('Signup Successful: ', data);
         } else {
           console.error(`Signup Failed: ${data.error}`);
