@@ -14,26 +14,26 @@ function Modal({ isOpen,onClose, children }) {
     <div className="recommend-modal-backdrop">
       <div className="recommend-modal-content">
         {children}
-      <button onClick={onClose}>Close</button>
+      <button onClick={onClose} className='modal-recommend-button'>Close</button>
       </div>
     </div>
   );
 }
 
 
-export default function RecommendButton() {
+export default function RecommendButton({ LocationId }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(!isModalOpen);
     const closeModal = () => setIsModalOpen(false);
-    const { LocationId, setLocationId } = useLocationId();
+    // const { LocationId, setLocationId } = useLocationId();
 
   
     return (
         <>
         <button className='recommend-button' onClick={openModal}>Recommend</button>  
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-            <Notification />
+            <Notification LocationId={LocationId}/>
         </Modal>
         </>
       );

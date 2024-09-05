@@ -58,3 +58,7 @@
     border-radius: 30px;
     font-size: 1.2rem;
 }
+
+.journey-button:hover {
+    background-color: rgb(0, 119, 18);
+}

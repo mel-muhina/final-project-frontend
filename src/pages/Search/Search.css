@@ -37,6 +37,8 @@
 
 .infobox {
     color:black;
+    /* height: 20vh; */
+    padding: 5%;
 }
 
 
@@ -104,4 +106,20 @@
         
 .Rivers{
     background-color: #216aca;
+}
+
+
+
+.infobox img {
+    width: 30%;
+    object-fit: contain;   
+    border-radius: 10px;
+}
+
+.infobox button {
+    background-color: rgb(0, 119, 18);;
+}
+
+.infobox button:hover {
+    background-color: rgba(60, 102, 68, 1);
 }

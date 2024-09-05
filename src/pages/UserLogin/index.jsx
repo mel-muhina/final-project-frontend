@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { useUserAccount } from '../../contexts/userAccount';
 import { LoginContext } from '../../App';
-
+import './UserLogin.css'
 
 
 
@@ -122,18 +122,18 @@ export default function UserLogin({}) {
 
   return (
     <>
-        <div>
+        <div className="login-form">
             <h1>Login</h1>
             <form onSubmit = {handleSubmit}>
               <label htmlFor="email"> Email</label>
-              <input value={email} onChange={handleEmailChange} type="email" id="Email" name="Email"/>
+              <input value={email} onChange={handleEmailChange} type="email" placeholder="Email" id="Email" name="Email"/>
 
               <label htmlFor="password"> Password</label>
-              <input value={password} onChange={handlePasswordChange} type= "password" placeholder="password" id="password" name="password"/>
+              <input value={password} onChange={handlePasswordChange} type= "password" placeholder="Password" id="password" name="password"/>
 
               <button type="submit">Login</button>
             </form>
-            <Link to="/user/signup"><button>Dont have an account? Sign Up</button></Link>
+            <Link to="/user/signup"><button className='secondbutton-login'>Dont have an account? Sign Up</button></Link>
         </div>
     </>
     

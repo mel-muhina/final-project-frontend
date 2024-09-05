@@ -53,7 +53,9 @@ export default function GetNotifications() {
         </div>
       ))
     ) : (
+         <div className="notification-container-login">
         <p>Please login</p>
+        </div>
     )}
 
     

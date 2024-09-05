@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import './Search.css'
 import { LocationModal } from '../../components';
 import { useLocationId, useLocationName } from '../../contexts';
+import RecommendButton from '../../components/RecommendButton';
 
 const dummyTags = [
   {
@@ -314,7 +315,6 @@ export default function Search() {
 
       const response = await fetch(`https://places.googleapis.com/v1/places:searchText`, options)
       const data = await response.json()
-      console.log("data", data.places)
       onPlacesChanged(data.places)
     };
 
@@ -426,6 +426,7 @@ export default function Search() {
       setVisibleMarkers(newMarkers);
       setSelectedMarker(newMarkers[0]); 
       setLocationId(newMarkers[0].id)
+ 
       
     } else {
       if (places && places.length > 0) {
@@ -441,7 +442,8 @@ export default function Search() {
                 title: mark.name,
                 description: mark.description,
                 id: mark.place_id,
-                tag: mark.tag_id
+                tag: mark.tag_id,
+                img: mark.image_url
             });
           })
   
@@ -544,7 +546,10 @@ export default function Search() {
                                 key={mark.id}
                                 position={mark.position}
                                 title={mark.title}
-                                onClick={() => setSelectedMarker(mark)}
+                                onClick={() => {
+                                  setSelectedMarker(mark)
+                                  setLocationId(mark.id)
+                                }}
                               />
                             ))}
                             {selectedMarker && selectedMarker.position && (
@@ -553,10 +558,14 @@ export default function Search() {
                                 onCloseClick={() => setSelectedMarker(null)}
                               >
                                 <div className="infobox">
+                                {selectedMarker?.img && selectedMarker.img[0] && (
+                                  <img src={selectedMarker.img[0]} alt="Selected Marker" />
+                                )}
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
-                                  <p>This is some cool information.</p>
+                                  <p>This is a great place to check out!</p>
                                   <p>{selectedMarker.description}</p>
                                   {/* <LocationModal /> */}
+                                  <RecommendButton LocationId={LocationId} />
                                 </div>
                               </InfoWindow>
                         )}
