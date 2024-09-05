@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import './UserSignUp.css'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function UserSignUp() { 
@@ -9,6 +11,7 @@ export default function UserSignUp() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [savedData, setSavedData] = useState(null)
+    const navigate = useNavigate();
     const tokenCreationTime = localStorage.getItem('tokenCreationTime');
 
     const TOKEN_EXPIRATION_PERIOD = 60 * 60 * 1000;
@@ -41,6 +44,7 @@ export default function UserSignUp() {
           localStorage.setItem('authToken', token)
           localStorage.setItem('tokenCreationTime', creationTime);
           console.log('Signup Successful: ', data);
+          navigate('/');
         } else {
           console.error(`Signup Failed: ${data.error}`);
           alert('SignUp failed please try again ');
@@ -68,17 +72,17 @@ export default function UserSignUp() {
 
   return (
     <>
-        <div>
+        <div className='login-form'>
             <h1>Sign Up</h1>
             <form onSubmit = {handleSubmit}>
               <label htmlFor="email"> Email</label>
-              <input value={email} onChange={handleEmailChange} type="email" id="Email" name="Email"/>
+              <input value={email} onChange={handleEmailChange} type="email" placeholder="Email" id="Email" name="Email"/>
 
               <label htmlFor="username"> Username</label>
-              <input value={username} onChange={handleUsernameChange} type="text" id="Username" name="Username"/>
+              <input value={username} onChange={handleUsernameChange} type="text" placeholder="Username"  id="Username" name="Username"/>
 
               <label htmlFor="password"> Password</label>
-              <input value={password} onChange={handlePasswordChange} type= "password" placeholder="password" id="password" name="password"/>
+              <input value={password} onChange={handlePasswordChange} type= "password" placeholder="Password" id="password" name="password"/>
 
               <button type="submit">Sign Up</button>
             </form>
