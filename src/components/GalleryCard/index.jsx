@@ -144,7 +144,7 @@ export default function GalleryCard() {
               {/* <h2>Gallery</h2> */}
             </div>
             <div className="gallery-container">
-                <h2>Gallery</h2> 
+                <h2>Discover Our Gallery</h2> 
                 {locationsImgArr.slice(0, 3).map(img => (
                        <Link to={`/search/${LocationId}`} key={img} ><img src={img} className="gallery-img"/></Link>
                 ))

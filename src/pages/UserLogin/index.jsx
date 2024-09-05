@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useUserAccount } from '../../contexts/userAccount';
 import { LoginContext } from '../../App';
 import './UserLogin.css'
-
+import { useNavigate } from 'react-router-dom';
 
 
 export default function UserLogin({}) { 
@@ -15,7 +15,7 @@ export default function UserLogin({}) {
     const [savedData, setSavedData] = useState(null)
     const { setUserAccountData } = useUserAccount()
     const [loggedIn, setLoggedIn] = useContext(LoginContext)
-
+    const navigate = useNavigate();
     const token = localStorage.getItem('authToken')
     const tokenExpiry = localStorage.getItem('tokenExpiry');
     const tokenCreationTime = localStorage.getItem('tokenCreationTime');
@@ -92,6 +92,7 @@ export default function UserLogin({}) {
           localStorage.setItem('tokenCreationTime', creationTime);
 
           console.log('Login Successful: ', data);
+          navigate('/');
         } 
         else {
           console.error(`Login Failed: ${data.error}`);

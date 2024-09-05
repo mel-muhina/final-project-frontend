@@ -41,21 +41,12 @@ export default function Nav() {
   const [notificationModal, setNotificationModal] = useState(false)
   const [profileModal, setProfileModal] = useState(false)
   const token = localStorage.getItem('authToken');
-  const tokenExpiry = localStorage.getItem('tokenExpiry');
 
   useEffect(() => {
-      if (tokenExpiry) {
-        const currentTime = Date.now(); // Get current time in milliseconds
-        const expiryTime = new Date(tokenExpiry).getTime(); // Convert tokenExpiry to time in milliseconds
-
-        if (expiryTime <= currentTime) {
-          // If the token has expired, remove the token and expiry from localStorage
-          localStorage.removeItem('authToken');
-          localStorage.removeItem('tokenExpiry');
-          console.log('Token has expired, removed from localStorage.');
-        }
+      if (token) {
+          // getRecommended(token);
       }
-  }, [])
+  }, [token])
 
     const toggleMenu = () => {
       setIsOpen(!isOpen);

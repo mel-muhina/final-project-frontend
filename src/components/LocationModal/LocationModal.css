@@ -1,5 +1,5 @@
 .location-modal-container{
- margin-top: 50%;
+ /* margin-top: 50%; */
 }
 
 
@@ -29,7 +29,7 @@
     position: relative;
   }
   
-  .save-button {
+  /* .save-button {
     position: absolute;
     color: red;
     top: 10px;
@@ -38,16 +38,8 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-  }
+  } */
   
   .recommend-button {
-    position: absolute;
-    color: green;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
+    margin-left: 1%;
   }
-   */

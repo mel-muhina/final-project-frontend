@@ -4,13 +4,12 @@ import { useLocationId } from '../../contexts';
 
 
 
-export default function SaveButton({LocationId}) {
+export default function SaveButton() {
 
-    // const { LocationId, setLocationId } = useLocationId();
+    const { LocationId, setLocationId } = useLocationId();
     const handleSave = async () => {
-    console.log("22") 
     try {
-        //const token = localStorage.getItem('authToken')
+        const token = localStorage.getItem('authToken')
         const response = await fetch('http://54.89.47.53:3000/users/save', {
         method: 'POST',
         headers: {
