@@ -37,8 +37,15 @@
 
 .infobox {
     color:black;
-    /* height: 20vh; */
+    /* height: 400px; */
+    /* width: 500px; */
     padding: 2%;
+    scrollbar-width: none;
+    
+}
+
+.infobox::-webkit-scrollbar {
+    display: none;
 }
 
 

@@ -1,6 +1,14 @@
 .location-modal-container{
- /* margin-top: 50%; */
+ overflow: auto;
+ scrollbar-width: none;
+ 
 }
+
+.location-modal-container::-webkit-scrollbar{
+  display: none; 
+  
+ }
+ 
 
 
 /* Modal.css
@@ -42,4 +50,10 @@
   
   .recommend-button {
     margin-left: 1%;
+  }
+
+  .location-modal-container .responseMess {
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
