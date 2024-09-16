@@ -21,6 +21,7 @@ function App() {
  
   return (
     <>
+<<<<<<< HEAD
     <LocationNameProvider>
         <LocationProvider>
           <LoginContext.Provider value={[loggedIn, setLoggedIn]}> 
@@ -50,6 +51,14 @@ function App() {
             </LoginContext.Provider> 
          </LocationProvider>
       </LocationNameProvider>
+=======
+      <div>
+        <img src={logo2} />
+        <h1>Homepage</h1>
+        <p>Test</p>
+        <p>Another test</p>
+      </div>
+>>>>>>> main
     </>
   )
 }
