@@ -1,0 +1,49 @@
+.FeaturedCard-Container {
+    display: flex;
+    width: 90vh;
+    background-color: rgba(35, 57, 39,0.8);
+    border-radius: 31.4px;
+    padding: 1% 1% 2% 1%;
+    box-shadow: 2px 2px 5px black;
+}
+
+.FeaturedCard-innerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-left: 5%;
+}
+
+
+.FeaturedCard-innerContainer > h2 { 
+    padding-left: 0px;
+    
+}
+
+.FeaturedCard-innerContainer > .FeaturedCard-location-icon { 
+    padding: 5% 5% 0% 0%;
+    height: 5vh;
+}
+
+
+.FeaturedCard-innerContainer > button { 
+    border-radius: 54.05px;
+    padding: 2% 7%;
+}
+
+.FeaturedCard-innerContainer > p { 
+    font-size: 1.1rem;
+    text-align: left;
+    padding-right: 5%;
+}
+
+.FeaturedCard-Icon-Container {
+   
+}
+
+.FeaturedCard-innerContainer > .FeaturedCard-Icon-Container > img {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-right: 15px;
+}

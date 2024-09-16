@@ -1,0 +1,50 @@
+.login-form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: rgba(35, 57, 39,0.8);
+    margin-top: 15%;
+    padding: 10%;
+    border-radius: 10px;
+    width: 400px;
+    
+    
+
+}
+
+.login-form form {
+ padding: 5%;
+ align-content: center;
+ margin:  0 auto;
+}
+
+
+.login-form input {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color:black;
+    background-color: rgb(255, 255, 255);
+    padding: 5%;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+
+.login-form button {
+    /* background-color: rgb(46, 102, 55); */
+    margin-top: 10%;
+    padding: 5% 10%;
+    border: none;
+}
+
+.login-form button:hover {
+    background-color: rgb(28, 51, 32);
+    border: none;
+}
+
+.login-form a .secondbutton-login {
+    padding: 4% 8%;
+}
+
+/*  background-color: rgb(46, 102, 55); */

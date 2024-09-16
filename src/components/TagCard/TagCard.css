@@ -1,0 +1,71 @@
+.tags-container {
+    width: 50vh;
+    background-color: rgba(35, 57, 39,0.8);;
+    border-radius: 31.4px;
+    padding: 1%;
+    box-shadow: 2px 2px 5px black;
+}
+
+.tags-container > .tags-title > h2 {
+  text-align: left;
+  padding-left: 9%;
+}
+
+.tags-container > .tags-title {
+    display: flex;
+    
+  }
+
+  .tags-container > .tags-title > img {
+    padding: 7% 7%;
+    
+  }
+
+.tags-container > ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.tags-container > ul > li{
+    padding: 2% 4%;
+    margin: 2%;
+    list-style: none;
+    border-radius: 10.48px;
+}
+
+.tags-container > ul > li > a{
+   color: white;
+}
+
+.tags-notification {
+    height: 4vh;
+}
+
+
+.Woodlands {
+    background-color: #118F25;
+
+}
+
+.Hiking {
+    background-color: #551CCD;
+}
+
+.Camping {
+    background-color: #CB4242;
+}
+
+
+.Beach {
+    background-color: #F06B41;
+}
+
+.Park {
+    background-color: #418df0;
+}
+
+.Garden {
+    background-color: #e88aff;
+}

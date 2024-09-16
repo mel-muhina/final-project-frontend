@@ -1,0 +1,64 @@
+.journey-plan-container {
+    background-color: rgba(35, 57, 39,0.9);
+    height: 31rem;
+    width: 50rem;
+    overflow: auto;
+    border-radius: 30px;
+}
+
+.journey-plan-form  {
+    padding: 1%;
+}
+
+.journey-plan-innerform {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+}
+
+.journey-plan-innerform .text {
+    color: black;
+    background-color: aliceblue;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 10px;
+    font-size: 1.2rem; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.journey-plan-innerform select {
+    color: black;
+    background-color: aliceblue;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.journey-button {
+    margin-top: 2%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(35, 57, 39,0.9); /* Primary color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.directions-section {
+    color: rgba(35, 57, 39,0.9);
+    margin: 10px;
+    padding: 2%;
+    background-color: rgb(234, 253, 237);
+    border-radius: 30px;
+    font-size: 1.2rem;
+}
+
+.journey-button:hover {
+    background-color: rgb(0, 119, 18);
+}

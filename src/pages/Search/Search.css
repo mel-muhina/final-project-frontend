@@ -1,0 +1,132 @@
+.googlemap-searchbar {
+    color: black;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    width: 300px;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
+    outline: none;
+    text-overflow: ellipsis;
+    /* position: absolute; */
+    margin: 30px 10px;
+    top: 68px;
+    left: 202px;
+    z-index: 10;
+    background-color: aliceblue;
+}
+
+.searchbar-background {
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    background-color: rgba(46, 46, 46, 0.8);
+    top: 6.8rem;
+    left: 12rem;
+    border-radius: 15px;
+    padding-right: 6.5%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    z-index: 15;
+    margin-bottom: 0.3%;
+}
+
+/* Infobox */
+
+.infobox {
+    color:black;
+    /* height: 400px; */
+    /* width: 500px; */
+    padding: 2%;
+    scrollbar-width: none;
+    
+}
+
+.infobox::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Tags */
+
+.search-tags-container {
+    display: flex;
+    flex-direction: row;   
+    flex-wrap: nowrap;    
+    gap: 1%;   
+    /* overflow: hidden;       */
+}
+
+ 
+.search-tags-container li{
+    padding: 5px 10px;
+    list-style: none;
+    border-radius: 10.48px;
+}
+
+.search-tags-container li:hover{
+   cursor: pointer;
+}
+
+
+
+
+.Woodlands {
+    background-color: #0c6d1c;
+
+}
+
+.Hiking {
+    background-color: #551CCD;
+}
+
+.Camping {
+    background-color: #CB4242;
+}
+
+
+.Beach {
+    background-color: #F06B41;
+}
+
+.Park {
+    background-color: #7ebe06;
+}
+
+.Garden {
+    background-color: #ffa600;
+}
+
+.Wildlife {
+    background-color: #d315aa;
+}
+
+.Farm {
+    background-color: #af3c2d;
+}
+
+.Historic {
+    background-color: #009b5f;
+}
+        
+.Rivers{
+    background-color: #216aca;
+}
+
+
+
+.infobox img {
+    width: 30%;
+    object-fit: contain;   
+    border-radius: 10px;
+}
+
+.infobox button {
+    background-color: rgb(0, 119, 18);
+}
+
+.infobox button:hover {
+    background-color: rgba(60, 102, 68, 1);
+}
