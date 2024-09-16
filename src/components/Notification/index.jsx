@@ -8,7 +8,7 @@ export default function Notification({LocationId}) {
     const [recommendedUser, setRecommendedUser] = useState('')
     const [recommendedLocation, setRecommendedLocation] = useState('')
     const [chosenMessage, setChosenMessage] = useState('')
-    const [responseMessage, setResponseMessage] = useState('')
+    const [responseMessage, setResponseMessage] = useState('Send a recommendation to a friend')
     const token = localStorage.getItem('authToken');
     const tokenExpiry = localStorage.getItem('tokenExpiry');
     const authToken = import.meta.env.VITE_AUTHORIZATION;
@@ -46,7 +46,7 @@ export default function Notification({LocationId}) {
             setRecommendedUser('')
             setRecommendedLocation('')
             setChosenMessage('')
-            setResponseMessage(data.message)
+            setResponseMessage("Your recommendation has been sent.")
 
     } catch (err) {
         console.log("Error", err)
@@ -56,7 +56,7 @@ export default function Notification({LocationId}) {
   return (
     <>       
         <div className='notification-p'>
-          <p>{responseMessage }</p>
+          <p className='responseMess'>{responseMessage }</p>
         </div>
         <form onSubmit={recommend} className="notification-form-container">
                 <div className="notification-form-innerform">

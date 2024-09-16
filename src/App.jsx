@@ -23,7 +23,7 @@ function App() {
     <>
     <LocationNameProvider>
         <LocationProvider>
-          <LoginContext.Provider> 
+          <LoginContext.Provider value={[loggedIn, setLoggedIn]}> 
               <UserAccountProvider>
                 <FeaturedCardIconProvider>
                     <Routes>
