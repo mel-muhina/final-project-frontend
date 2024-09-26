@@ -42,36 +42,31 @@ export default function GalleryCard() {
 
     
     const tempImgApi = [
-      {  id: 1,
-        img_url: "https://images.playground.com/422d04b167304b8caf41fd3025857466.jpeg"
+      {  img_url: "https://images.playground.com/422d04b167304b8caf41fd3025857466.jpeg"
       }, 
-      {  id: 2,
-        img_url: "https://images.playground.com/3907c95374de4fd3a1a09fde9d37e8b3.jpeg"
+      {  img_url: "https://images.playground.com/3907c95374de4fd3a1a09fde9d37e8b3.jpeg"
       }, 
-      {  id: 3,
-        img_url: "https://images.playground.com/afbf9637cd2a455a8bdfedf10609aff9.jpeg"
+      {  img_url: "https://images.playground.com/afbf9637cd2a455a8bdfedf10609aff9.jpeg"
       }, 
-      {  id: 4,
-        img_url: "https://images.playground.com/f471cc4d678946f79e16ed324e353e39.jpeg"
+      {  img_url: "https://images.playground.com/f471cc4d678946f79e16ed324e353e39.jpeg"
       },
-      {  id: 5,
+      { 
         img_url: "https://images.playground.com/b75feecdad9e403db035a42dbcbe337c.jpeg"
       }
        
     ]
 
     const tempImgs = [
-      {  id: 1,
-        img_url: {windsor1}
+      { img_url: {windsor1}
       }, 
-      {  id: 2,
-        img_url: {windsor2}
+      { img_url: {windsor2}
       }, 
-      {  id: 3,
-        img_url: {windsor3}
+      { img_url: {windsor3}
       }, 
        
     ]
+
+  
 
     async function generateId() {
         // const newIds = []
@@ -145,10 +140,17 @@ export default function GalleryCard() {
             </div>
             <div className="gallery-container">
                 <h2>Discover Our Gallery</h2> 
-                {locationsImgArr.slice(0, 3).map(img => (
+                {locationsArr && locationsImgArr?.length > 0 ? (
+                locationsImgArr.slice(0, 3).map(img => (
                        <Link to={`/search/${LocationId}`} key={img} ><img src={img} className="gallery-img"/></Link>
                 ))
-                }
+                )
+                : <div>
+                   <Link to={`/search/${LocationId}`} key="windsor-1" ><img src={windsor1} className="gallery-img"/></Link>
+                   <Link to={`/search/${LocationId}`} key="windsor-2" ><img src={windsor2} className="gallery-img"/></Link>
+                   <Link to={`/search/${LocationId}`} key="windsor-3" ><img src={windsor3} className="gallery-img"/></Link>
+                  </div>
+              }
             </div>
         </div>
     </>

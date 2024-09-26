@@ -201,3 +201,7 @@
     list-style: none;
     padding: 2%;
   }
+
+  .logo-title:hover {
+    color: #fff;
+  }

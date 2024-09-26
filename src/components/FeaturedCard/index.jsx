@@ -21,6 +21,7 @@ export default function FeaturedCard() {
         if (LocationId) {
             getLocationData();
         }
+
     }, [LocationId])
 
 
@@ -32,7 +33,7 @@ export default function FeaturedCard() {
     async function getLocationData() {
 
         const tempApi = {
-            "place_name": "Windsor Great Park", 
+            "name": "Windsor Great Park", 
             "description": "A vast historic parkland near Windsor Castle, covering over 4,800 acres with a mix of gardens, woodlands, and open spaces. It features landmarks like the Long Walk and Savill Garden, and is known for its scenic trails and resident deer herds.",
             "tag": ["nature", "Quiet", "Scenic"],
             "location_type": "park",
@@ -43,6 +44,8 @@ export default function FeaturedCard() {
             "address": "SL4 2HT"
         }
 
+        setLocationData(tempApi)
+        setSavedDescriptionData(tempApi.description)
         const randomIdGen = Math.floor(Math.random() * 100) +1;
         const api = `http://54.89.47.53:3000/locations/data/${LocationId}`
         const descriptionApi = `http://54.89.47.53:3000/locations/description/${LocationId}`
@@ -93,7 +96,7 @@ export default function FeaturedCard() {
     <>
         <div className="FeaturedCard-Container">
             <div className="FeaturedCard-innerContainer">
-                <img src={locationIcon} key={locationData?.place_id}className="FeaturedCard-location-icon"/><h2>{locationData?.name || backUpData?.place_name}</h2>
+                <img src={locationIcon} key={locationData?.place_id}className="FeaturedCard-location-icon"/><h2>{locationData?.name || backUpData?.name}</h2>
                 <p>{savedDescriptionData}</p>
                 <Link to={`/search/${LocationId}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>

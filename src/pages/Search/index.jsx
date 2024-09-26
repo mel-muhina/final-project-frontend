@@ -286,6 +286,7 @@ export default function Search() {
 
     useEffect(() => {
         populateTags();
+        getMarkers();
         getRealMarkers();
 
     }, [])

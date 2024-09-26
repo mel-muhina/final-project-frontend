@@ -26,3 +26,25 @@
     padding: 1vh 2vh;
     object-fit: cover;
 }
+
+
+.gallery-img {
+    height: 25vh;
+    width: 25vh;
+    border-radius: 15%;
+    padding: 1vh 2vh;
+    object-fit: cover;
+}
+
+/* .gallery-img:hover {
+    height: 26vh;
+    width: 26vh;
+    padding: 0.5vh 1.5vh;
+
+} */
+
+.gallery-container a > img:hover {
+    height: 26vh;
+    width: 26vh;
+    padding: 0.5vh 1.5vh;
+}
