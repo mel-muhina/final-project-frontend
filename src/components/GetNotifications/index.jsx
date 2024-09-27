@@ -18,7 +18,7 @@ export default function GetNotifications() {
      async function getRecommended(token) {
         // e.preventDefault();
         try {
-            const response = await fetch(`http://54.89.47.53:3000/users/recommendations`, {
+            const response = await fetch(`http://34.239.121.162:3000/users/recommendations`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

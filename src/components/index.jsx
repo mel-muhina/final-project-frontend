@@ -9,3 +9,4 @@ export { default as DirectionsMap } from './DirectionsMap';
 export { default as Notification } from './Notification';
 export { default as GetNotifications } from './GetNotifications';
 export { default as LocationModal } from './LocationModal';
+export { default as LoadingBar } from './LoadingBar';

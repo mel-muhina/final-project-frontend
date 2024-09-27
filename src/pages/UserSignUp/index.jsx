@@ -29,7 +29,7 @@ export default function UserSignUp() {
       }
 
       try {
-        const response = await fetch('http://54.89.47.53:3000/users/register', {
+        const response = await fetch('http://34.239.121.162:3000/users/register', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

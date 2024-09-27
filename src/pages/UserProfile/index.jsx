@@ -33,7 +33,7 @@ export default function UserProfile({ }) {
     
         try {
             // const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/users/retrieve', {
+            const response = await fetch('http://34.239.121.162:3000/users/retrieve', {
               method: 'GET',
               headers: {
                 
