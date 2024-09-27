@@ -60,6 +60,7 @@ export default function FeaturedCard() {
         if (response.ok && descriptionResponse) {
             setLocationData(data)
             setLocationName(data.name)
+            console.log("meow", data)
             // setSavedDescriptionData(descriptionData)
 
             // if (data && descriptionData) {
@@ -71,13 +72,13 @@ export default function FeaturedCard() {
             //     setSavedDescriptionData(tempApi.description)
             // }
 
-            const truncatedName = data.name.length > 23
-            ? data.name.slice(0, 28) + "..." 
+            const truncatedName = data.name.length > 25
+            ? data.name.slice(0, 25) + "..." 
             : data.name;
             setLocationName(truncatedName)
 
-            const truncatedDescription = descriptionData.length > 250 
-            ? descriptionData.slice(0, 250) + "..." 
+            const truncatedDescription = descriptionData.length > 240 
+            ? descriptionData.slice(0, 240) + "..." 
             : descriptionData;
             setSavedDescriptionData(truncatedDescription);
 
@@ -133,7 +134,7 @@ export default function FeaturedCard() {
                 <Link to={`/search/${LocationId}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
             <div className="FeaturedCard-Icon-Container">
-                <FeaturedIcon tag={locationData?.location_type}/>
+                <FeaturedIcon tag={locationData?.tag_name}/>
                 {/* <FeaturedIcon tag={nature} */}
             </div>
         </div>
