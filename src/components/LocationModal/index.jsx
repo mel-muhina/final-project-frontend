@@ -44,7 +44,7 @@ export default function LocationModal() {
     const getFact = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch(`http://54.89.47.53:3000/name/getFacts/${LocationId}`, {
+            const response = await fetch(`http://34.239.121.162:3000/name/getFacts/${LocationId}`, {
               method: 'GET',
               headers: {
                 'content-type': 'application/json'}
@@ -69,7 +69,7 @@ export default function LocationModal() {
     const getLikes = async() => {
       try {
           //const token = localStorage.getItem('authToken')
-          const response = await fetch('http://54.89.47.53:3000/api/places/1/likes', {
+          const response = await fetch('http://34.239.121.162:3000/api/places/1/likes', {
             method: 'GET',
             headers: {
               'content-type': 'application/json',
@@ -95,7 +95,7 @@ export default function LocationModal() {
       const getReminder = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch(`http://54.89.47.53:3000/name/getInfoById/${LocationId}`, {
+            const response = await fetch(`http://34.239.121.162:3000/name/getInfoById/${LocationId}`, {
               method: 'GET',
               headers: {
                 'content-type': 'application/json',

@@ -28,7 +28,7 @@ export default function Notification({LocationId}) {
     async function recommend(e) {
         e.preventDefault();
         try {
-            const response = await fetch(`http://54.89.47.53:3000/users/recommend`, {
+            const response = await fetch(`http://34.239.121.162:3000/users/recommend`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

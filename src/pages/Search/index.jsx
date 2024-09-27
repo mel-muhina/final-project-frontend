@@ -346,7 +346,7 @@ export default function Search() {
 
     async function getRealMarkers() {
       try {
-        const response = await fetch(`http://54.89.47.53:3000/locations/filter`, {
+        const response = await fetch(`http://34.239.121.162:3000/locations/filter`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
