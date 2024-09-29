@@ -23,9 +23,8 @@ export default function LocationModal() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
-    const token = localStorage.getItem('authToken')
     const [savedReminder, setReminder] = useState();
-    const [savedFact, setFact] = useState({});
+    const [savedFact, setSavedFact] = useState([]);
     const [LikeAmount, setLikeAmount] = useState();
     const { LocationId, setLocationId } = useLocationId();
     
@@ -38,7 +37,7 @@ export default function LocationModal() {
     }, [])
 
     //  const LocationId = 1
-  
+    console.log(savedFact)
 
 
     const getFact = async() => {
@@ -52,7 +51,9 @@ export default function LocationModal() {
               const data = await response.json();
               
               if (response.ok) {
-                setFact(data);
+                const facts = formatFact(data)
+                setSavedFact(facts);
+                
                 // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve fact: ${data.error}`);
@@ -62,34 +63,44 @@ export default function LocationModal() {
             console.error('Error retrieving items:');
             console.log(err)
             }
-        }  
+        }
+    
+    const formatFact = (savedFact) =>
+    {
+      
+      const facts = savedFact?.facts
+      
+      const splitFacts = facts.split(/(\d\.\s)/).filter(Boolean)
+     
+      return splitFacts
+    }
 
 
 
-    const getLikes = async() => {
-      try {
-          //const token = localStorage.getItem('authToken')
-          const response = await fetch('http://34.239.121.162:3000/api/places/1/likes', {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              'Authorization': `Bearer ${token}`},
-              body:JSON.stringify({"place_id":LocationId}),
-            })
-            const data = await response.json();
+    // const getLikes = async() => {
+    //   try {
+    //       //const token = localStorage.getItem('authToken')
+    //       const response = await fetch('http://34.239.121.162:3000/api/places/1/likes', {
+    //         method: 'GET',
+    //         headers: {
+    //           'content-type': 'application/json',
+    //           'Authorization': `Bearer ${token}`},
+    //           body:JSON.stringify({"place_id":LocationId}),
+    //         })
+    //         const data = await response.json();
             
-            if (response.ok) {
-              setLikeAmount(data.like_count);
-              // Optionally, handle UI updates or further actions
-          } else {
-              console.error(`Failed to retrieve reminder: ${data.error}`);
+    //         if (response.ok) {
+    //           setLikeAmount(data.like_count);
+    //           // Optionally, handle UI updates or further actions
+    //       } else {
+    //           console.error(`Failed to retrieve reminder: ${data.error}`);
               
-          }
-          } catch (err) {
-          console.error('Error retrieving items:');
-          console.log(err)
-          }
-      }  
+    //       }
+    //       } catch (err) {
+    //       console.error('Error retrieving items:');
+    //       console.log(err)
+    //       }
+    //   }  
 
 
       const getReminder = async() => {
@@ -123,8 +134,15 @@ export default function LocationModal() {
         <div className="location-modal-container">
 
               <div className='Fact-container'>
-                  {/* <p>{savedFact}</p> */}
+                  {/* {formatFact(savedFact)} */}
                   {/* {savedFact?.facts} */}
+                  {savedFact?.map((part, index) => {
+                      const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                      return (
+                        <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
+                      )
+                    })}
               </div>
               <div className='Reminder-container'>
                   <p>Reminder: {savedReminder}</p>
@@ -132,8 +150,8 @@ export default function LocationModal() {
 
             <SaveButton/>
             <RecommendButton LocationId={LocationId}/>
-            {/* <p>Likes: {LikeAmount}</p> */}
-            {/* <LikeButton/> */}
+            {/* <p>Likes: {LikeAmount}</p>
+            <LikeButton/> */}
 
         </div>
     </>
