@@ -66,8 +66,9 @@ export default function infoModal() {
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
                 {savedFact?.map((part, index) => {
-                  const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+                  const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                  
                   return (
                     <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
                   )
