@@ -72,13 +72,13 @@ export default function FeaturedCard() {
             //     setSavedDescriptionData(tempApi.description)
             // }
 
-            const truncatedName = data.name.length > 25
-            ? data.name.slice(0, 25) + "..." 
+            const truncatedName = data.name.length > 23
+            ? data.name.slice(0, 23) + "..." 
             : data.name;
             setLocationName(truncatedName)
 
-            const truncatedDescription = descriptionData.length > 240 
-            ? descriptionData.slice(0, 240) + "..." 
+            const truncatedDescription = descriptionData.length > 220 
+            ? descriptionData.slice(0, 220) + "..." 
             : descriptionData;
             setSavedDescriptionData(truncatedDescription);
 

@@ -73,20 +73,22 @@ export default function UserSignUp() {
   return (
     <>
         <div className='login-form'>
-            <h1>Sign Up</h1>
+            <h1 className='login-h1'>Sign Up</h1>
+            <h3>New around here?</h3>
             <form onSubmit = {handleSubmit}>
-              <label htmlFor="email"> Email</label>
+              {/* <label htmlFor="email"> Email</label> */}
               <input value={email} onChange={handleEmailChange} type="email" placeholder="Email" id="Email" name="Email"/>
 
-              <label htmlFor="username"> Username</label>
+              {/* <label htmlFor="username"> Username</label> */}
               <input value={username} onChange={handleUsernameChange} type="text" placeholder="Username"  id="Username" name="Username"/>
 
-              <label htmlFor="password"> Password</label>
+              {/* <label htmlFor="password"> Password</label> */}
               <input value={password} onChange={handlePasswordChange} type= "password" placeholder="Password" id="password" name="password"/>
 
               <button type="submit">Sign Up</button>
             </form>
-            <Link to="/user/login"><button>Already have an account? Login</button></Link>
+            <h3>Already have an account?</h3>
+            <Link to="/user/login"><button className='secondbutton-login'>Login</button></Link>
         </div>
     </>
     

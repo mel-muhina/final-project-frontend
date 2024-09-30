@@ -146,6 +146,7 @@
     /* height: 0%; */
     overflow-y: auto;
     
+    
 }
 
 
@@ -158,7 +159,7 @@
     width: 300px; 
     z-index: 1;
     border-radius: 5px;
-    max-height: 120px;
+    max-height: 220px;
     overflow-y: auto; 
     transform: translateX(60px);
     background: linear-gradient(to bottom, #233927, #23392757);
@@ -185,6 +186,8 @@
 
   .notifications-close {
     padding: 2% 6%;
+    margin-bottom: 5%;
+
   }
   
 
@@ -204,14 +207,19 @@
 
   .profile-dropdown > ul {
     list-style: none;
-    padding: 4%;
+    padding: 5%;
     color: #fff ;
     background: linear-gradient(to bottom, #233927, #23392757);
+    min-height: 40px;
   }
 
   .profile-dropdown > ul a {
-    color: #fff ;
+    color: #fff;
 
+  }
+
+  .profile-dropdown > ul a:hover {
+    color: #08b428;
   }
   .logo-title:hover {
     color: #fff;

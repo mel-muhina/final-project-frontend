@@ -1,9 +1,11 @@
 .journey-plan-container {
-    background-color: rgba(35, 57, 39,0.9);
-    height: 31rem;
+    /* background-color: #233927e6; */
+    background: linear-gradient(to bottom, #233927e6, #233927b2);
+    min-height: 30rem;
+    max-height: 32rem;
     width: 50rem;
-    overflow: auto;
-    border-radius: 30px;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
 .journey-plan-form  {
@@ -39,26 +41,34 @@
 }
 
 .journey-button {
-    margin-top: 2%;
+    margin-top: 1%;
+    /* margin-top: 1%;
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
-    background-color: rgba(35, 57, 39,0.9); /* Primary color */
-    color: white;
+    background-color: rgba(35, 57, 39,0.9); Primary color */
+    /* color: white;
     font-size: 16px;
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    /* transition: background-color 0.3s ease; Smooth transition */ 
 }
 
 .directions-section {
     color: rgba(35, 57, 39,0.9);
     margin: 10px;
     padding: 2%;
-    background-color: rgb(234, 253, 237);
-    border-radius: 30px;
+    /* background-color: #eafded; */
+    background: linear-gradient(to bottom, #eafded, #eafded93);
+    border-radius: 15px;
     font-size: 1.2rem;
+    min-height: 15.2rem;
 }
 
 .journey-button:hover {
-    background-color: rgb(0, 119, 18);
+    /* background-color: rgb(0, 119, 18); */
+}
+
+.next-button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
 }
