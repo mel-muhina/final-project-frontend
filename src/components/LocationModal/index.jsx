@@ -4,6 +4,7 @@ import { useLocationId } from '../../contexts';
 import RecommendButton from "../RecommendButton";
 import LikeButton from "../LikeButton";
 import SaveButton from '../SaveButton';
+import InfoModal from '../InfoModal';
 import './LocationModal.css'
 
 // function Modal({ onClose, children }) {
@@ -31,49 +32,49 @@ export default function LocationModal() {
   
 
     useEffect(() => {
-        getFact();
+        // getFact();
         getReminder();
         // getLikes();
     }, [])
 
     //  const LocationId = 1
-    console.log(savedFact)
+    // console.log(savedFact)
 
 
-    const getFact = async() => {
-        try {
-            //const token = localStorage.getItem('authToken')
-            const response = await fetch(`http://34.239.121.162:3000/name/getFacts/${LocationId}`, {
-              method: 'GET',
-              headers: {
-                'content-type': 'application/json'}
-              })
-              const data = await response.json();
+    // const getFact = async() => {
+    //     try {
+    //         //const token = localStorage.getItem('authToken')
+    //         const response = await fetch(`http://34.239.121.162:3000/name/getFacts/${LocationId}`, {
+    //           method: 'GET',
+    //           headers: {
+    //             'content-type': 'application/json'}
+    //           })
+    //           const data = await response.json();
               
-              if (response.ok) {
-                const facts = formatFact(data)
-                setSavedFact(facts);
+    //           if (response.ok) {
+    //             const facts = formatFact(data)
+    //             setSavedFact(facts);
                 
-                // Optionally, handle UI updates or further actions
-            } else {
-                console.error(`Failed to retrieve fact: ${data.error}`);
+    //             // Optionally, handle UI updates or further actions
+    //         } else {
+    //             console.error(`Failed to retrieve fact: ${data.error}`);
                 
-            }
-            } catch (err) {
-            console.error('Error retrieving items:');
-            console.log(err)
-            }
-        }
+    //         }
+    //         } catch (err) {
+    //         console.error('Error retrieving items:');
+    //         console.log(err)
+    //         }
+    //     }
     
-    const formatFact = (savedFact) =>
-    {
+    // const formatFact = (savedFact) =>
+    // {
       
-      const facts = savedFact?.facts
+    //   const facts = savedFact?.facts
       
-      const splitFacts = facts.split(/(\d\.\s)/).filter(Boolean)
+    //   const splitFacts = facts.split(/(\d\.\s)/).filter(Boolean)
      
-      return splitFacts
-    }
+    //   return splitFacts
+    // }
 
 
 
@@ -150,6 +151,7 @@ export default function LocationModal() {
 
             <SaveButton/>
             <RecommendButton LocationId={LocationId}/>
+            <InfoModal/>
             {/* <p>Likes: {LikeAmount}</p>
             <LikeButton/> */}
 
