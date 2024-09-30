@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { useState, useEffect } from 'react';
 import { useLocationId } from '../../contexts';
 import './infoModal.css'
@@ -55,31 +56,36 @@ export default function infoModal() {
       return splitFacts
     }
 
+    const renderModal = () => 
+    {
+      return createPortal(
+        <div className="modal-backdrop">
+            <div className="modal-content">
+              <span className="close-modal" onClick={closeModal}>&times;</span>
+                    
+                {/* {formatFact(savedFact)} */}
+                {/* {savedFact?.facts} */}
+                {savedFact?.map((part, index) => {
+                  const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                  return (
+                    <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
+                  )
+                  })}
+                    
+              </div>
+              </div>,
+              document.getElementById('modal-root')
+      )
+    }
+
   return (
     <>
         <div className="Info-modal-container">
             <button onClick={openModal}>More Info</button>
-            {isModalOpen && (
-                <div className="modal-backdrop">
-                <div className="modal-content">
-                <span className="close-modal" onClick={closeModal}>&times;</span>
-                    
-                  {/* {formatFact(savedFact)} */}
-                  {/* {savedFact?.facts} */}
-                  {savedFact?.map((part, index) => {
-                      const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-                      return (
-                        <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
-                      )
-                    })}
-                    
-              </div>
-              </div>
-            )}
-
-
         </div>
+            {isModalOpen && renderModal()}
+        
     </>
   );
 }
