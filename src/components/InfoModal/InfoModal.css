@@ -37,3 +37,10 @@
 .close-modal:hover {
     color: red; /* Change color on hover */
 }
+
+.location-image {
+    width: 200px;  /* Fixed width */
+    height: 200px; /* Fixed height */
+    object-fit: fill; /* Stretch the image to fill the container (ignores aspect ratio) */
+  }
+  
