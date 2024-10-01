@@ -88,12 +88,12 @@ export default function infoModal() {
       return splitFacts
     }
 
-    const renderModal = () => 
+    const RenderModal = () => 
     {
       return createPortal(
-        <div className="modal-backdrop" onClick={closeModal}>
-          <div className="modal-content" >
-            <span className="close-modal" onClick={closeModal}>&times;</span>
+        <div className="info-modal-backdrop" onClick={closeModal}>
+          <div className="info-modal-content" >
+            <span className="info-close-modal" onClick={closeModal}>&times;</span>
                     
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
@@ -120,7 +120,7 @@ export default function infoModal() {
         <div className="Info-modal-container">
             <button onClick={openModal}>More Info</button>
         </div>
-            {isModalOpen && renderModal()}
+            {isModalOpen && <RenderModal/>}
             {console.log(isModalOpen)}
         
     </>
