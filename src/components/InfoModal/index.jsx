@@ -10,15 +10,20 @@ export default function infoModal() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
     const [savedFact, setSavedFact] = useState([]);
+    const [locationImage, setLocationImage] = useState('')
     const { LocationId, setLocationId } = useLocationId();
     
   
 
     useEffect(() => {
+      
         getFact();
+        getImage();
+      
     }, [])
 
     console.log(savedFact)
+    console.log(locationImage)
 
 
     const getFact = async() => {
@@ -46,6 +51,33 @@ export default function infoModal() {
             }
         }
     
+        const getImage = async() => {
+          try {
+              //const token = localStorage.getItem('authToken')
+              const response = await fetch(`http://34.239.121.162:3000/locations/data/${LocationId}`, {
+                method: 'GET',
+                headers: {
+                  'content-type': 'application/json'}
+                })
+                const data = await response.json();
+                
+                if (response.ok) {
+                  // console.log(data)
+                  const locationData = data?.image_url[0];
+                  // console.log(locationData)
+                  setLocationImage(locationData);
+                  
+                  
+              } else {
+                  console.error(`Failed to retrieve image: ${data.error}`);
+                  
+              }
+              } catch (err) {
+              console.error('Error retrieving items:');
+              console.log(err)
+              }
+          }
+      
     const formatFact = (savedFact) =>
     {
       
@@ -59,15 +91,18 @@ export default function infoModal() {
     const renderModal = () => 
     {
       return createPortal(
-        <div className="modal-backdrop">
-            <div className="modal-content">
-              <span className="close-modal" onClick={closeModal}>&times;</span>
+        <div className="modal-backdrop" onClick={closeModal}>
+          <div className="modal-content" >
+            <span className="close-modal" onClick={closeModal}>&times;</span>
                     
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
+                <img src = {locationImage} className='location-image' />
                 {savedFact?.map((part, index) => {
 
-                  const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                  const formattedPart = part
+                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                  .replace(/^##(.*)$/gm, '<em>$1</em>');
                   
                   return (
                     <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
@@ -86,6 +121,7 @@ export default function infoModal() {
             <button onClick={openModal}>More Info</button>
         </div>
             {isModalOpen && renderModal()}
+            {console.log(isModalOpen)}
         
     </>
   );

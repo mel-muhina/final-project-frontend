@@ -7,18 +7,6 @@ import SaveButton from '../SaveButton';
 import InfoModal from '../InfoModal';
 import './LocationModal.css'
 
-// function Modal({ onClose, children }) {
-//   return (
-//     <div className="modal-backdrop">
-//       <div className="modal-content">
-//         {children}
-//       </div>
-//       {/* <button onClick={onClose}>Close</button> */}
-//     </div>
-//   );
-// }
-
-
 export default function LocationModal() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -134,17 +122,7 @@ export default function LocationModal() {
     <>
         <div className="location-modal-container">
 
-              <div className='Fact-container'>
-                  {/* {formatFact(savedFact)} */}
-                  {/* {savedFact?.facts} */}
-                  {savedFact?.map((part, index) => {
-                      const formattedPart = part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-                      return (
-                        <p key={index} dangerouslySetInnerHTML={{ __html: formattedPart }} />
-                      )
-                    })}
-              </div>
               <div className='Reminder-container'>
                   <p>Reminder: {savedReminder}</p>
               </div>
