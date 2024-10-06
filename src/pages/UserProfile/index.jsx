@@ -25,8 +25,8 @@ export default function UserProfile({ }) {
 
         getSaved();
         getUsername();
-        getVisitNum();
-        getRecomendationNum();
+        // getVisitNum();
+        // getRecomendationNum();
     }, [])
     
     const getSaved = async () => {
@@ -61,7 +61,7 @@ export default function UserProfile({ }) {
     
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/users/stats', {
+            const response = await fetch('http://34.239.121.162:3000/users/stats', {
               method: 'GET',
               headers: {    
                 'Authorization': `Bearer ${token}`}
@@ -87,64 +87,64 @@ export default function UserProfile({ }) {
             }
         }
 
-        const getVisitNum = async () => {
+        // const getVisitNum = async () => {
     
-            try {
-                //const token = localStorage.getItem('authToken')
-                const response = await fetch('http://54.89.47.53:3000/user-visits', {
-                  method: 'GET',
-                  headers: {    
-                    'Authorization': `Bearer ${token}`}
-                  })
-                  const data = await response.json();
-                  console.log("1")
-                  console.log(token)
-                  console.log(data)
+        //     try {
+        //         //const token = localStorage.getItem('authToken')
+        //         const response = await fetch('http://34.239.121.162:3000/user-visits', {
+        //           method: 'GET',
+        //           headers: {    
+        //             'Authorization': `Bearer ${token}`}
+        //           })
+        //           const data = await response.json();
+        //           console.log("1")
+        //           console.log(token)
+        //           console.log(data)
                   
-                  if (response.ok) {
-                    console.log("2")
-                    setVisitAmount(data.visit_count)
-                    console.log(visitCount)
-                    console.log('data retrieved successfully!');
-                    // Optionally, handle UI updates or further actions
-                } else {
-                    console.error(`Failed to retrieve data: ${data.error}`);
+        //           if (response.ok) {
+        //             console.log("2")
+        //             setVisitAmount(data.visit_count)
+        //             console.log(visitCount)
+        //             console.log('data retrieved successfully!');
+        //             // Optionally, handle UI updates or further actions
+        //         } else {
+        //             console.error(`Failed to retrieve data: ${data.error}`);
                     
-                }
-                } catch (err) {
-                console.error('Error retrieving data:');
-                console.log(err)
-                }
-            }
-        const getRecomendationNum = async () => {
-            try {
-                //const token = localStorage.getItem('authToken')
-                const response = await fetch('http://54.89.47.53:3000/analysis/user-recommendations', {
-                  method: 'GET',
-                  headers: {    
-                    'Authorization': `Bearer ${token}`}
-                  })
-                  const data = await response.json();
-                  console.log("1")
-                  console.log(token)
-                  console.log(data)
+        //         }
+        //         } catch (err) {
+        //         console.error('Error retrieving data:');
+        //         console.log(err)
+        //         }
+        //     }
+        // const getRecomendationNum = async () => {
+        //     try {
+        //         //const token = localStorage.getItem('authToken')
+        //         const response = await fetch('http://34.239.121.162:3000/analysis/user-recommendations', {
+        //           method: 'GET',
+        //           headers: {    
+        //             'Authorization': `Bearer ${token}`}
+        //           })
+        //           const data = await response.json();
+        //           console.log("1")
+        //           console.log(token)
+        //           console.log(data)
                   
-                  if (response.ok) {
-                    console.log("2")
-                    setRecCount(data.recommendation_count)
-                    console.log(RecomendationCount)
-                    console.log('data retrieved successfully!');
-                    // Optionally, handle UI updates or further actions
-                } else {
-                    console.error(`Failed to retrieve data: ${data.error}`);
+        //           if (response.ok) {
+        //             console.log("2")
+        //             setRecCount(data.recommendation_count)
+        //             console.log(RecomendationCount)
+        //             console.log('data retrieved successfully!');
+        //             // Optionally, handle UI updates or further actions
+        //         } else {
+        //             console.error(`Failed to retrieve data: ${data.error}`);
                     
-                }
-                } catch (err) {
-                console.error('Error retrieving data:');
-                console.log(err)
-                }    
+        //         }
+        //         } catch (err) {
+        //         console.error('Error retrieving data:');
+        //         console.log(err)
+        //         }    
 
-            }
+        //     }
 
     
     
