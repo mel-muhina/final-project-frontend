@@ -50,6 +50,7 @@ function App() {
             </LoginContext.Provider> 
          </LocationProvider>
       </LocationNameProvider>
+      <div id="modal-root"></div>
     </>
   )
 }
