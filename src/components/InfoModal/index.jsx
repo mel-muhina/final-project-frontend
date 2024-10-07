@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useState, useEffect } from 'react';
 import { useLocationId } from '../../contexts';
 import './infoModal.css'
+import defaultPic from '../../assets/images/bg5.jpg'
 
 export default function infoModal() {
 
@@ -12,6 +13,8 @@ export default function infoModal() {
     const [savedFact, setSavedFact] = useState([]);
     const [locationImage, setLocationImage] = useState('')
     const { LocationId, setLocationId } = useLocationId();
+
+    console.log(LocationId)
     
   
 
@@ -22,12 +25,11 @@ export default function infoModal() {
       
     }, [])
 
-    console.log(savedFact)
-    console.log(locationImage)
-
 
     const getFact = async() => {
         try {
+
+            console.log(LocationId)
             //const token = localStorage.getItem('authToken')
             const response = await fetch(`http://34.239.121.162:3000/name/getFacts/${LocationId}`, {
               method: 'GET',
@@ -53,6 +55,7 @@ export default function infoModal() {
     
         const getImage = async() => {
           try {
+            console.log(LocationId)
               //const token = localStorage.getItem('authToken')
               const response = await fetch(`http://34.239.121.162:3000/locations/data/${LocationId}`, {
                 method: 'GET',
@@ -97,7 +100,10 @@ export default function infoModal() {
                     
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
-                <img src = {locationImage} className='location-image' />
+                <img src = {locationImage} className='location-image' onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = defaultPic; 
+                  }}/>
                 {savedFact?.map((part, index) => {
 
                   const formattedPart = part

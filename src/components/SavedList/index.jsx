@@ -1,5 +1,6 @@
 import React from 'react';
 import './SavedList.css'
+import defaultPic from '../../assets/images/bg5.jpg'
 
 export default function SavedList({ items }) {
     return (
@@ -9,7 +10,10 @@ export default function SavedList({ items }) {
                 {items && items.length > 0 ? (
                     items.map((item, index) => (
                         <div key={index} className='location-item'>
-                            <img src = {item.image_url[0]} alt={item.name} className='location-image' />
+                            <img src = {item.image_url[0]} alt={item.name} className='location-image'                 
+                            onError={(e) => {
+                            e.target.onerror = null;  
+                            e.target.src = defaultPic;  }}/>
                             <h2>{item.name}</h2>
                             <p>{item.address}</p>
                             {/* <p>{item.location_type}</p> */}
