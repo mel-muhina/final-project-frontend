@@ -147,7 +147,7 @@ const [userLocation, setUserLocation] = useState("")
                     <p>Distance: {directions[currentIndex]?.distance}</p> 
                     <p>Duration: {directions[currentIndex]?.duration}</p>
                     <p>Instructions: {directions[currentIndex]?.instructions}</p>
-                    <button onClick={handleNext}>Next</button>
+                    <button onClick={handleNext} className="next-button">Next Step</button>
                 </div>
             </div>
             )}

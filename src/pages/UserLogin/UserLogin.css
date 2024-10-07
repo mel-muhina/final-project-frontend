@@ -2,18 +2,23 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: rgba(35, 57, 39,0.8);
+
+    /* background-color: rgba(35, 57, 39,0.8); */
+    background: linear-gradient(to bottom, #233927da, #23392798);
     margin-top: 15%;
     padding: 10%;
-    border-radius: 10px;
-    width: 400px;
-    
-    
+    padding-top: 5%;
+    border-radius: 15px;
+    width: 30rem;    
 
 }
 
+.login-h1 {
+    font-size: 2rem;
+}
+
 .login-form form {
- padding: 5%;
+ padding: 2%;
  align-content: center;
  margin:  0 auto;
 }
@@ -23,28 +28,40 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    color:black;
-    background-color: rgb(255, 255, 255);
-    padding: 5%;
-    border-radius: 10px;
+    color:rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.308);
+    padding: 4%;
+    width: 20rem;
+    border-radius: 20px;
     margin-bottom: 1%;
+    border: none;
+    
 }
 
+.login-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* White color with opacity */
+    font-weight: 600;
+    font-family: Arial;
+}
 
 .login-form button {
+    margin-top: 0.5rem;
+    padding: 3% 9.5rem;
+    border-radius: 20px;
     /* background-color: rgb(46, 102, 55); */
-    margin-top: 10%;
+    /* margin-top: 10%;
     padding: 5% 10%;
-    border: none;
+    border: none; */
 }
 
-.login-form button:hover {
+/* .login-form button:hover {
     background-color: rgb(28, 51, 32);
     border: none;
-}
+} */
 
 .login-form a .secondbutton-login {
-    padding: 4% 8%;
+    padding: 2.5% 9rem;
+    border-radius: 20px;
 }
 
 /*  background-color: rgb(46, 102, 55); */
