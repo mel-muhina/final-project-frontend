@@ -262,7 +262,7 @@ const mapStyle = [
 
 const libaries = ['places']
 
-export default function Search() {
+export default function Search({ location }) {
     const [ tags, setTags ] = useState([]);
     const [ marker, setMarker ] = useState([])
     const inputRef = useRef(null);
@@ -293,7 +293,8 @@ export default function Search() {
 
     useEffect(() => {
       if (LocationName) {
-        handleTagClick(LocationName)
+        // handleTagClick(LocationName)
+        handleLocationName(LocationName)
         setLocationName('')
       }
   }, [])
@@ -319,6 +320,78 @@ export default function Search() {
       const response = await fetch(`https://places.googleapis.com/v1/places:searchText`, options)
       const data = await response.json()
       onPlacesChanged(data.places)
+    };
+
+    const handleLocalTag = async (tag) => {
+      setUserInput(tag);
+      const tags = {
+        [tag]: true  // This will only send one tag with a value of true
+      };
+      const options = {
+        "method": "POST",
+        "headers": {
+          "Content-Type": 'application/json',
+        },
+        "body": JSON.stringify({
+          user_location: {
+            "latitude": 51.5079,
+            "longitude": -0.1283,
+          },
+          tags: {
+            "Hiking": false,
+            "Woodlands": false,
+            "Beach": false,
+            "park": false,
+            "Historic": false,
+            "Playground": false,
+            "River": false,
+            "large": false,
+            "boating": false
+          },
+          filter_distance: 100
+          
+      })
+      }
+
+      const response = await fetch(`http://34.239.121.162:3000/locations/filter`, options)
+      const data = await response.json()
+      let matches = data.filter(mark => mark.tag_name.includes(tag));
+      onPlacesChanged(null, matches)
+      
+    };
+
+    const handleLocationName = async (location) => {
+      setUserInput(location);
+      const options = {
+        "method": "POST",
+        "headers": {
+          "Content-Type": 'application/json',
+        },
+        "body": JSON.stringify({
+          user_location: {
+            "latitude": 51.5079,
+            "longitude": -0.1283,
+          },
+          tags: {
+            "Hiking": false,
+            "Woodlands": false,
+            "Beach": false,
+            "park": false,
+            "Historic": false,
+            "Playground": false,
+            "River": false,
+            "large": false,
+            "boating": false
+          },
+          filter_distance: 100
+          
+      })
+      }
+
+      const response = await fetch(`http://34.239.121.162:3000/locations/filter`, options)
+      const data = await response.json()
+      onPlacesChanged(data)
+      
     };
 
     const handleInputChange = () => {
@@ -380,13 +453,18 @@ export default function Search() {
         const dataArr = []
 
         const newMarkers = data.map((result, index) => ({
-          id: index + 1, 
+          id: result.place_id,
+          googleid: result.googleid,
           position: {
               lat: result.latitude,
               lng: result.longitude
           },
-          title: result.name 
+          title: result.name,
+          img: result.image_url,
+          description: result.description,
+          tag: result.tag_name
         }));
+
   
         setMarker(newMarkers)
         setVisibleMarkers(newMarkers)
@@ -400,11 +478,51 @@ export default function Search() {
     }
 
   
-  const onPlacesChanged = (data) => {
-    const matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
+  const onPlacesChanged = (data, tag) => {
+    // let matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
+    // console.log("match me", matches)
+    let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
+
+    // console.log("Beep?", match)
     let places = searchBoxRef.current.getPlaces();  
 
+    if (tag) {
+      // let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(tag));
+      // console.log("Beep me", matches)
+
+      places = tag;
+
+      const place = places[0];
+      const location = place.location;
+
+      setPlaces(places);
+
+        const marksToSet = []
+
+          tag.forEach((mark) => {
+            marksToSet.push({
+              position: { lat: mark.latitude, lng: mark.longitude },
+              title: mark.name,
+              description: mark.description,
+              id: mark.place_id,
+              tag: mark.tag_id,
+              img: mark.image_url
+          });
+        })
+
+        setCenter({
+          lat: marksToSet[0].position.lat,
+          lng: marksToSet[0].position.lng,
+        })
+
+        setVisibleMarkers(marksToSet);
+        setSelectedMarker(marksToSet[0]); 
+        setLocationId(marksToSet[0].id)
+      
+    }
+
      if (data) {
+      let matches = data.filter(mark => mark.name.toLowerCase().trim().includes(LocationName.toLowerCase().replace(/\.\.\./g, '').trim()));
       places = data;
 
       const place = places[0];
@@ -412,77 +530,141 @@ export default function Search() {
 
       setPlaces(places);
 
-      const newMarkers = places.map((result, index) => ({
-        id: index + 1, 
-        position: {
-            lat: result.location.latitude,
-            lng: result.location.longitude
-        },
-        title: result.displayName.text  
-      }));
+      // const newMarkers = places.map((result, index) => ({
+      //   id: result.place_id, 
+      //   googleid: result.googleid,
+      //   position: {
+      //       lat: result.latitude,
+      //       lng: result.longitude
+      //   },
+      //   title: result.name,  
+      //   img: result.image_url,
+      //   description: result.description,
+      //   tag: result.tag_name
+      // }));
 
-      setCenter({
-        lat: location.latitude,
-        lng: location.longitude,
-      });
+      // console.log("show me money", newMarkers)
+
+      // setCenter({
+      //   lat: newMarkers[0].position.lat,
+      //   lng: newMarkers[0].position.lng,
+      // });
       
-      setVisibleMarkers(newMarkers);
-      setSelectedMarker(newMarkers[0]); 
-      setLocationId(newMarkers[0].id)
- 
-      
+      // setVisibleMarkers(newMarkers);
+      // setSelectedMarker(newMarkers[0]); 
+      // setLocationId(newMarkers[0].id)
+      // console.log("boop 3")
+      if (matches.length > 0) {
+        const marksToSet = []
+
+          matches.forEach((mark) => {
+            marksToSet.push({
+              position: { lat: mark.latitude, lng: mark.longitude },
+              title: mark.name,
+              description: mark.description,
+              id: mark.place_id,
+              tag: mark.tag_id,
+              img: mark.image_url
+          });
+        })
+
+        setCenter({
+          lat: marksToSet[0].position.lat,
+          lng: marksToSet[0].position.lng,
+        })
+
+        setVisibleMarkers(marksToSet);
+        setSelectedMarker(marksToSet[0]); 
+        setLocationId(marksToSet[0].id)
+      }
     } else {
       if (places && places.length > 0) {
         const place = places[0];
-        const location = place.geometry.location;
+        // const location = place.geometry.location;
+
+        const location = (place.geometry && place.geometry.location) 
+        ? place.geometry.location 
+        : { lat: place.latitude, lng: place.longitude };
+
+        const setMarkersAndCenter = (marksToSet) => {
+          setCenter({
+            lat: marksToSet[0].position.lat,
+            lng: marksToSet[0].position.lng,
+          });
+    
+          setVisibleMarkers(marksToSet);
+          setSelectedMarker(marksToSet[0]);
+          setLocationId(marksToSet[0].id);
+        };
       
-        if (matches.length > 0) {
-          const marksToSet = []
-  
-            matches.forEach((mark) => {
-              marksToSet.push({
+        if (tag) {
+          const marksToSet = tag.map((mark) => ({
                 position: { lat: mark.latitude, lng: mark.longitude },
                 title: mark.name,
                 description: mark.description,
                 id: mark.place_id,
                 tag: mark.tag_id,
                 img: mark.image_url
-            });
-          })
-  
-          setCenter({
-            lat: marksToSet[0].position.lat,
-            lng: marksToSet[0].position.lng,
-          })
-  
-          setVisibleMarkers(marksToSet);
-          setSelectedMarker(marksToSet[0]); 
-          setLocationId(marksToSet[0].id)
-        } else {
-  
-          setPlaces(places);
-  
-          const newMarkers = places.map((result, index) => ({
-            id: index + 1, 
-            position: {
-                lat: result.geometry.location.lat(),
-                lng: result.geometry.location.lng()
-            },
-            title: result.name  
-          }));
-  
-          setCenter({
-            lat: location.lat(),
-            lng: location.lng(),
-          });
+              }));      
+              setMarkersAndCenter(marksToSet);
+            } else if (matches.length > 0) {
+              const marksToSet = matches.map((mark) => ({
+                position: { lat: mark.latitude, lng: mark.longitude },
+                title: mark.name,
+                description: mark.description,
+                id: mark.place_id,
+                tag: mark.tag_id,
+                img: mark.image_url
+              }));      
+              setMarkersAndCenter(marksToSet);
+            } else {
+              setPlaces(places);
           
-          setVisibleMarkers(newMarkers);
-          setSelectedMarker(newMarkers[0]); 
-          setLocationId(newMarkers[0].id)
-        }
-      }
+        const newMarkers = places.map((result, index) => ({
+          id: index + 1,
+          position: {
+            lat: result.geometry?.location?.lat(),
+            lng: result.geometry?.location?.lng(),
+          },
+          title: result.name,
+        }));
+  
+        setMarkersAndCenter(newMarkers);
+      //     setCenter({
+      //       lat: marksToSet[0].position.lat,
+      //       lng: marksToSet[0].position.lng,
+      //     })
+  
+      //     setVisibleMarkers(marksToSet);
+      //     setSelectedMarker(marksToSet[0]); 
+      //     setLocationId(marksToSet[0].id)
+      //   } else {
+      //     setPlaces(places);
+  
+      //     const newMarkers = places.map((result, index) => ({
+      //       id: index + 1, 
+      //       position: {
+      //           lat: result.geometry.location.lat(),
+      //           lng: result.geometry.location.lng()
+      //       },
+      //       title: result.name  
+      //     }));
+  
+      //     setCenter({
+      //       lat: location.lat || location.lat(),
+      //       lng: location.lng || location.lng(),
+      //     });
+          
+      //     setVisibleMarkers(newMarkers);
+      //     setSelectedMarker(newMarkers[0]); 
+      //     setLocationId(newMarkers[0].id)
+
+      //   }
+      // }
     }
+  }
     setUserInput("")
+}
   };
 
   return isLoaded ? (
@@ -533,7 +715,7 @@ export default function Search() {
 
                                 <div className="search-tags-container">
                                     {tags.map(tag => 
-                                      <li key={tag.id} onClick={() => handleTagClick(tag.tag)} className={tag.tag}> {tag.tag}</li>
+                                      <li key={tag.id} onClick={() => handleLocalTag(tag.tag)} className={tag.tag}> {tag.tag}</li>
                                     )}
                                 </div>
                         </div>
@@ -565,8 +747,8 @@ export default function Search() {
                                   <img src={selectedMarker.img[0]} alt="Selected Marker" />
                                 )}
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
-                                  <p>This is a great place to check out!</p>
-                                  <p>{selectedMarker.description}</p>
+                                  {/* <p>This is a great place to check out!</p> */}
+                                  <p>{selectedMarker.description || "Although we don't have much information on this location, this is still a great place to check out. If you enjoy this spot, please recommend it to others!"}</p>
                                   <LocationModal LocationId={LocationId}/>
                                   {/* <RecommendButton LocationId={LocationId} /> */}
                                 </div>

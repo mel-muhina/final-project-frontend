@@ -9,6 +9,7 @@ import { useLocationId, useLocationName } from '../../contexts';
 export default function FeaturedCard() {
     const {id} = useParams();
     const [ locationData, setLocationData ] = useState();
+    const [ location, setLocation ] = useState();
     const [ randomId, setRandomId ] = useState();
 
     const [ savedDescriptionData, setSavedDescriptionData ] = useState([]);
@@ -21,9 +22,7 @@ export default function FeaturedCard() {
         if (LocationId) {
             getLocationData();
         }
-
     }, [LocationId])
-
 
     // async function getRandomId() {
     //     const randomIdGen = Math.floor(Math.random() * 20) +1;
@@ -60,7 +59,7 @@ export default function FeaturedCard() {
         if (response.ok && descriptionResponse) {
             setLocationData(data)
             setLocationName(data.name)
-            console.log("meow", data)
+            setLocation(data)
             // setSavedDescriptionData(descriptionData)
 
             // if (data && descriptionData) {
@@ -131,7 +130,7 @@ export default function FeaturedCard() {
             <div className="FeaturedCard-innerContainer">
                 <img src={locationIcon} key={locationData?.place_id}className="FeaturedCard-location-icon"/><h2>{LocationName || backUpData?.name}</h2>
                 <p>{savedDescriptionData || backUpData?.description }</p>
-                <Link to={`/search/${LocationId}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
+                <Link to={`/search/${location?.name}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
             <div className="FeaturedCard-Icon-Container">
                 <FeaturedIcon tag={locationData?.tag_name}/>

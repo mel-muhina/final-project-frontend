@@ -22,9 +22,6 @@ export default function infoModal() {
       
     }, [])
 
-    console.log(savedFact)
-    console.log(locationImage)
-
 
     const getFact = async() => {
         try {
@@ -121,7 +118,6 @@ export default function infoModal() {
             <button onClick={openModal}>More Info</button>
         </div>
             {isModalOpen && <RenderModal/>}
-            {console.log(isModalOpen)}
         
     </>
   );

@@ -123,15 +123,18 @@ export default function LocationModal() {
         <div className="location-modal-container">
 
 
-              <div className='Reminder-container'>
-                  <p>Reminder: {savedReminder}</p>
-              </div>
+            <div className='Reminder-container'>
+                  <p><span className='bold-text'>Reminder:</span> {savedReminder}</p>
+            </div>
+
+            <div className='buttons' >
 
             <SaveButton/>
             <RecommendButton LocationId={LocationId}/>
             <InfoModal/>
             {/* <p>Likes: {LikeAmount}</p>
             <LikeButton/> */}
+            </div>
 
         </div>
     </>
