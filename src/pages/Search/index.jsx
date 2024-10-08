@@ -398,18 +398,40 @@ export default function Search({ location }) {
       if (inputRef.current) {
         const userInput = inputRef.current.value;
         setUserInput(userInput)
+
       }
+
     };
 
     // Define markers
     const getMarkers = () => {
       const markers = [
-        { id: 1, position: { lat: 51.5074, lng: -0.1278 }, title: 'Central London' },
-        { id: 2, position: { lat: 51.515, lng: -0.09 }, title: 'Charring Cross' },
-        { id: 3, position: { lat: 51.503, lng: -0.119 }, title: 'Pumpkin' },
-        { id: 4, position: { lat: 51.516, lng: -0.175 }, title: 'Dragon' },
-        { id: 5, position: { lat: 51.535, lng: -0.104 }, title: 'Cupcake', description: 'This is a cool cupcake.' },
-        { id: 6, position: { lat: 51.535, lng: -0.124 }, title: 'Cupcake' }
+        { id: 128, position: { lat: 51.0745223, lng: -0.0106671 }, title: 'Plaw Hatch Farm', description: 'Plaw Hatch Farm is a popular destination in Sharpthorne, East Grinstead, known for its beautiful riverside setting. It has a high rating of 4.7, suggesting visitors enjoy the farm\'s peaceful atmosphere and scenic views.' },
+        { id: 4, position: { lat: 51.620857, lng: -0.071017 }, title: 'Hainault Forest', description: 'Hainault Forest is a popular park in London, England, a great place to enjoy nature and get some exercise.' },
+        { id: 41, position: { lat: 51.4020302, lng: 0.010327 }, title: 'Kelsey Park', description: 'Kelsey Park is a well-rated garden located in Beckenham, enjoyable green space for visitors to explore.' },
+        { id: 117, position: { lat: 51.387022, lng: -0.462047 }, title: 'Watts Hill Farm', description: 'Watts Hill Farm is a popular spot located near Farnham, and offers a relaxing escape for nature lovers.' },
+        { id: 122, position: { lat: 51.6556027, lng: -0.417563 }, title: 'Cassiobury Farm and Fishery', description: 'Cassiobury Farm and Fishery is a popular spot located in Watford, with fishing opportunities and scenic riverside views.' },
+        { id: 31, position: { lat: 51.4833853, lng: -0.094764 }, title: 'Kennington Park', description: 'Kennington Park is a popular green space in London, allowing visitors to enjoy the outdoors, with a rating of 4.4 stars.' },
+        { id: 49, position: { lat: 51.5426532, lng: -0.090676 }, title: 'N1 Garden Centre', description: 'N1 Garden Centre is a historic establishment located in Islington, offering a wide selection of plants, flowers, and gardening supplies.' },
+        { id: 83, position: { lat: 51.6852108, lng: -0.003454 }, title: 'Theobalds Park Camping and Caravanning Club Site', description: 'Theobalds Park Camping and Caravanning Club Site is a scenic campsite in Waltham Cross, it features wildlife and is rated 4.4 stars.' },
+        { id: 125, position: { lat: 51.5950423, lng: 0.029300 }, title: 'Wellgate Community Farm', description: 'Wellgate Community Farm is a popular destination in Rainham, allowing visitors to experience the beauty of nature and learn about its sustainable practices.' },
+        { id: 20, position: { lat: 51.9534797, lng: -0.422545 }, title: 'Barton Hills NNR', description: 'Barton Hills NNR is a highly rated park located in Barton-le-Clay, providing a beautiful natural environment for visitors to enjoy.' },
+        { id: 45, position: { lat: 51.4533323, lng: -0.284635 }, title: 'Terrace Gardens', description: 'Terrace Gardens is a historic park in Richmond Hill, offering a peaceful place to enjoy the outdoors and learn about the area\'s history.' },
+        { id: 3, position: { lat: 51.7839653, lng: -0.324437 }, title: 'Heartwood Forest', description: 'Heartwood Forest is a popular park in Sandridge, St Albans, providing visitors with the opportunity to explore the forest and experience its natural beauty.' },
+        { id: 103, position: { lat: 51.4942864, lng: -0.296422 }, title: 'Gunnersbury Triangle, London Wildlife Trust', description: 'Gunnersbury Triangle is a park in London that is managed by the London Wildlife Trust, offering a great opportunity to connect with nature.' },
+        { id: 61, position: { lat: 51.5222928, lng: -0.116307 }, title: 'Allen Gardens', description: 'Allen Gardens is a historic park located in London, providing a beautiful space for visitors to enjoy the outdoors and learn about the area\'s history.' },
+        { id: 28, position: { lat: 51.5170551, lng: 0.049217 }, title: 'Beckton District Park', description: 'Beckton District Park is a large green space located in East London, featuring outdoor activities and a serene garden area.' },
+        { id: 120, position: { lat: 51.579758, lng: -0.328092 }, title: 'Odds Farm Park', description: 'Odds Farm Park is a popular tourist attraction located in Wooburn Green, offering a variety of activities, including a farm, a play area, and a river.' },
+        { id: 27, position: { lat: 51.7326533, lng: -0.095843 }, title: 'Central Park', description: 'Central Park is a beautiful garden located in Chelmsford, providing a great place to relax and enjoy the outdoors.' },
+        { id: 66, position: { lat: 51.7710776, lng: -0.043999 }, title: 'Rye House Gatehouse', description: 'Rye House Gatehouse is a historic landmark located in Hoddesdon, offering a glimpse into the past with a high rating.' },
+        { id: 127, position: { lat: 51.467385, lng: -0.198982 }, title: 'The Woodlands Farm Trust', description: 'The Woodlands Farm Trust is a popular spot located in Welling, providing a peaceful escape for nature lovers.' },
+        { id: 15, position: { lat: 51.5261477, lng: 0.089203 }, title: 'Hiking In London', description: 'Hiking In London is a highly rated park located in North London, providing a peaceful and relaxing environment.' },
+        { id: 71, position: { lat: 51.5886827, lng: -0.386497 }, title: 'Ruislip Lido Beach', description: 'Ruislip Lido Beach is a popular outdoor destination in Ruislip, offering a beautiful place to enjoy nature and spend time outdoors.' },
+        { id: 102, position: { lat: 51.4628369, lng: -0.089842 }, title: 'Centre For Wildlife Gardening, London Wildlife Trust', description: 'The Centre For Wildlife Gardening in London is a great educational space, offering opportunities for people of all ages.' },
+        { id: 107, position: { lat: 51.3543303, lng: -0.035678 }, title: 'Bramley Bank, London Wildlife Trust', description: 'Bramley Bank is a farm located in Croydon, London, providing visitors the chance to experience the outdoors and learn about local wildlife.' },
+        { id: 56, position: { lat: 51.3907868, lng: -0.209157 }, title: 'Lower Morden Garden Centre', description: 'Lower Morden Garden Centre is a popular spot in Sutton, offering plants and gardening supplies, and has received a 4.3-star rating from visitors.' },
+        { id: 9, position: { lat: 51.5519333, lng: 0.207063 }, title: 'Thames Chase Forest Centre', description: 'Thames Chase Forest Centre is a popular park and tourist attraction located in Upminster, providing various activities, making it a great place to enjoy nature.' },
+        { id: 38, position: { lat: 51.6067703, lng: 0.198876 }, title: 'Central Park (Harold Hill)', description: 'Central Park in Harold Hill is a popular green space with gardens and plenty of space to relax.' }
       ];
       
       setMarker(markers)
@@ -479,16 +501,10 @@ export default function Search({ location }) {
 
   
   const onPlacesChanged = (data, tag) => {
-    // let matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
-    // console.log("match me", matches)
     let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
-
-    // console.log("Beep?", match)
     let places = searchBoxRef.current.getPlaces();  
 
     if (tag) {
-      // let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(tag));
-      // console.log("Beep me", matches)
 
       places = tag;
 
@@ -530,30 +546,7 @@ export default function Search({ location }) {
 
       setPlaces(places);
 
-      // const newMarkers = places.map((result, index) => ({
-      //   id: result.place_id, 
-      //   googleid: result.googleid,
-      //   position: {
-      //       lat: result.latitude,
-      //       lng: result.longitude
-      //   },
-      //   title: result.name,  
-      //   img: result.image_url,
-      //   description: result.description,
-      //   tag: result.tag_name
-      // }));
 
-      // console.log("show me money", newMarkers)
-
-      // setCenter({
-      //   lat: newMarkers[0].position.lat,
-      //   lng: newMarkers[0].position.lng,
-      // });
-      
-      // setVisibleMarkers(newMarkers);
-      // setSelectedMarker(newMarkers[0]); 
-      // setLocationId(newMarkers[0].id)
-      // console.log("boop 3")
       if (matches.length > 0) {
         const marksToSet = []
 
@@ -579,8 +572,8 @@ export default function Search({ location }) {
       }
     } else {
       if (places && places.length > 0) {
+        let matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
         const place = places[0];
-        // const location = place.geometry.location;
 
         const location = (place.geometry && place.geometry.location) 
         ? place.geometry.location 
@@ -630,37 +623,7 @@ export default function Search({ location }) {
         }));
   
         setMarkersAndCenter(newMarkers);
-      //     setCenter({
-      //       lat: marksToSet[0].position.lat,
-      //       lng: marksToSet[0].position.lng,
-      //     })
-  
-      //     setVisibleMarkers(marksToSet);
-      //     setSelectedMarker(marksToSet[0]); 
-      //     setLocationId(marksToSet[0].id)
-      //   } else {
-      //     setPlaces(places);
-  
-      //     const newMarkers = places.map((result, index) => ({
-      //       id: index + 1, 
-      //       position: {
-      //           lat: result.geometry.location.lat(),
-      //           lng: result.geometry.location.lng()
-      //       },
-      //       title: result.name  
-      //     }));
-  
-      //     setCenter({
-      //       lat: location.lat || location.lat(),
-      //       lng: location.lng || location.lng(),
-      //     });
-          
-      //     setVisibleMarkers(newMarkers);
-      //     setSelectedMarker(newMarkers[0]); 
-      //     setLocationId(newMarkers[0].id)
 
-      //   }
-      // }
     }
   }
     setUserInput("")
@@ -670,34 +633,12 @@ export default function Search({ location }) {
   return isLoaded ? (
     <>
     
-             {/* <div style={{ marginTop: '20px' }}>
-                <button onClick={() => changeLocation(40.7128, -74.0060)}>New York</button>
-                <button onClick={() => changeLocation(34.0522, -118.2437)}>Los Angeles</button>
-                <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
-            </div> */}
+  
       <div className="map-container">
 
-            
-                  {/* <div className="sidebar-results">
-                    <h2>Search Results</h2>
 
-                    <ul>
-                      {searchResults.map(result => (
-                        <li key={result.place_id} onClick={() => handleLocationClick(result)}>
-                          {result.name}
-                        </li>
-                      ))} 
-                    </ul>
-                    
-                  </div> */}
                   <div className="googlemap">
-                    {/* <LoadScript googleMapsApiKey={apiKey}
-                      libraries={libaries}
-                      version="weekly"
-                      loadingElement={<div>Loading...</div>} // Optional: Add a loading element
-                      
-                      > */}
-                        
+   
                         <div className="searchbar-background">
                                 <StandaloneSearchBox
                                 onLoad={ref => searchBoxRef.current = ref}
@@ -743,14 +684,14 @@ export default function Search({ location }) {
                                 onCloseClick={() => setSelectedMarker(null)}
                               >
                                 <div className="infobox">
-                                {selectedMarker?.img && selectedMarker.img[0] && (
-                                  <img src={selectedMarker.img[0]} alt="Selected Marker" />
+                                {selectedMarker?.img && selectedMarker.img[4] && (
+                                  <img src={selectedMarker.img[4]} alt="Selected Marker"  onError={(e) => {
+                                    e.target.src = selectedMarker.img[0]; // Fallback image
+                                  }}  />
                                 )}
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
-                                  {/* <p>This is a great place to check out!</p> */}
                                   <p>{selectedMarker.description || "Although we don't have much information on this location, this is still a great place to check out. If you enjoy this spot, please recommend it to others!"}</p>
                                   <LocationModal LocationId={LocationId}/>
-                                  {/* <RecommendButton LocationId={LocationId} /> */}
                                 </div>
                               </InfoWindow>
                         )}

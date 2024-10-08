@@ -27,7 +27,6 @@ export default function SaveButton() {
         const data = await response.json();
         
         if (response.ok) {
-            console.log('Item saved successfully!', data);
             handleToggle();
             // Optionally, handle UI updates or further actions
         } else {
