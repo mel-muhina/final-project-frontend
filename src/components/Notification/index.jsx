@@ -28,7 +28,7 @@ export default function Notification({LocationId}) {
     async function recommend(e) {
         e.preventDefault();
         try {
-            const response = await fetch(`http://34.239.121.162:3000/users/recommend`, {
+            const response = await fetch(`https://nature-connect-backend.co.uk/users/recommend`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

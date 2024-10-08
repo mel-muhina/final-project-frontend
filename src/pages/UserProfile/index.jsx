@@ -33,7 +33,7 @@ export default function UserProfile({ }) {
     
         try {
             // const token = localStorage.getItem('authToken')
-            const response = await fetch('http://34.239.121.162:3000/users/retrieve', {
+            const response = await fetch('https://nature-connect-backend.co.uk/users/retrieve', {
               method: 'GET',
               headers: {
                 
@@ -61,7 +61,7 @@ export default function UserProfile({ }) {
     
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://34.239.121.162:3000/users/stats', {
+            const response = await fetch('https://nature-connect-backend.co.uk/users/stats', {
               method: 'GET',
               headers: {    
                 'Authorization': `Bearer ${token}`}

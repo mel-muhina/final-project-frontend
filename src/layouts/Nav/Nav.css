@@ -159,10 +159,10 @@
     width: 300px; 
     z-index: 1;
     border-radius: 5px;
-    max-height: 220px;
+    max-height: 265px;
     overflow-y: auto; 
     transform: translateX(60px);
-    background: linear-gradient(to bottom, #233927, #23392757);
+    /* background: linear-gradient(to bottom, #233927, #23392757); */
   }
 
   .notification-dropdown::-webkit-scrollbar {
