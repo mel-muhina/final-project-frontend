@@ -1,6 +1,6 @@
 import React from 'react';
 import './SavedList.css'
-import defaultPic from '../../assets/images/bg5.jpg'
+import defaultPic from '../../assets/images/default.jpg'
 
 export default function SavedList({ items }) {
     return (

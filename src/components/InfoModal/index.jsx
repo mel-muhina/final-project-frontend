@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useState, useEffect } from 'react';
 import { useLocationId } from '../../contexts';
 import './infoModal.css'
-import defaultPic from '../../assets/images/bg5.jpg'
+import defaultPic from '../../assets/images/default.jpg'
 
 export default function infoModal() {
 
