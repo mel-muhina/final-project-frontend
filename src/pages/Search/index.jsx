@@ -504,8 +504,6 @@ export default function Search({ location }) {
     let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
     let places = searchBoxRef.current.getPlaces();  
 
-    console.log("what s data", data)
-
     if (tag) {
 
       places = tag;

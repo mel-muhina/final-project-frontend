@@ -17,8 +17,6 @@ const [userLocation, setUserLocation] = useState("")
 
 useEffect(() => {
   getUserLocation();
-  console.log("Are you set", userLocation)
-  console.log("directions in the main page", directions)
 }, [])
 
 
@@ -28,7 +26,6 @@ const getUserLocation = () => {
       navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
             setUserLocation(`${latitude}, ${longitude}`)
           },
           (error) => {
@@ -58,7 +55,6 @@ const getUserLocation = () => {
         });
 
         const data = await response.json();
-        console.log("data in jounryeplanner", data)
         setStartLocation(data.startLocation)
         setEndLocation(data.endLocation)
 

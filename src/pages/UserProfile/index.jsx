@@ -20,9 +20,6 @@ export default function UserProfile({ }) {
     const [RecomendationCount, setRecCount] = useState()
 
     useEffect(() => {
-      
-        console.log(userAccountData.email)
-
         getSaved();
         getUsername();
         // getVisitNum();
@@ -44,8 +41,6 @@ export default function UserProfile({ }) {
               if (response.ok) {
                 const savedLocations = data.savedLocations || [];
                 setSavedItems(savedLocations)
-                console.log(savedLocations)
-                console.log('Items retrieved successfully!');
                 // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve items: ${data.error}`);
@@ -67,16 +62,9 @@ export default function UserProfile({ }) {
                 'Authorization': `Bearer ${token}`}
               })
               const data = await response.json();
-              console.log("1")
-              console.log(token)
-              console.log(data)
               
               if (response.ok) {
-                console.log("2")
                 setUsername(data.username)
-                console.log(savedUsername)
-                console.log('Item retrieved successfully!');
-                // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve item: ${data.error}`);
                 
