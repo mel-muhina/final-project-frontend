@@ -179,9 +179,9 @@
 }
 
 .infobox button {
-    background-color: rgb(0, 119, 18);
+    /* background-color: rgb(0, 119, 18); */
 }
 
 .infobox button:hover {
-    background-color: rgba(60, 102, 68, 1);
+    /* background-color: rgba(60, 102, 68, 1); */
 }

@@ -1,8 +1,11 @@
 .notification-container {
-    background-color: rgba(35,57,39,0.8);
-    padding: 4%;
-    margin-bottom: 1%; 
-    border-radius: 30px;
+    /* background-color: #1c2c1fd3; */
+    background: linear-gradient(to bottom, #1c2c1fd3, rgba(35, 57, 39, 0.61));
+    padding: 2%;
+    margin-bottom: 2%; 
+    border-radius: 15px;
+    
+
 }
 
 .notification-outer-container {
@@ -30,5 +33,13 @@
 .notification-container-login {
   /* background-color: rgba(35,57,39,0.8); */
   margin-bottom: 0px; 
-  border-radius: 30px;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #233927, #23392757);
+  padding: 1% 0% 8% 0%;
+  
+}
+
+.bold-notify {
+  font-weight: 700;
+  color: #5fb32e;
 }

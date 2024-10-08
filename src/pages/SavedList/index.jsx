@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import '../../components/SavedList/SavedList.css'
 
 import SavedList from '../../components/SavedList';
 
@@ -45,6 +46,7 @@ export default function SavedListPage({}) {
     return(
 
         <div className='save-page'>
+            <h2 className='saved-title'>Saved List</h2>
             <div className='saved-list-container'>
                 <SavedList items = {savedItems} />
             </div>

@@ -44,9 +44,9 @@ export default function GetNotifications() {
         <div className="notification-container" key={recommended.recommendation_id}>
             <ul>
                 <li>
-                    <p>Message: {recommended?.message}</p>
-                    <p>Recommended Location: {recommended?.name}</p>
-                    <p>Recommended By: {recommended?.recommender_username}</p>
+                    <p className="text"><span className="bold-notify">Message:</span> "{recommended?.message}"</p>
+                    <p className="text"><span className="bold-notify">Location:</span> {recommended?.name}</p>
+                    <p className="text"><span className="bold-notify">User:</span> {recommended?.recommender_username}</p>
                 </li>
             </ul>
           
