@@ -743,8 +743,8 @@ export default function Search({ location }) {
                                 onCloseClick={() => setSelectedMarker(null)}
                               >
                                 <div className="infobox">
-                                {selectedMarker?.img && selectedMarker.img[0] && (
-                                  <img src={selectedMarker.img[0]} alt="Selected Marker" />
+                                {selectedMarker?.img && selectedMarker.img[4] && (
+                                  <img src={selectedMarker.img[4]} alt="Selected Marker" />
                                 )}
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
                                   {/* <p>This is a great place to check out!</p> */}

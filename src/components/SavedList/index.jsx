@@ -11,7 +11,7 @@ export default function SavedList({ items }) {
                 {items && items.length > 0 ? (
                     items.map((item, index) => (
                         <div key={index} className='location-item'>
-                            <img src = {item.image_url[0]} alt={item.name} className='location-image'                 
+                            <img src = {item.image_url[4]} alt={item.name} className='location-image'                 
                             onError={(e) => {
                             e.target.onerror = null;  
                             e.target.src = defaultPic;  }}/>
