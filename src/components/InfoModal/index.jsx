@@ -16,11 +16,11 @@ export default function infoModal() {
   
 
     useEffect(() => {
-      
+      if (LocationId) {
         getFact();
         getImage();
-      
-    }, [])
+      }
+    }, [LocationId]);
 
 
     const getFact = async() => {
@@ -86,6 +86,7 @@ export default function infoModal() {
 
     const RenderModal = () => 
     {
+      console.log(LocationId)
       return createPortal(
         <div className="info-modal-backdrop" onClick={closeModal}>
           <div className="info-modal-content" >
@@ -93,7 +94,7 @@ export default function infoModal() {
                     
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
-                <img src = {locationImage} className='location-image' onError={(e) => {
+                <img src = {locationImage} className='locationImage' onError={(e) => {
                   e.target.onerror = null; 
                   e.target.src = defaultPic; 
                   }}/>
