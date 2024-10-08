@@ -40,9 +40,10 @@
     color: red; 
 }
 
-.location-image {
-    width: 20rem;  
-    height: 20rem; 
-    object-fit: fill; 
+.locationImage {
+    width: 15rem;  
+    height: 15rem; 
+    object-fit: cover; 
+    border-radius: 5px;
   }
   

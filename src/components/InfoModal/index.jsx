@@ -19,17 +19,17 @@ export default function infoModal() {
   
 
     useEffect(() => {
-      
+      if (LocationId) {
         getFact();
         getImage();
-      
-    }, [])
+      }
+    }, [LocationId]);
 
 
     const getFact = async() => {
         try {
 
-            console.log(LocationId)
+            
             //const token = localStorage.getItem('authToken')
             const response = await fetch(`https://nature-connect-backend.co.uk/name/getFacts/${LocationId}`, {
               method: 'GET',
@@ -55,7 +55,7 @@ export default function infoModal() {
     
         const getImage = async() => {
           try {
-            console.log(LocationId)
+            
               //const token = localStorage.getItem('authToken')
               const response = await fetch(`https://nature-connect-backend.co.uk/locations/data/${LocationId}`, {
                 method: 'GET',
@@ -93,6 +93,7 @@ export default function infoModal() {
 
     const RenderModal = () => 
     {
+      console.log(LocationId)
       return createPortal(
         <div className="info-modal-backdrop" onClick={closeModal}>
           <div className="info-modal-content" >
@@ -100,7 +101,7 @@ export default function infoModal() {
                     
                 {/* {formatFact(savedFact)} */}
                 {/* {savedFact?.facts} */}
-                <img src = {locationImage} className='location-image' onError={(e) => {
+                <img src = {locationImage} className='locationImage' onError={(e) => {
                   e.target.onerror = null; 
                   e.target.src = defaultPic; 
                   }}/>
