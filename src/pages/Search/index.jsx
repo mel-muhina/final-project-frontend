@@ -398,7 +398,9 @@ export default function Search({ location }) {
       if (inputRef.current) {
         const userInput = inputRef.current.value;
         setUserInput(userInput)
+
       }
+
     };
 
     // Define markers
@@ -479,16 +481,10 @@ export default function Search({ location }) {
 
   
   const onPlacesChanged = (data, tag) => {
-    // let matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
-    // console.log("match me", matches)
     let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(userInput));
-
-    // console.log("Beep?", match)
     let places = searchBoxRef.current.getPlaces();  
 
     if (tag) {
-      // let matches = apiMarkers.filter(mark => mark.tag_name.toLowerCase().trim().includes(tag));
-      // console.log("Beep me", matches)
 
       places = tag;
 
@@ -530,30 +526,7 @@ export default function Search({ location }) {
 
       setPlaces(places);
 
-      // const newMarkers = places.map((result, index) => ({
-      //   id: result.place_id, 
-      //   googleid: result.googleid,
-      //   position: {
-      //       lat: result.latitude,
-      //       lng: result.longitude
-      //   },
-      //   title: result.name,  
-      //   img: result.image_url,
-      //   description: result.description,
-      //   tag: result.tag_name
-      // }));
 
-      // console.log("show me money", newMarkers)
-
-      // setCenter({
-      //   lat: newMarkers[0].position.lat,
-      //   lng: newMarkers[0].position.lng,
-      // });
-      
-      // setVisibleMarkers(newMarkers);
-      // setSelectedMarker(newMarkers[0]); 
-      // setLocationId(newMarkers[0].id)
-      // console.log("boop 3")
       if (matches.length > 0) {
         const marksToSet = []
 
@@ -579,8 +552,8 @@ export default function Search({ location }) {
       }
     } else {
       if (places && places.length > 0) {
+        let matches = apiMarkers.filter(mark => mark.name.toLowerCase().trim().includes(userInput));
         const place = places[0];
-        // const location = place.geometry.location;
 
         const location = (place.geometry && place.geometry.location) 
         ? place.geometry.location 
@@ -630,37 +603,7 @@ export default function Search({ location }) {
         }));
   
         setMarkersAndCenter(newMarkers);
-      //     setCenter({
-      //       lat: marksToSet[0].position.lat,
-      //       lng: marksToSet[0].position.lng,
-      //     })
-  
-      //     setVisibleMarkers(marksToSet);
-      //     setSelectedMarker(marksToSet[0]); 
-      //     setLocationId(marksToSet[0].id)
-      //   } else {
-      //     setPlaces(places);
-  
-      //     const newMarkers = places.map((result, index) => ({
-      //       id: index + 1, 
-      //       position: {
-      //           lat: result.geometry.location.lat(),
-      //           lng: result.geometry.location.lng()
-      //       },
-      //       title: result.name  
-      //     }));
-  
-      //     setCenter({
-      //       lat: location.lat || location.lat(),
-      //       lng: location.lng || location.lng(),
-      //     });
-          
-      //     setVisibleMarkers(newMarkers);
-      //     setSelectedMarker(newMarkers[0]); 
-      //     setLocationId(newMarkers[0].id)
 
-      //   }
-      // }
     }
   }
     setUserInput("")
@@ -670,34 +613,12 @@ export default function Search({ location }) {
   return isLoaded ? (
     <>
     
-             {/* <div style={{ marginTop: '20px' }}>
-                <button onClick={() => changeLocation(40.7128, -74.0060)}>New York</button>
-                <button onClick={() => changeLocation(34.0522, -118.2437)}>Los Angeles</button>
-                <button onClick={() => changeLocation(51.5074, -0.1278)}>London</button>
-            </div> */}
+  
       <div className="map-container">
 
-            
-                  {/* <div className="sidebar-results">
-                    <h2>Search Results</h2>
 
-                    <ul>
-                      {searchResults.map(result => (
-                        <li key={result.place_id} onClick={() => handleLocationClick(result)}>
-                          {result.name}
-                        </li>
-                      ))} 
-                    </ul>
-                    
-                  </div> */}
                   <div className="googlemap">
-                    {/* <LoadScript googleMapsApiKey={apiKey}
-                      libraries={libaries}
-                      version="weekly"
-                      loadingElement={<div>Loading...</div>} // Optional: Add a loading element
-                      
-                      > */}
-                        
+   
                         <div className="searchbar-background">
                                 <StandaloneSearchBox
                                 onLoad={ref => searchBoxRef.current = ref}
@@ -744,13 +665,13 @@ export default function Search({ location }) {
                               >
                                 <div className="infobox">
                                 {selectedMarker?.img && selectedMarker.img[4] && (
-                                  <img src={selectedMarker.img[4]} alt="Selected Marker" />
+                                  <img src={selectedMarker.img[4]} alt="Selected Marker"  onError={(e) => {
+                                    e.target.src = selectedMarker.img[0]; // Fallback image
+                                  }}  />
                                 )}
                                   <h2>{selectedMarker.title || "Location Info"}</h2>
-                                  {/* <p>This is a great place to check out!</p> */}
                                   <p>{selectedMarker.description || "Although we don't have much information on this location, this is still a great place to check out. If you enjoy this spot, please recommend it to others!"}</p>
                                   <LocationModal LocationId={LocationId}/>
-                                  {/* <RecommendButton LocationId={LocationId} /> */}
                                 </div>
                               </InfoWindow>
                         )}
