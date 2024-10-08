@@ -12,10 +12,7 @@ export default function infoModal() {
     const closeModal = () => setIsModalOpen(false);
     const [savedFact, setSavedFact] = useState([]);
     const [locationImage, setLocationImage] = useState('')
-    const { LocationId, setLocationId } = useLocationId();
-
-    console.log(LocationId)
-    
+    const { LocationId, setLocationId } = useLocationId();    
   
 
     useEffect(() => {
@@ -29,7 +26,6 @@ export default function infoModal() {
     const getFact = async() => {
         try {
 
-            console.log(LocationId)
             //const token = localStorage.getItem('authToken')
             const response = await fetch(`https://nature-connect-backend.co.uk/name/getFacts/${LocationId}`, {
               method: 'GET',
@@ -55,7 +51,6 @@ export default function infoModal() {
     
         const getImage = async() => {
           try {
-            console.log(LocationId)
               //const token = localStorage.getItem('authToken')
               const response = await fetch(`https://nature-connect-backend.co.uk/locations/data/${LocationId}`, {
                 method: 'GET',
@@ -65,9 +60,7 @@ export default function infoModal() {
                 const data = await response.json();
                 
                 if (response.ok) {
-                  // console.log(data)
                   const locationData = data?.image_url[0];
-                  // console.log(locationData)
                   setLocationImage(locationData);
                   
                   

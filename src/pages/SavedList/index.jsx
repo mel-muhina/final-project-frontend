@@ -30,8 +30,6 @@ export default function SavedListPage({}) {
               if (response.ok) {
                 const savedLocations = data.savedLocations || [];
                 setSavedItems(savedLocations)
-                console.log(savedLocations)
-                console.log('Items retrieved successfully!');
                 // Optionally, handle UI updates or further actions
             } else {
                 console.error(`Failed to retrieve items: ${data.error}`);
