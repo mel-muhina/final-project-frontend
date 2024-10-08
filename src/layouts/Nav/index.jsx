@@ -4,7 +4,7 @@ import home from '../../assets/images/home2.png'
 import savedlist from '../../assets/images/savedlists2.png'
 import map from '../../assets/images/map2.png'
 import journey from '../../assets/images/journey.png'
-import logo from '../../assets/logo.png'
+import logo1 from '../../assets/images/logo1.png'
 import profile from '../../assets/images/userprofile.png'
 import notification from '../../assets/images/notification.png'
 import './Nav.css'
@@ -87,7 +87,7 @@ const toggleNotifications = () => {
 
         <nav className="top-nav-container" >
             <div className="top-nav-logoName">
-                <img src={logo} className="top-nav-container-logo" />
+                <img src={logo1} className="top-nav-container-logo" />
                 <NavLink to="#"><h2 className='logo-title'>NatureConnect</h2></NavLink>
             </div>
 

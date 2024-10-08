@@ -18,7 +18,7 @@ export default function GetNotifications() {
      async function getRecommended(token) {
         // e.preventDefault();
         try {
-            const response = await fetch(`http://34.239.121.162:3000/users/recommendations`, {
+            const response = await fetch(`https://nature-connect-backend.co.uk/users/recommendations`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,9 +44,9 @@ export default function GetNotifications() {
         <div className="notification-container" key={recommended.recommendation_id}>
             <ul>
                 <li>
-                    <p>Message: {recommended?.message}</p>
-                    <p>Recommended Location: {recommended?.name}</p>
-                    <p>Recommended By: {recommended?.recommender_username}</p>
+                    <p className="text"><span className="bold-notify">Message:</span> "{recommended?.message}"</p>
+                    <p className="text"><span className="bold-notify">Location:</span> {recommended?.name}</p>
+                    <p className="text"><span className="bold-notify">User:</span> {recommended?.recommender_username}</p>
                 </li>
             </ul>
           
@@ -54,7 +54,7 @@ export default function GetNotifications() {
       ))
     ) : (
          <div className="notification-container-login">
-        <p>Please login</p>
+        <p>Please login to access notifcations</p>
         </div>
     )}
 

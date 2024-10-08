@@ -95,7 +95,7 @@ export default function LocationModal() {
       const getReminder = async() => {
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch(`http://34.239.121.162:3000/name/getInfoById/${LocationId}`, {
+            const response = await fetch(`https://nature-connect-backend.co.uk/name/getInfoById/${LocationId}`, {
               method: 'GET',
               headers: {
                 'content-type': 'application/json',
@@ -123,15 +123,18 @@ export default function LocationModal() {
         <div className="location-modal-container">
 
 
-              <div className='Reminder-container'>
-                  <p>Reminder: {savedReminder}</p>
-              </div>
+            <div className='Reminder-container'>
+                  <p><span className='bold-text'>Reminder:</span> {savedReminder}</p>
+            </div>
+
+            <div className='buttons' >
 
             <SaveButton/>
             <RecommendButton LocationId={LocationId}/>
             <InfoModal/>
             {/* <p>Likes: {LikeAmount}</p>
             <LikeButton/> */}
+            </div>
 
         </div>
     </>

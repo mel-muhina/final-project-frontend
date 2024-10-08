@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import '../../components/SavedList/SavedList.css'
 
 import SavedList from '../../components/SavedList';
 
@@ -18,7 +19,7 @@ export default function SavedListPage({}) {
     
         try {
             const token = localStorage.getItem('authToken')
-            const response = await fetch('http://34.239.121.162:3000/users/retrieve', {
+            const response = await fetch('https://nature-connect-backend.co.uk/users/retrieve', {
               method: 'GET',
               headers: {
                 
@@ -45,6 +46,7 @@ export default function SavedListPage({}) {
     return(
 
         <div className='save-page'>
+            <h2 className='saved-title'>Saved List</h2>
             <div className='saved-list-container'>
                 <SavedList items = {savedItems} />
             </div>

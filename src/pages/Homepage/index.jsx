@@ -42,7 +42,6 @@ useEffect(() => {
 useEffect(() => {
   const randomIdGen = Math.floor(Math.random() * 100) +1;
   setLocationId(randomIdGen)
-  console.log(LocationName)
  }, [])  
 
 

@@ -9,6 +9,7 @@ import { useLocationId, useLocationName } from '../../contexts';
 export default function FeaturedCard() {
     const {id} = useParams();
     const [ locationData, setLocationData ] = useState();
+    const [ location, setLocation ] = useState();
     const [ randomId, setRandomId ] = useState();
 
     const [ savedDescriptionData, setSavedDescriptionData ] = useState([]);
@@ -21,9 +22,7 @@ export default function FeaturedCard() {
         if (LocationId) {
             getLocationData();
         }
-
     }, [LocationId])
-
 
     // async function getRandomId() {
     //     const randomIdGen = Math.floor(Math.random() * 20) +1;
@@ -51,8 +50,8 @@ export default function FeaturedCard() {
         // setLocationData(tempApi)
         // setSavedDescriptionData(tempApi.description)
         const randomIdGen = Math.floor(Math.random() * 100) +1;
-        const api = `http://34.239.121.162:3000/locations/data/${LocationId}`
-        const descriptionApi = `http://34.239.121.162:3000/locations/description/${LocationId}`
+        const api = `https://nature-connect-backend.co.uk/locations/data/${LocationId}`
+        const descriptionApi = `https://nature-connect-backend.co.uk/locations/description/${LocationId}`
         const response = await fetch(api);
         const descriptionResponse = await fetch(descriptionApi)
         const data = await response.json();
@@ -60,7 +59,7 @@ export default function FeaturedCard() {
         if (response.ok && descriptionResponse) {
             setLocationData(data)
             setLocationName(data.name)
-            console.log("meow", data)
+            setLocation(data)
             // setSavedDescriptionData(descriptionData)
 
             // if (data && descriptionData) {
@@ -72,13 +71,13 @@ export default function FeaturedCard() {
             //     setSavedDescriptionData(tempApi.description)
             // }
 
-            const truncatedName = data.name.length > 25
-            ? data.name.slice(0, 25) + "..." 
+            const truncatedName = data.name.length > 23
+            ? data.name.slice(0, 23) + "..." 
             : data.name;
             setLocationName(truncatedName)
 
-            const truncatedDescription = descriptionData.length > 240 
-            ? descriptionData.slice(0, 240) + "..." 
+            const truncatedDescription = descriptionData.length > 220 
+            ? descriptionData.slice(0, 220) + "..." 
             : descriptionData;
             setSavedDescriptionData(truncatedDescription);
 
@@ -131,7 +130,7 @@ export default function FeaturedCard() {
             <div className="FeaturedCard-innerContainer">
                 <img src={locationIcon} key={locationData?.place_id}className="FeaturedCard-location-icon"/><h2>{LocationName || backUpData?.name}</h2>
                 <p>{savedDescriptionData || backUpData?.description }</p>
-                <Link to={`/search/${LocationId}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
+                <Link to={`/search/${location?.name}`}><button className="FeaturedCard-btn">Visit Here</button></Link>
             </div>
             <div className="FeaturedCard-Icon-Container">
                 <FeaturedIcon tag={locationData?.tag_name}/>

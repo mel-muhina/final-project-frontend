@@ -86,10 +86,9 @@ export default function GalleryCard() {
     }
 
     async function populateLocations() {
-        const api = `http://34.239.121.162:3000/locations/image/${LocationId}`
+        const api = `https://nature-connect-backend.co.uk/locations/image/${LocationId}`
         const response = await fetch(api);
         const data = await response.json();
-        console.log("data",data)
         // const data = tempApi
         // const imgData = tempImgApi
    
@@ -132,8 +131,6 @@ export default function GalleryCard() {
       // Handle image error (404 in the browser)
   const handleImageError = (index) => {
     const maxRetries = 3;
-
-    console.log("meow")
 
     // Track retry count for each image
     if (!retryCount[index]) {

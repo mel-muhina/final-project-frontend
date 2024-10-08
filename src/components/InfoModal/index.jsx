@@ -31,7 +31,7 @@ export default function infoModal() {
 
             console.log(LocationId)
             //const token = localStorage.getItem('authToken')
-            const response = await fetch(`http://34.239.121.162:3000/name/getFacts/${LocationId}`, {
+            const response = await fetch(`https://nature-connect-backend.co.uk/name/getFacts/${LocationId}`, {
               method: 'GET',
               headers: {
                 'content-type': 'application/json'}
@@ -57,7 +57,7 @@ export default function infoModal() {
           try {
             console.log(LocationId)
               //const token = localStorage.getItem('authToken')
-              const response = await fetch(`http://34.239.121.162:3000/locations/data/${LocationId}`, {
+              const response = await fetch(`https://nature-connect-backend.co.uk/locations/data/${LocationId}`, {
                 method: 'GET',
                 headers: {
                   'content-type': 'application/json'}
@@ -127,7 +127,6 @@ export default function infoModal() {
             <button onClick={openModal}>More Info</button>
         </div>
             {isModalOpen && <RenderModal/>}
-            {console.log(isModalOpen)}
         
     </>
   );

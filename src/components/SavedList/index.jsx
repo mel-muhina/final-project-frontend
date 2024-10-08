@@ -4,8 +4,9 @@ import defaultPic from '../../assets/images/bg5.jpg'
 
 export default function SavedList({ items }) {
     return (
+        <>
         <div className='saved-list'>
-            <h2>Saved List</h2>
+            {/* <h2 className='saved-title'>Saved List</h2> */}
             <div className='saved-items'>
                 {items && items.length > 0 ? (
                     items.map((item, index) => (
@@ -22,9 +23,13 @@ export default function SavedList({ items }) {
                         </div>
                     ))
                 ) : (
+                    <div className='new-box-saved'>
                     <p>No locations saved</p>
+                    {/* <h1>No locations</h1> */}
+                    </div>
                 )}
             </div>
         </div>
+        </>
     )
 }

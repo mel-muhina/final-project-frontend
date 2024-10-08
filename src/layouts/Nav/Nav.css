@@ -94,12 +94,11 @@
     padding: 0;
     z-index: 1000;
     
-    
-    
 }
 
 .top-nav-logoName > a {
-  color: white;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 3px rgba(0, 32, 8, 0.3);
     
 }
 
@@ -127,8 +126,11 @@
 .top-nav-container > .top-nav-logoName > img {
     padding-top: 5%;
     height: 6vh;
+    width: 6vh;
     /* margin-left: 0%; */
     padding-right: 10%;
+    object-fit: contain;
+    
 }
 
 .top-nav-logoName {
@@ -136,12 +138,14 @@
     display: flex;
     flex-direction: row;
 
+
 }
 /* Modal */
 
 .modal-content {
     /* height: 0%; */
     overflow-y: auto;
+    
     
 }
 
@@ -151,12 +155,14 @@
     top: 60px;
     right: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
     width: 300px; 
     z-index: 1;
     border-radius: 5px;
-    max-height: 120px;
+    max-height: 265px;
     overflow-y: auto; 
     transform: translateX(60px);
+    /* background: linear-gradient(to bottom, #233927, #23392757); */
   }
 
   .notification-dropdown::-webkit-scrollbar {
@@ -180,6 +186,8 @@
 
   .notifications-close {
     padding: 2% 6%;
+    margin-bottom: 5%;
+
   }
   
 
@@ -199,9 +207,20 @@
 
   .profile-dropdown > ul {
     list-style: none;
-    padding: 2%;
+    padding: 5%;
+    color: #fff ;
+    background: linear-gradient(to bottom, #233927, #23392757);
+    min-height: 40px;
   }
 
+  .profile-dropdown > ul a {
+    color: #fff;
+
+  }
+
+  .profile-dropdown > ul a:hover {
+    color: #08b428;
+  }
   .logo-title:hover {
     color: #fff;
   }

@@ -38,7 +38,6 @@ const getUserLocation = () => {
       
     } else {
       // Geolocation is not supported
-      console.log("No meow")
     }
 }
 
@@ -46,7 +45,7 @@ const getUserLocation = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(`http://54.89.47.53:3000/journey/directions`, {
+        const response = await fetch(`https://nature-connect-backend.co.uk/journey/directions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
