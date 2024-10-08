@@ -71,7 +71,7 @@ export default function UserLogin({}) {
       }
 
       try {
-        const response = await fetch(`http://34.239.121.162:3000/users/login`, {
+        const response = await fetch(`https://nature-connect-backend.co.uk/users/login`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

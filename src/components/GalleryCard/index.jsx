@@ -86,7 +86,7 @@ export default function GalleryCard() {
     }
 
     async function populateLocations() {
-        const api = `http://34.239.121.162:3000/locations/image/${LocationId}`
+        const api = `https://nature-connect-backend.co.uk/locations/image/${LocationId}`
         const response = await fetch(api);
         const data = await response.json();
         // const data = tempApi

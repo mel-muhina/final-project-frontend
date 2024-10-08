@@ -353,7 +353,7 @@ export default function Search({ location }) {
       })
       }
 
-      const response = await fetch(`http://34.239.121.162:3000/locations/filter`, options)
+      const response = await fetch(`https://nature-connect-backend.co.uk/locations/filter`, options)
       const data = await response.json()
       let matches = data.filter(mark => mark.tag_name.includes(tag));
       onPlacesChanged(null, matches)
@@ -388,7 +388,7 @@ export default function Search({ location }) {
       })
       }
 
-      const response = await fetch(`http://34.239.121.162:3000/locations/filter`, options)
+      const response = await fetch(`https://nature-connect-backend.co.uk/locations/filter`, options)
       const data = await response.json()
       onPlacesChanged(data)
       
@@ -419,7 +419,7 @@ export default function Search({ location }) {
 
     async function getRealMarkers() {
       try {
-        const response = await fetch(`http://34.239.121.162:3000/locations/filter`, {
+        const response = await fetch(`https://nature-connect-backend.co.uk/locations/filter`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

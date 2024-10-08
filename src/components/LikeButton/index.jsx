@@ -17,7 +17,7 @@ export default function LikeButton() {
 
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://34.239.121.162:3000/api/places/1/like', {
+            const response = await fetch('https://nature-connect-backend.co.uk/api/places/1/like', {
               method: 'POST',
               headers: {
                 'content-type': 'application/json'},
@@ -44,7 +44,7 @@ export default function LikeButton() {
 
       try {
           //const token = localStorage.getItem('authToken')
-          const response = await fetch('http://34.239.121.162:3000/api/places/1/dislike', {
+          const response = await fetch('https://nature-connect-backend.co.uk/api/places/1/dislike', {
             method: 'POST',
             headers: {
               'content-type': 'application/json'},

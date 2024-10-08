@@ -50,8 +50,8 @@ export default function FeaturedCard() {
         // setLocationData(tempApi)
         // setSavedDescriptionData(tempApi.description)
         const randomIdGen = Math.floor(Math.random() * 100) +1;
-        const api = `http://34.239.121.162:3000/locations/data/${LocationId}`
-        const descriptionApi = `http://34.239.121.162:3000/locations/description/${LocationId}`
+        const api = `https://nature-connect-backend.co.uk/locations/data/${LocationId}`
+        const descriptionApi = `https://nature-connect-backend.co.uk/locations/description/${LocationId}`
         const response = await fetch(api);
         const descriptionResponse = await fetch(descriptionApi)
         const data = await response.json();
