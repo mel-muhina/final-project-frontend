@@ -2,7 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { useState, useEffect } from 'react';
 import { useLocationId } from '../../contexts';
-import './infoModal.css'
+import './InfoModal.css'
 import defaultPic from '../../assets/images/default.jpg'
 
 export default function infoModal() {
