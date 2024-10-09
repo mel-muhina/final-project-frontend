@@ -71,7 +71,7 @@ export default function UserLogin({}) {
       }
 
       try {
-        const response = await fetch(`http://54.89.47.53:3000/users/login`, {
+        const response = await fetch(`https://nature-connect-backend.co.uk/users/login`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -124,17 +124,19 @@ export default function UserLogin({}) {
   return (
     <>
         <div className="login-form">
-            <h1>Login</h1>
+            <h1 className='login-h1'>Login</h1>
+            <h3>Have an account?</h3>
             <form onSubmit = {handleSubmit}>
-              <label htmlFor="email"> Email</label>
+              {/* <label htmlFor="email"> Email</label> */}
               <input value={email} onChange={handleEmailChange} type="email" placeholder="Email" id="Email" name="Email"/>
 
-              <label htmlFor="password"> Password</label>
+              {/* <label htmlFor="password"> Password</label> */}
               <input value={password} onChange={handlePasswordChange} type= "password" placeholder="Password" id="password" name="password"/>
 
               <button type="submit">Login</button>
             </form>
-            <Link to="/user/signup"><button className='secondbutton-login'>Dont have an account? Sign Up</button></Link>
+            <h3>Don't have an account?</h3>
+            <Link to="/user/signup"><button className='secondbutton-login'>Sign Up</button></Link>
         </div>
     </>
     

@@ -17,7 +17,7 @@ export default function SaveButton() {
     const handleSave = async () => {
     try {
         const token = localStorage.getItem('authToken')
-        const response = await fetch('http://54.89.47.53:3000/users/save', {
+        const response = await fetch('https://nature-connect-backend.co.uk/users/save', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
@@ -27,7 +27,6 @@ export default function SaveButton() {
         const data = await response.json();
         
         if (response.ok) {
-            console.log('Item saved successfully!', data);
             handleToggle();
             // Optionally, handle UI updates or further actions
         } else {

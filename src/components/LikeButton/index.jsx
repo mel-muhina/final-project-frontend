@@ -17,11 +17,11 @@ export default function LikeButton() {
 
         try {
             //const token = localStorage.getItem('authToken')
-            const response = await fetch('http://54.89.47.53:3000/api/places/1/like', {
+            const response = await fetch('https://nature-connect-backend.co.uk/api/places/1/like', {
               method: 'POST',
               headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${token}`},
+                'content-type': 'application/json'},
+                // 'Authorization': `Bearer ${token}`},
               body:JSON.stringify({"place_id":LocationId}),
               })
               const data = await response.json();
@@ -35,7 +35,7 @@ export default function LikeButton() {
                 
             }
             } catch (err) {
-            console.error('Error liking item:');
+            console.error('Error liking item:')
             console.log(err)
             }
     }
@@ -44,11 +44,11 @@ export default function LikeButton() {
 
       try {
           //const token = localStorage.getItem('authToken')
-          const response = await fetch('http://54.89.47.53:3000/api/places/1/dislike', {
+          const response = await fetch('https://nature-connect-backend.co.uk/api/places/1/dislike', {
             method: 'POST',
             headers: {
-              'content-type': 'application/json',
-              'Authorization': `Bearer ${token}`},
+              'content-type': 'application/json'},
+              // 'Authorization': `Bearer ${token}`},
             body:JSON.stringify({"place_id":LocationId}),
             })
             const data = await response.json();

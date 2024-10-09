@@ -1,3 +1,9 @@
 .FeaturedIcon-Img {
-    width: 25vh;
+    /* width: 25vh; */
+    padding-top: 15%;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    width: 30vh;
+    object-fit: contain;
 }

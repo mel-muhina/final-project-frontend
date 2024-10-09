@@ -15,6 +15,8 @@ export default function GalleryCard() {
     const [ backupImg, setBackupImg ] = useState([])
     const { LocationId } = useLocationId();
     const { LocationName, setLocationName } = useLocationName();
+    const tempImgApi = [windsor1, windsor2, windsor3];
+    const [retryCount, setRetryCount] = useState({}); 
 
     useEffect(() => {
        generateId();
@@ -41,37 +43,32 @@ export default function GalleryCard() {
     }
 
     
-    const tempImgApi = [
-      {  id: 1,
-        img_url: "https://images.playground.com/422d04b167304b8caf41fd3025857466.jpeg"
-      }, 
-      {  id: 2,
-        img_url: "https://images.playground.com/3907c95374de4fd3a1a09fde9d37e8b3.jpeg"
-      }, 
-      {  id: 3,
-        img_url: "https://images.playground.com/afbf9637cd2a455a8bdfedf10609aff9.jpeg"
-      }, 
-      {  id: 4,
-        img_url: "https://images.playground.com/f471cc4d678946f79e16ed324e353e39.jpeg"
-      },
-      {  id: 5,
-        img_url: "https://images.playground.com/b75feecdad9e403db035a42dbcbe337c.jpeg"
-      }
+    // const tempImgApi = [
+    //   {  img_url: "https://images.playground.com/422d04b167304b8caf41fd3025857466.jpeg"
+    //   }, 
+    //   {  img_url: "https://images.playground.com/3907c95374de4fd3a1a09fde9d37e8b3.jpeg"
+    //   }, 
+    //   {  img_url: "https://images.playground.com/afbf9637cd2a455a8bdfedf10609aff9.jpeg"
+    //   }, 
+    //   {  img_url: "https://images.playground.com/f471cc4d678946f79e16ed324e353e39.jpeg"
+    //   },
+    //   { 
+    //     img_url: "https://images.playground.com/b75feecdad9e403db035a42dbcbe337c.jpeg"
+    //   }
        
-    ]
+    // ]
 
-    const tempImgs = [
-      {  id: 1,
-        img_url: {windsor1}
-      }, 
-      {  id: 2,
-        img_url: {windsor2}
-      }, 
-      {  id: 3,
-        img_url: {windsor3}
-      }, 
+    // const tempImgs = [
+    //   { img_url: {windsor1}
+    //   }, 
+    //   { img_url: {windsor2}
+    //   }, 
+    //   { img_url: {windsor3}
+    //   }, 
        
-    ]
+    // ]
+
+  
 
     async function generateId() {
         // const newIds = []
@@ -89,22 +86,19 @@ export default function GalleryCard() {
     }
 
     async function populateLocations() {
-        const api = `http://54.89.47.53:3000/locations/image/${LocationId}`
+        const api = `https://nature-connect-backend.co.uk/locations/image/${LocationId}`
         const response = await fetch(api);
         const data = await response.json();
-        console.log("data",data)
         // const data = tempApi
         // const imgData = tempImgApi
    
 
         if (response.ok) {
           const imgData = data
-   
-
-          if (imgData.length < 3) {
-            setLocationsImgArr(tempImgApi)
-          } else {
+          if (imgData) {
             setLocationsImgArr(imgData)
+          } else {
+            setLocationsImgArr(tempImgApi)
           }
   
         } else {
@@ -112,7 +106,7 @@ export default function GalleryCard() {
 
         }
 
-        setLocationsImgArr(imgData)
+        // setLocationsImgArr(imgData)
   
         
        
@@ -134,6 +128,29 @@ export default function GalleryCard() {
 
     }
 
+      // Handle image error (404 in the browser)
+  const handleImageError = (index) => {
+    const maxRetries = 3;
+
+    // Track retry count for each image
+    if (!retryCount[index]) {
+      setRetryCount((prev) => ({ ...prev, [index]: 1 }));
+    } else if (retryCount[index] < maxRetries) {
+      setRetryCount((prev) => ({ ...prev, [index]: prev[index] + 1 }));
+    } else {
+      console.error(`Image at index ${index} failed after ${maxRetries} attempts.`);
+      const fallbackArr = [...locationsImgArr];
+      fallbackArr[index] = tempImgApi[index]; // Replace with fallback image after max retries
+      setLocationsImgArr(fallbackArr);
+      return;
+    }
+
+    // Retry the image fetch by modifying the src to force reload (e.g., append a cache-busting query)
+    const newImgArr = [...locationsImgArr];
+    newImgArr[index] = `${locationsImgArr[index]}?retry=${retryCount[index]}`; // Modify URL to force refetch
+    setLocationsImgArr(newImgArr);
+  };
+
     
 
 
@@ -145,10 +162,23 @@ export default function GalleryCard() {
             </div>
             <div className="gallery-container">
                 <h2>Discover Our Gallery</h2> 
-                {locationsImgArr.slice(0, 3).map(img => (
-                       <Link to={`/search/${LocationId}`} key={img} ><img src={img} className="gallery-img"/></Link>
+                {locationsArr && locationsImgArr?.length > 0 ? (
+                locationsImgArr.slice(0, 3).map((img, index) => (
+                       <Link to={`/search/${LocationId}`} key={img} >
+                        <img src={img} 
+                        className="gallery-img"
+                        // alt={`gallery image ${index + 1}`}
+                        onError={() => handleImageError(index)}
+                        />
+                        </Link>
                 ))
-                }
+                )
+                : <div>
+                   <Link to={`/search/${LocationId}`} key="windsor-1" ><img src={windsor1} className="gallery-img"/></Link>
+                   <Link to={`/search/${LocationId}`} key="windsor-2" ><img src={windsor2} className="gallery-img"/></Link>
+                   <Link to={`/search/${LocationId}`} key="windsor-3" ><img src={windsor3} className="gallery-img"/></Link>
+                  </div>
+              }
             </div>
         </div>
     </>

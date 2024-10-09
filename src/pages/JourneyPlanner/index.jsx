@@ -17,8 +17,6 @@ const [userLocation, setUserLocation] = useState("")
 
 useEffect(() => {
   getUserLocation();
-  console.log("Are you set", userLocation)
-  console.log("directions in the main page", directions)
 }, [])
 
 
@@ -28,7 +26,6 @@ const getUserLocation = () => {
       navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
             setUserLocation(`${latitude}, ${longitude}`)
           },
           (error) => {
@@ -38,7 +35,6 @@ const getUserLocation = () => {
       
     } else {
       // Geolocation is not supported
-      console.log("No meow")
     }
 }
 
@@ -46,7 +42,7 @@ const getUserLocation = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(`http://54.89.47.53:3000/journey/directions`, {
+        const response = await fetch(`https://nature-connect-backend.co.uk/journey/directions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +55,6 @@ const getUserLocation = () => {
         });
 
         const data = await response.json();
-        console.log("data in jounryeplanner", data)
         setStartLocation(data.startLocation)
         setEndLocation(data.endLocation)
 

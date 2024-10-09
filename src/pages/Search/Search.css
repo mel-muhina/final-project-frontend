@@ -5,7 +5,7 @@
     width: 300px;
     height: 30px;
     padding: 0 12px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     font-size: 1rem;
     outline: none;
@@ -37,9 +37,13 @@
 
 .infobox {
     color:black;
-    /* height: 400px; */
-    /* width: 500px; */
-    padding: 2%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    min-height: 12rem;
+    min-width: 17rem;
+    padding: 0% 2% 1% 2%;
+    overflow: hidden;
     scrollbar-width: none;
     
 }
@@ -75,58 +79,109 @@
 
 .Woodlands {
     background-color: #0c6d1c;
+    transition: background-color 0.25s;
 
 }
+
+.Woodlands:hover {
+    background-color: #139c2a;
+
+}
+
 
 .Hiking {
     background-color: #551CCD;
+    transition: background-color 0.25s;
+}
+
+.Hiking:hover {
+    background-color: #7636ff;
 }
 
 .Camping {
-    background-color: #CB4242;
+    background-color: #cc2727;
+    transition: background-color 0.25s;
+}
+.Camping:hover {
+    background-color: #fc4141;
 }
 
-
 .Beach {
-    background-color: #F06B41;
+    background-color: #e65529;
+    transition: background-color 0.25s;
+}
+.Beach:hover {
+    background-color: #fc6d5a;
 }
 
 .Park {
-    background-color: #7ebe06;
+    background-color: #75b400;
+    transition: background-color 0.25s;
+}
+
+.Park:hover {
+    background-color: #8fdb00;
 }
 
 .Garden {
-    background-color: #ffa600;
+    background-color: #db8f01;
+    transition: background-color 0.25s;
+}
+
+.Garden:hover {
+    background-color: #ff9d1e;
 }
 
 .Wildlife {
-    background-color: #d315aa;
+    background-color: #be0d65;
+    transition: background-color 0.25s;
+}
+
+.Wildlife:hover {
+    background-color: #e9137e;
 }
 
 .Farm {
     background-color: #af3c2d;
+    transition: background-color 0.25s;
+}
+
+.Farm:hover {
+    background-color: #db3b26;
 }
 
 .Historic {
     background-color: #009b5f;
+    transition: background-color 0.25s;
+}
+
+.Historic:hover {
+    background-color: #02c57a;
 }
         
 .Rivers{
     background-color: #216aca;
+    transition: background-color 0.25s;
+}
+
+.Rivers:hover{
+    background-color: #2580f7;
 }
 
 
 
 .infobox img {
-    width: 30%;
-    object-fit: contain;   
-    border-radius: 10px;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;   
+    border-radius: 5px;
+    /* margin-top: -30px; */
 }
 
 .infobox button {
-    background-color: rgb(0, 119, 18);
+    /* background-color: rgb(0, 119, 18); */
 }
 
 .infobox button:hover {
-    background-color: rgba(60, 102, 68, 1);
+    /* background-color: rgba(60, 102, 68, 1); */
 }

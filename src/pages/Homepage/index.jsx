@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { FeaturedCard, GalleryCard, TagCard } from "../../components"
+import { FeaturedCard, GalleryCard, TagCard, LoadingBar } from "../../components"
 import './Homepage.css'
 import { useLocationId, useLocationName } from '../../contexts';
 import { LoginContext } from '../../App';
@@ -9,6 +9,7 @@ const [randomId, setRandomId] = useState();
 const { LocationId, setLocationId } = useLocationId();
 const { LocationName, setLocationName } = useLocationName();
 const [loggedIn, setLoggedIn] = useContext(LoginContext)
+const [isLoading, setIsLoading] = useState(true)
 const token = localStorage.getItem('authToken')
 const tokenCreationTime = localStorage.getItem('tokenCreationTime');
 
@@ -19,6 +20,12 @@ const isTokenExpired = () => {
   const now = new Date().getTime();
   return now - parseInt(tokenCreationTime, 10) > TOKEN_EXPIRATION_PERIOD;
 };
+
+useEffect(() => {
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000); 
+}, [])
 
 useEffect(() => {
   if (token && !isTokenExpired()) {
@@ -35,13 +42,14 @@ useEffect(() => {
 useEffect(() => {
   const randomIdGen = Math.floor(Math.random() * 100) +1;
   setLocationId(randomIdGen)
-  console.log(LocationName)
  }, [])  
 
 
   return (
     <>
       <div className="homepage-container">
+       
+          
         <div className="featured-card">
           <FeaturedCard />
           </div>
@@ -51,6 +59,8 @@ useEffect(() => {
           <div className="homepage-tags-container">
              <TagCard />
           </div>
+          
+        
       </div>
   
     </>
